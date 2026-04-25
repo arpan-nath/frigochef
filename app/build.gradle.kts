@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.frigochef_temp"
+    namespace = "com.example.frigochef"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1

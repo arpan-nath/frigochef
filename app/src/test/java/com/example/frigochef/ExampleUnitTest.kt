@@ -1,4 +1,4 @@
-package com.example.frigochef_temp
+package com.example.frigochef
 
 import org.junit.Test
 

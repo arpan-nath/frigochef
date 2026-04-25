@@ -1,4 +1,4 @@
-package com.example.frigochef_temp
+package com.example.frigochef
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.frigochef_temp"
+        applicationId = "com.example.frigochef"
         minSdk = 26
         targetSdk = 36
         versionCode = 1

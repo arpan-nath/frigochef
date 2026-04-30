@@ -3,6 +3,7 @@ package com.example.frigochef.model.repository
 import android.content.Context
 import android.database.Cursor
 import com.example.frigochef.database.FrigoDBHelper
+import com.example.frigochef.model.entity.FiltreRecette
 import com.example.frigochef.model.entity.Ingredient
 import com.example.frigochef.model.entity.Recette
 
@@ -10,7 +11,6 @@ class RecetteRepository(context: Context) {
 
     private val helper = FrigoDBHelper(context)
 
-    // Toutes les recettes
     fun findAll(): List<Recette> {
         val db     = helper.readableDatabase
         val cursor = db.query(
@@ -22,7 +22,6 @@ class RecetteRepository(context: Context) {
         return cursor.use { parseRecettes(it) }
     }
 
-    // Recherche par nom pour la barre de recherche AccueilActivity
     fun findParNom(query: String): List<Recette> {
         val db     = helper.readableDatabase
         val cursor = db.query(
@@ -36,7 +35,6 @@ class RecetteRepository(context: Context) {
         return cursor.use { parseRecettes(it) }
     }
 
-    // Trouver une recette par ID
     fun findById(id: Long): Recette? {
         val db     = helper.readableDatabase
         val cursor = db.query(
@@ -51,37 +49,26 @@ class RecetteRepository(context: Context) {
         }
     }
 
-    // Filtrage pour ResultatsRecettesActivity
-    fun findParFiltres(
-        typeCuisine: String?,
-        typeRepas:   String?,
-        difficulte:  String?,
-        tempsMax:    Int?,
-        isVege:      Boolean?,
-        isVegan:     Boolean?,
-        isSansGluten:Boolean?
-    ): List<Recette> {
+    fun findParFiltres(filtres: FiltreRecette): List<Recette> {
         val conditions = mutableListOf<String>()
         val args       = mutableListOf<String>()
 
-        typeCuisine?.let  { conditions += "type_cuisine = ?";      args += it }
-        typeRepas?.let    { conditions += "type_repas = ?";         args += it }
-        difficulte?.let   { conditions += "difficulte = ?";         args += it }
-        tempsMax?.let     { conditions += "temps_prep <= ?";        args += it.toString() }
-        isVege?.let       { if (it) { conditions += "is_vege = ?"; args += "1" } }
-        isVegan?.let      { if (it) { conditions += "is_vegan = ?"; args += "1" } }
-        isSansGluten?.let { if (it) { conditions += "is_sans_gluten = ?"; args += "1" } }
+        filtres.typeCuisine?.let  { conditions += "type_cuisine = ?";      args += it }
+        filtres.typeRepas?.let    { conditions += "type_repas = ?";         args += it }
+        filtres.difficulte?.let   { conditions += "difficulte = ?";         args += it }
+        filtres.tempsMax?.let     { conditions += "temps_prep <= ?";        args += it.toString() }
+        if (filtres.isVege)       { conditions += "is_vege = ?";            args += "1" }
+        if (filtres.isVegan)      { conditions += "is_vegan = ?";           args += "1" }
+        if (filtres.isSansGluten) { conditions += "is_sans_gluten = ?";     args += "1" }
 
         val where  = if (conditions.isEmpty()) "" else "WHERE " + conditions.joinToString(" AND ")
-        val db     = helper.readableDatabase
-        val cursor = db.rawQuery(
+        val cursor = helper.readableDatabase.rawQuery(
             "SELECT * FROM recette $where ORDER BY nom ASC",
             args.toTypedArray()
         )
         return cursor.use { parseRecettes(it) }
     }
 
-    // Ingrédients d'une recette avec jointure — pour DetailRecetteActivity
     fun findIngredientsParRecette(recetteId: Long): List<Ingredient> {
         val db  = helper.readableDatabase
         val sql = """
@@ -107,7 +94,6 @@ class RecetteRepository(context: Context) {
         }
     }
 
-    // IDs des ingrédients d'une recette — pour calculer le score
     fun findIngredientIdsParRecette(recetteId: Long): List<Long> {
         val db     = helper.readableDatabase
         val cursor = db.query(
@@ -123,8 +109,6 @@ class RecetteRepository(context: Context) {
             ids
         }
     }
-
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private fun parseRecettes(cursor: Cursor): List<Recette> {
         val list = mutableListOf<Recette>()

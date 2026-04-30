@@ -1,5 +1,6 @@
 package com.example.frigochef.view.contract
 
+import com.example.frigochef.model.entity.FiltreRecette
 import com.example.frigochef.model.entity.Recette
 import com.example.frigochef.model.entity.RecetteAvecScore
 
@@ -12,15 +13,6 @@ interface ResultatsContract {
     }
 
     interface Presenter {
-        fun chargerResultats(
-            typeCuisine:       String?,
-            typeRepas:         String?,
-            difficulte:        String?,
-            tempsMax:          Int?,
-            isVege:            Boolean,
-            isVegan:           Boolean,
-            isSansGluten:      Boolean,
-            ingredientsDispos: List<Long>
-        )
+        fun chargerResultats(filtres: FiltreRecette, ingredientsDispos: List<Long>)
     }
 }

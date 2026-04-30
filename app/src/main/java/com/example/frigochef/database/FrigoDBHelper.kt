@@ -130,6 +130,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
             Pair("Sauce piquante",    "Condiments"),
             Pair("Miel",              "Condiments"),
             Pair("Vinaigre balsamique","Condiments"),
+            Pair("Moutarde",           "Condiments"),
             // Épices
             Pair("Cumin",             "Épices"),
             Pair("Paprika",           "Épices"),

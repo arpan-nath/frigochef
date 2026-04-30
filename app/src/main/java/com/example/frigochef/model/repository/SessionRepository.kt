@@ -53,15 +53,10 @@ class SessionRepository(context: Context) {
         val existe = cursor.use { it.moveToFirst() }
 
         if (existe) {
-            val cv = ContentValues().apply {
-                put("frequence_usage",      getFrequence(ingredientId) + 1)
-                put("date_derniere_saisie", timestamp)
-            }
-            db.update(
-                "session_ingredients",
-                cv,
-                "ingredient_id = ?",
-                arrayOf(ingredientId.toString())
+            db.execSQL(
+                "UPDATE session_ingredients SET frequence_usage = frequence_usage + 1, " +
+                        "date_derniere_saisie = ? WHERE ingredient_id = ?",
+                arrayOf(timestamp, ingredientId.toString())
             )
         } else {
             val cv = ContentValues().apply {
@@ -75,20 +70,6 @@ class SessionRepository(context: Context) {
 
     fun clearSession() {
         helper.writableDatabase.delete("session_ingredients", null, null)
-    }
-
-    private fun getFrequence(ingredientId: Long): Int {
-        val db     = helper.readableDatabase
-        val cursor = db.query(
-            "session_ingredients",
-            arrayOf("frequence_usage"),
-            "ingredient_id = ?",
-            arrayOf(ingredientId.toString()),
-            null, null, null
-        )
-        return cursor.use {
-            if (it.moveToFirst()) it.getInt(0) else 0
-        }
     }
 
     private fun parseSession(cursor: Cursor): List<SessionIngredient> {

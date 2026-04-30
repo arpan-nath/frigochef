@@ -10,6 +10,53 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
     companion object {
         const val DB_NAME    = "frigochef.db"
         const val DB_VERSION = 1
+
+        private val CREATE_TABLE_INGREDIENT = """
+            CREATE TABLE ingredient (
+                id        INTEGER PRIMARY KEY AUTOINCREMENT,
+                nom       TEXT    NOT NULL UNIQUE,
+                categorie TEXT    NOT NULL
+            )
+        """.trimIndent()
+
+        private val CREATE_TABLE_RECETTE = """
+            CREATE TABLE recette (
+                id             INTEGER PRIMARY KEY AUTOINCREMENT,
+                nom            TEXT    NOT NULL,
+                description    TEXT,
+                instructions   TEXT    NOT NULL,
+                temps_prep     INTEGER NOT NULL,
+                difficulte     TEXT    NOT NULL,
+                type_cuisine   TEXT    NOT NULL,
+                type_repas     TEXT    NOT NULL,
+                image_url      TEXT,
+                is_vege        INTEGER NOT NULL DEFAULT 0,
+                is_vegan       INTEGER NOT NULL DEFAULT 0,
+                is_sans_gluten INTEGER NOT NULL DEFAULT 0
+            )
+        """.trimIndent()
+
+        private val CREATE_TABLE_RECETTE_INGREDIENT = """
+            CREATE TABLE recette_ingredient (
+                id            INTEGER PRIMARY KEY AUTOINCREMENT,
+                recette_id    INTEGER NOT NULL,
+                ingredient_id INTEGER NOT NULL,
+                quantite      TEXT,
+                unite         TEXT,
+                FOREIGN KEY (recette_id)    REFERENCES recette(id)    ON DELETE CASCADE,
+                FOREIGN KEY (ingredient_id) REFERENCES ingredient(id) ON DELETE CASCADE
+            )
+        """.trimIndent()
+
+        private val CREATE_TABLE_SESSION = """
+            CREATE TABLE session_ingredients (
+                id                   INTEGER PRIMARY KEY AUTOINCREMENT,
+                ingredient_id        INTEGER NOT NULL UNIQUE,
+                date_derniere_saisie INTEGER NOT NULL,
+                frequence_usage      INTEGER NOT NULL DEFAULT 1,
+                FOREIGN KEY (ingredient_id) REFERENCES ingredient(id) ON DELETE CASCADE
+            )
+        """.trimIndent()
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -35,54 +82,6 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         if (!db.isReadOnly) db.execSQL("PRAGMA foreign_keys=ON")
     }
 
-    private val CREATE_TABLE_INGREDIENT = """
-        CREATE TABLE ingredient (
-            id        INTEGER PRIMARY KEY AUTOINCREMENT,
-            nom       TEXT    NOT NULL UNIQUE,
-            categorie TEXT    NOT NULL
-        )
-    """.trimIndent()
-
-    private val CREATE_TABLE_RECETTE = """
-        CREATE TABLE recette (
-            id             INTEGER PRIMARY KEY AUTOINCREMENT,
-            nom            TEXT    NOT NULL,
-            description    TEXT,
-            instructions   TEXT    NOT NULL,
-            temps_prep     INTEGER NOT NULL,
-            difficulte     TEXT    NOT NULL,
-            type_cuisine   TEXT    NOT NULL,
-            type_repas     TEXT    NOT NULL,
-            image_url      TEXT,
-            is_vege        INTEGER NOT NULL DEFAULT 0,
-            is_vegan       INTEGER NOT NULL DEFAULT 0,
-            is_sans_gluten INTEGER NOT NULL DEFAULT 0
-        )
-    """.trimIndent()
-
-    private val CREATE_TABLE_RECETTE_INGREDIENT = """
-        CREATE TABLE recette_ingredient (
-            id            INTEGER PRIMARY KEY AUTOINCREMENT,
-            recette_id    INTEGER NOT NULL,
-            ingredient_id INTEGER NOT NULL,
-            quantite      TEXT,
-            unite         TEXT,
-            FOREIGN KEY (recette_id)    REFERENCES recette(id)    ON DELETE CASCADE,
-            FOREIGN KEY (ingredient_id) REFERENCES ingredient(id) ON DELETE CASCADE
-        )
-    """.trimIndent()
-
-    private val CREATE_TABLE_SESSION = """
-        CREATE TABLE session_ingredients (
-            id                   INTEGER PRIMARY KEY AUTOINCREMENT,
-            ingredient_id        INTEGER NOT NULL UNIQUE,
-            date_derniere_saisie INTEGER NOT NULL,
-            frequence_usage      INTEGER NOT NULL DEFAULT 1,
-            FOREIGN KEY (ingredient_id) REFERENCES ingredient(id) ON DELETE CASCADE
-        )
-    """.trimIndent()
-
-    // ── INGRÉDIENTS ───────────────────────────────────────────────────────────
     private fun seederIngredients(db: SQLiteDatabase) {
         val ingredients = listOf(
             // Légumes
@@ -154,9 +153,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         }
     }
 
-    // ── RECETTES ──────────────────────────────────────────────────────────────
     private fun seederRecettes(db: SQLiteDatabase) {
-        // listOf(nom, description, instructions, tempsPrep, difficulte, typeCuisine, typeRepas, isVege, isVegan, isSansGluten)
         val recettes = listOf(
 
             // ── MOYEN-ORIENTALE ──
@@ -287,7 +284,6 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         }
     }
 
-    // ── RECETTE INGRÉDIENTS ───────────────────────────────────────────────────
     private fun seederRecetteIngredients(db: SQLiteDatabase) {
 
         fun ingredientId(nom: String): Long {
@@ -345,149 +341,149 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         lier("Paella aux légumes", "Bouillon de poulet", "500", "ml")
 
         // ITALIENNE
-        lier("Spaghetti Carbonara",   "Pâtes",     "200", "g")
-        lier("Spaghetti Carbonara",   "Lardons",   "100", "g")
-        lier("Spaghetti Carbonara",   "Oeuf",      "3",   "unité")
-        lier("Spaghetti Carbonara",   "Parmesan",  "50",  "g")
-        lier("Spaghetti Carbonara",   "Ail",       "1",   "gousse")
-        lier("Risotto aux champignons","Riz",       "300", "g")
-        lier("Risotto aux champignons","Champignons","200","g")
-        lier("Risotto aux champignons","Oignon",    "1",   "unité")
-        lier("Risotto aux champignons","Parmesan",  "50",  "g")
-        lier("Risotto aux champignons","Beurre",    "30",  "g")
-        lier("Risotto aux champignons","Bouillon de poulet","500","ml")
-        lier("Pâtes à la bolognaise", "Pâtes",     "200", "g")
-        lier("Pâtes à la bolognaise", "Boeuf haché","300","g")
-        lier("Pâtes à la bolognaise", "Tomate",    "200", "g")
-        lier("Pâtes à la bolognaise", "Oignon",    "1",   "unité")
-        lier("Pâtes à la bolognaise", "Ail",       "2",   "gousses")
+        lier("Spaghetti Carbonara",    "Pâtes",              "200", "g")
+        lier("Spaghetti Carbonara",    "Lardons",            "100", "g")
+        lier("Spaghetti Carbonara",    "Oeuf",               "3",   "unité")
+        lier("Spaghetti Carbonara",    "Parmesan",           "50",  "g")
+        lier("Spaghetti Carbonara",    "Ail",                "1",   "gousse")
+        lier("Risotto aux champignons","Riz",                "300", "g")
+        lier("Risotto aux champignons","Champignons",        "200", "g")
+        lier("Risotto aux champignons","Oignon",             "1",   "unité")
+        lier("Risotto aux champignons","Parmesan",           "50",  "g")
+        lier("Risotto aux champignons","Beurre",             "30",  "g")
+        lier("Risotto aux champignons","Bouillon de poulet", "500", "ml")
+        lier("Pâtes à la bolognaise",  "Pâtes",             "200", "g")
+        lier("Pâtes à la bolognaise",  "Boeuf haché",       "300", "g")
+        lier("Pâtes à la bolognaise",  "Tomate",            "200", "g")
+        lier("Pâtes à la bolognaise",  "Oignon",            "1",   "unité")
+        lier("Pâtes à la bolognaise",  "Ail",               "2",   "gousses")
 
         // GRECQUE
-        lier("Salade grecque", "Tomate",       "3",   "unité")
-        lier("Salade grecque", "Concombre",    "1",   "unité")
-        lier("Salade grecque", "Oignon",       "1",   "unité")
-        lier("Salade grecque", "Feta",         "150", "g")
-        lier("Salade grecque", "Huile d'olive","3",   "c. à soupe")
-        lier("Moussaka",       "Boeuf haché",  "400", "g")
-        lier("Moussaka",       "Aubergine",    "2",   "unité")
-        lier("Moussaka",       "Oignon",       "1",   "unité")
-        lier("Moussaka",       "Tomate",       "200", "g")
-        lier("Moussaka",       "Lait",         "300", "ml")
-        lier("Moussaka",       "Oeuf",         "2",   "unité")
-        lier("Souvlaki",       "Poulet",       "500", "g")
-        lier("Souvlaki",       "Pain pita",    "4",   "unité")
-        lier("Souvlaki",       "Citron",       "1",   "unité")
-        lier("Souvlaki",       "Huile d'olive","3",   "c. à soupe")
-        lier("Souvlaki",       "Yogourt",      "150", "ml")
+        lier("Salade grecque", "Tomate",        "3",   "unité")
+        lier("Salade grecque", "Concombre",     "1",   "unité")
+        lier("Salade grecque", "Oignon",        "1",   "unité")
+        lier("Salade grecque", "Feta",          "150", "g")
+        lier("Salade grecque", "Huile d'olive", "3",   "c. à soupe")
+        lier("Moussaka",       "Boeuf haché",   "400", "g")
+        lier("Moussaka",       "Aubergine",     "2",   "unité")
+        lier("Moussaka",       "Oignon",        "1",   "unité")
+        lier("Moussaka",       "Tomate",        "200", "g")
+        lier("Moussaka",       "Lait",          "300", "ml")
+        lier("Moussaka",       "Oeuf",          "2",   "unité")
+        lier("Souvlaki",       "Poulet",        "500", "g")
+        lier("Souvlaki",       "Pain pita",     "4",   "unité")
+        lier("Souvlaki",       "Citron",        "1",   "unité")
+        lier("Souvlaki",       "Huile d'olive", "3",   "c. à soupe")
+        lier("Souvlaki",       "Yogourt",       "150", "ml")
 
         // AMÉRICAINE
-        lier("Burger maison",  "Boeuf haché",  "400", "g")
-        lier("Burger maison",  "Oignon",       "1",   "unité")
-        lier("Burger maison",  "Fromage",      "4",   "tranches")
-        lier("Burger maison",  "Tomate",       "1",   "unité")
-        lier("Mac and Cheese", "Pâtes",        "300", "g")
-        lier("Mac and Cheese", "Fromage",      "200", "g")
-        lier("Mac and Cheese", "Lait",         "200", "ml")
-        lier("Mac and Cheese", "Beurre",       "30",  "g")
-        lier("Chili con carne","Boeuf haché",  "400", "g")
-        lier("Chili con carne","Tomate",       "300", "g")
+        lier("Burger maison",  "Boeuf haché", "400", "g")
+        lier("Burger maison",  "Oignon",      "1",   "unité")
+        lier("Burger maison",  "Fromage",     "4",   "tranches")
+        lier("Burger maison",  "Tomate",      "1",   "unité")
+        lier("Mac and Cheese", "Pâtes",       "300", "g")
+        lier("Mac and Cheese", "Fromage",     "200", "g")
+        lier("Mac and Cheese", "Lait",        "200", "ml")
+        lier("Mac and Cheese", "Beurre",      "30",  "g")
+        lier("Chili con carne","Boeuf haché", "400", "g")
+        lier("Chili con carne","Tomate",      "300", "g")
         lier("Chili con carne","Haricots noirs","200","g")
-        lier("Chili con carne","Oignon",       "1",   "unité")
-        lier("Chili con carne","Ail",          "2",   "gousses")
-        lier("Chili con carne","Cumin",        "1",   "c. à thé")
+        lier("Chili con carne","Oignon",      "1",   "unité")
+        lier("Chili con carne","Ail",         "2",   "gousses")
+        lier("Chili con carne","Cumin",       "1",   "c. à thé")
 
         // INDIENNE
-        lier("Butter Chicken",    "Poulet",        "500", "g")
-        lier("Butter Chicken",    "Tomate",        "200", "g")
-        lier("Butter Chicken",    "Crème fraîche", "100", "ml")
-        lier("Butter Chicken",    "Beurre",        "30",  "g")
-        lier("Butter Chicken",    "Ail",           "3",   "gousses")
-        lier("Butter Chicken",    "Oignon",        "1",   "unité")
-        lier("Butter Chicken",    "Garam masala",  "2",   "c. à thé")
-        lier("Butter Chicken",    "Yogourt",       "100", "ml")
-        lier("Dal aux lentilles", "Lentilles",     "300", "g")
-        lier("Dal aux lentilles", "Oignon",        "1",   "unité")
-        lier("Dal aux lentilles", "Ail",           "2",   "gousses")
-        lier("Dal aux lentilles", "Tomate",        "2",   "unité")
-        lier("Dal aux lentilles", "Curcuma",       "1",   "c. à thé")
-        lier("Dal aux lentilles", "Cumin",         "1",   "c. à thé")
-        lier("Dal aux lentilles", "Bouillon de poulet","500","ml")
-        lier("Saag Paneer",       "Épinards",      "400", "g")
-        lier("Saag Paneer",       "Fromage",       "200", "g")
-        lier("Saag Paneer",       "Oignon",        "1",   "unité")
-        lier("Saag Paneer",       "Ail",           "2",   "gousses")
-        lier("Saag Paneer",       "Crème fraîche", "100", "ml")
-        lier("Saag Paneer",       "Garam masala",  "1",   "c. à thé")
+        lier("Butter Chicken",    "Poulet",             "500", "g")
+        lier("Butter Chicken",    "Tomate",             "200", "g")
+        lier("Butter Chicken",    "Crème fraîche",      "100", "ml")
+        lier("Butter Chicken",    "Beurre",             "30",  "g")
+        lier("Butter Chicken",    "Ail",                "3",   "gousses")
+        lier("Butter Chicken",    "Oignon",             "1",   "unité")
+        lier("Butter Chicken",    "Garam masala",       "2",   "c. à thé")
+        lier("Butter Chicken",    "Yogourt",            "100", "ml")
+        lier("Dal aux lentilles", "Lentilles",          "300", "g")
+        lier("Dal aux lentilles", "Oignon",             "1",   "unité")
+        lier("Dal aux lentilles", "Ail",                "2",   "gousses")
+        lier("Dal aux lentilles", "Tomate",             "2",   "unité")
+        lier("Dal aux lentilles", "Curcuma",            "1",   "c. à thé")
+        lier("Dal aux lentilles", "Cumin",              "1",   "c. à thé")
+        lier("Dal aux lentilles", "Bouillon de poulet", "500", "ml")
+        lier("Saag Paneer",       "Épinards",           "400", "g")
+        lier("Saag Paneer",       "Fromage",            "200", "g")
+        lier("Saag Paneer",       "Oignon",             "1",   "unité")
+        lier("Saag Paneer",       "Ail",                "2",   "gousses")
+        lier("Saag Paneer",       "Crème fraîche",      "100", "ml")
+        lier("Saag Paneer",       "Garam masala",       "1",   "c. à thé")
 
         // JAPONAISE
-        lier("Mapo Tofu",      "Tofu",          "400", "g")
-        lier("Mapo Tofu",      "Boeuf haché",   "150", "g")
-        lier("Mapo Tofu",      "Sauce soja",    "2",   "c. à soupe")
-        lier("Mapo Tofu",      "Piment",        "1",   "c. à thé")
-        lier("Mapo Tofu",      "Ail",           "2",   "gousses")
-        lier("Mapo Tofu",      "Huile de sésame","1",  "c. à soupe")
-        lier("Mapo Tofu",      "Riz",           "200", "g")
-        lier("Ramen au poulet","Poulet",         "300", "g")
-        lier("Ramen au poulet","Oeuf",           "2",   "unité")
-        lier("Ramen au poulet","Bouillon de poulet","1","L")
-        lier("Ramen au poulet","Sauce soja",     "3",   "c. à soupe")
-        lier("Ramen au poulet","Oignon",         "1",   "unité")
-        lier("Gyoza",          "Boeuf haché",    "200", "g")
-        lier("Gyoza",          "Sauce soja",     "2",   "c. à soupe")
-        lier("Gyoza",          "Huile de sésame","1",   "c. à soupe")
-        lier("Gyoza",          "Ail",            "2",   "gousses")
+        lier("Mapo Tofu",       "Tofu",               "400", "g")
+        lier("Mapo Tofu",       "Boeuf haché",        "150", "g")
+        lier("Mapo Tofu",       "Sauce soja",         "2",   "c. à soupe")
+        lier("Mapo Tofu",       "Piment",             "1",   "c. à thé")
+        lier("Mapo Tofu",       "Ail",                "2",   "gousses")
+        lier("Mapo Tofu",       "Huile de sésame",    "1",   "c. à soupe")
+        lier("Mapo Tofu",       "Riz",                "200", "g")
+        lier("Ramen au poulet", "Poulet",             "300", "g")
+        lier("Ramen au poulet", "Oeuf",               "2",   "unité")
+        lier("Ramen au poulet", "Bouillon de poulet", "1",   "L")
+        lier("Ramen au poulet", "Sauce soja",         "3",   "c. à soupe")
+        lier("Ramen au poulet", "Oignon",             "1",   "unité")
+        lier("Gyoza",           "Boeuf haché",        "200", "g")
+        lier("Gyoza",           "Sauce soja",         "2",   "c. à soupe")
+        lier("Gyoza",           "Huile de sésame",    "1",   "c. à soupe")
+        lier("Gyoza",           "Ail",                "2",   "gousses")
 
         // MEXICAINE
-        lier("Tacos au boeuf",           "Boeuf haché","300","g")
-        lier("Tacos au boeuf",           "Tortilla",   "4",  "unité")
-        lier("Tacos au boeuf",           "Tomate",     "2",  "unité")
-        lier("Tacos au boeuf",           "Fromage",    "100","g")
-        lier("Tacos au boeuf",           "Oignon",     "1",  "unité")
-        lier("Tacos au boeuf",           "Cumin",      "1",  "c. à thé")
-        lier("Guacamole",                "Avocat",     "2",  "unité")
-        lier("Guacamole",                "Tomate",     "1",  "unité")
-        lier("Guacamole",                "Oignon",     "1",  "unité")
-        lier("Guacamole",                "Citron",     "1",  "unité")
-        lier("Guacamole",                "Piment",     "1",  "pincée")
-        lier("Enchiladas végétariennes", "Tortilla",   "6",  "unité")
-        lier("Enchiladas végétariennes", "Fromage",    "150","g")
-        lier("Enchiladas végétariennes", "Tomate",     "2",  "unité")
-        lier("Enchiladas végétariennes", "Oignon",     "1",  "unité")
-        lier("Enchiladas végétariennes", "Poivron",    "1",  "unité")
+        lier("Tacos au boeuf",           "Boeuf haché", "300", "g")
+        lier("Tacos au boeuf",           "Tortilla",    "4",   "unité")
+        lier("Tacos au boeuf",           "Tomate",      "2",   "unité")
+        lier("Tacos au boeuf",           "Fromage",     "100", "g")
+        lier("Tacos au boeuf",           "Oignon",      "1",   "unité")
+        lier("Tacos au boeuf",           "Cumin",       "1",   "c. à thé")
+        lier("Guacamole",                "Avocat",      "2",   "unité")
+        lier("Guacamole",                "Tomate",      "1",   "unité")
+        lier("Guacamole",                "Oignon",      "1",   "unité")
+        lier("Guacamole",                "Citron",      "1",   "unité")
+        lier("Guacamole",                "Piment",      "1",   "pincée")
+        lier("Enchiladas végétariennes", "Tortilla",    "6",   "unité")
+        lier("Enchiladas végétariennes", "Fromage",     "150", "g")
+        lier("Enchiladas végétariennes", "Tomate",      "2",   "unité")
+        lier("Enchiladas végétariennes", "Oignon",      "1",   "unité")
+        lier("Enchiladas végétariennes", "Poivron",     "1",   "unité")
 
         // QUÉBÉCOISE
-        lier("Poutine",       "Fromage",           "200", "g")
-        lier("Poutine",       "Pomme de terre",    "500", "g")
-        lier("Poutine",       "Bouillon de poulet","300", "ml")
-        lier("Soupe aux pois","Lardons",           "150", "g")
-        lier("Soupe aux pois","Oignon",            "1",   "unité")
-        lier("Soupe aux pois","Carotte",           "2",   "unité")
-        lier("Soupe aux pois","Céleri",            "2",   "branches")
-        lier("Soupe aux pois","Bouillon de poulet","1",   "L")
-        lier("Tourtière",     "Boeuf haché",       "500", "g")
-        lier("Tourtière",     "Oignon",            "1",   "unité")
-        lier("Tourtière",     "Pomme de terre",    "200", "g")
-        lier("Tourtière",     "Cannelle",          "1",   "pincée")
-        lier("Tourtière",     "Beurre",            "50",  "g")
+        lier("Poutine",       "Fromage",            "200", "g")
+        lier("Poutine",       "Pomme de terre",     "500", "g")
+        lier("Poutine",       "Bouillon de poulet", "300", "ml")
+        lier("Soupe aux pois","Lardons",            "150", "g")
+        lier("Soupe aux pois","Oignon",             "1",   "unité")
+        lier("Soupe aux pois","Carotte",            "2",   "unité")
+        lier("Soupe aux pois","Céleri",             "2",   "branches")
+        lier("Soupe aux pois","Bouillon de poulet", "1",   "L")
+        lier("Tourtière",     "Boeuf haché",        "500", "g")
+        lier("Tourtière",     "Oignon",             "1",   "unité")
+        lier("Tourtière",     "Pomme de terre",     "200", "g")
+        lier("Tourtière",     "Cannelle",           "1",   "pincée")
+        lier("Tourtière",     "Beurre",             "50",  "g")
 
         // AFRICAINE
-        lier("Poulet yassa",   "Poulet",           "600", "g")
-        lier("Poulet yassa",   "Oignon",           "3",   "unité")
-        lier("Poulet yassa",   "Citron",           "2",   "unité")
-        lier("Poulet yassa",   "Moutarde",         "2",   "c. à soupe")
-        lier("Poulet yassa",   "Huile d'olive",    "3",   "c. à soupe")
-        lier("Poulet yassa",   "Riz",              "300", "g")
-        lier("Tagine d'agneau","Agneau",           "600", "g")
-        lier("Tagine d'agneau","Oignon",           "2",   "unité")
-        lier("Tagine d'agneau","Carotte",          "3",   "unité")
-        lier("Tagine d'agneau","Tomate",           "200", "g")
-        lier("Tagine d'agneau","Cumin",            "1",   "c. à thé")
-        lier("Tagine d'agneau","Cannelle",         "1",   "pincée")
-        lier("Riz jollof",     "Riz",              "300", "g")
-        lier("Riz jollof",     "Tomate",           "300", "g")
-        lier("Riz jollof",     "Poivron",          "1",   "unité")
-        lier("Riz jollof",     "Oignon",           "1",   "unité")
-        lier("Riz jollof",     "Bouillon de poulet","500","ml")
-        lier("Riz jollof",     "Paprika",          "1",   "c. à thé")
+        lier("Poulet yassa",    "Poulet",            "600", "g")
+        lier("Poulet yassa",    "Oignon",            "3",   "unité")
+        lier("Poulet yassa",    "Citron",            "2",   "unité")
+        lier("Poulet yassa",    "Moutarde",          "2",   "c. à soupe")
+        lier("Poulet yassa",    "Huile d'olive",     "3",   "c. à soupe")
+        lier("Poulet yassa",    "Riz",               "300", "g")
+        lier("Tagine d'agneau", "Agneau",            "600", "g")
+        lier("Tagine d'agneau", "Oignon",            "2",   "unité")
+        lier("Tagine d'agneau", "Carotte",           "3",   "unité")
+        lier("Tagine d'agneau", "Tomate",            "200", "g")
+        lier("Tagine d'agneau", "Cumin",             "1",   "c. à thé")
+        lier("Tagine d'agneau", "Cannelle",          "1",   "pincée")
+        lier("Riz jollof",      "Riz",               "300", "g")
+        lier("Riz jollof",      "Tomate",            "300", "g")
+        lier("Riz jollof",      "Poivron",           "1",   "unité")
+        lier("Riz jollof",      "Oignon",            "1",   "unité")
+        lier("Riz jollof",      "Bouillon de poulet","500", "ml")
+        lier("Riz jollof",      "Paprika",           "1",   "c. à thé")
     }
 }

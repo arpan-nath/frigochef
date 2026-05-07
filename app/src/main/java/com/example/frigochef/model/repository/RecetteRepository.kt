@@ -53,13 +53,13 @@ class RecetteRepository(context: Context) {
         val conditions = mutableListOf<String>()
         val args       = mutableListOf<String>()
 
-        filtres.typeCuisine?.let  { conditions += "type_cuisine = ?";      args += it }
-        filtres.typeRepas?.let    { conditions += "type_repas = ?";         args += it }
-        filtres.difficulte?.let   { conditions += "difficulte = ?";         args += it }
-        filtres.tempsMax?.let     { conditions += "temps_prep <= ?";        args += it.toString() }
-        if (filtres.isVege)       { conditions += "is_vege = ?";            args += "1" }
-        if (filtres.isVegan)      { conditions += "is_vegan = ?";           args += "1" }
-        if (filtres.isSansGluten) { conditions += "is_sans_gluten = ?";     args += "1" }
+        filtres.typeCuisine?.let  { conditions += "type_cuisine = ?";  args += it }
+        filtres.typeRepas?.let    { conditions += "type_repas = ?";     args += it }
+        filtres.difficulte?.let   { conditions += "difficulte = ?";     args += it }
+        filtres.tempsMax?.let     { conditions += "temps_prep <= ?";    args += it.toString() }
+        if (filtres.isVege)       { conditions += "is_vege = ?";        args += "1" }
+        if (filtres.isVegan)      { conditions += "is_vegan = ?";       args += "1" }
+        if (filtres.isSansGluten) { conditions += "is_sans_gluten = ?"; args += "1" }
 
         val where  = if (conditions.isEmpty()) "" else "WHERE " + conditions.joinToString(" AND ")
         val cursor = helper.readableDatabase.rawQuery(
@@ -131,7 +131,8 @@ class RecetteRepository(context: Context) {
             imageUrl     = cursor.getString(cursor.getColumnIndexOrThrow("image_url")),
             isVege       = cursor.getInt(cursor.getColumnIndexOrThrow("is_vege")) == 1,
             isVegan      = cursor.getInt(cursor.getColumnIndexOrThrow("is_vegan")) == 1,
-            isSansGluten = cursor.getInt(cursor.getColumnIndexOrThrow("is_sans_gluten")) == 1
+            isSansGluten = cursor.getInt(cursor.getColumnIndexOrThrow("is_sans_gluten")) == 1,
+            portions     = cursor.getInt(cursor.getColumnIndexOrThrow("portions"))
         )
     }
 }

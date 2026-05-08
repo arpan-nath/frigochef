@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pill blanche semi-transparente pour le tag "Africaine", "Italienne"...
+     affiché en bas à gauche de l'image dans item_recette_card.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Blanc à 88% d'opacité : E0 = 224 sur 255 ≈ 88% -->
+    <solid android:color="#E0FFFFFF" />
+    <corners android:radius="20dp" />
+</shape>

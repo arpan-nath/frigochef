@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="13dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/white"
+    app:strokeColor="@color/border_tertiary"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Image de la recette -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp">
+
+            <ImageView
+                android:id="@+id/ivRecette"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Image de la recette" />
+
+            <!-- Badge score de compatibilité (visible seulement dans ResultatsActivity) -->
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="7dp"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="2dp"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_score_badge"
+                android:visibility="gone"
+                tools:text="92%"
+                tools:visibility="visible" />
+
+            <!-- Tag type de cuisine -->
+            <TextView
+                android:id="@+id/tvTypeCuisine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="6dp"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="2dp"
+                android:textSize="9sp"
+                android:textColor="@color/text_secondary"
+                android:background="@drawable/bg_cuisine_tag"
+                tools:text="Africaine" />
+
+        </FrameLayout>
+
+        <!-- Corps de la carte -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="9dp">
+
+            <TextView
+                android:id="@+id/tvNomRecette"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:lineSpacingMultiplier="1.25"
+                android:layout_marginBottom="3dp"
+                tools:text="Poulet yassa" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:src="@drawable/ic_clock"
+                    android:layout_marginEnd="3dp"
+                    android:contentDescription="Temps" />
+
+                <TextView
+                    android:id="@+id/tvTemps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="9sp"
+                    android:textColor="@color/text_secondary"
+                    tools:text="50 min" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:background="@color/border_tertiary"
+                    android:layout_marginHorizontal="5dp" />
+
+                <TextView
+                    android:id="@+id/tvDifficulte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="9sp"
+                    android:textColor="@color/text_secondary"
+                    tools:text="Moyen" />
+
+            </LinearLayout>
+
+            <!-- Pills diète (optionnel, visible si applicable) -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupDiete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:chipSpacingHorizontal="3dp"
+                app:chipSpacingVertical="2dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

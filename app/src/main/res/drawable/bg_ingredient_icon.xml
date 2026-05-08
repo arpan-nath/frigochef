@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cercle de fond pour les icônes ✓ (possédé) et ✕ (manquant)
+     dans item_ingredient_detail.xml.
+     La couleur de fond est appliquée en Kotlin selon le statut :
+       possédé  → android:backgroundTint="@color/ingredient_ok_bg"
+       manquant → android:backgroundTint="@color/ingredient_miss_bg" -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/ingredient_ok_bg" />
+</shape>

@@ -1,5 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- ════════════════════════════════
+         BLANC / NOIR
+         ════════════════════════════════ -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- ════════════════════════════════
+         TEXTE
+         ════════════════════════════════ -->
+    <color name="text_primary">#111111</color>
+    <color name="text_secondary">#666666</color>
+    <color name="text_tertiary">#AAAAAA</color>
+    <color name="text_hint">#CCCCCC</color>
+    <color name="text_on_dark">#FFFFFF</color>
+
+    <!-- ════════════════════════════════
+         BORDURES
+         ════════════════════════════════ -->
+    <color name="border_tertiary">#26000000</color>   <!-- noir 15% -->
+    <color name="border_secondary">#4D000000</color>  <!-- noir 30% -->
+    <color name="border_primary">#66000000</color>    <!-- noir 40% -->
+
+    <!-- ════════════════════════════════
+         FONDS
+         ════════════════════════════════ -->
+    <color name="background_primary">#FFFFFF</color>
+    <color name="background_secondary">#F5F5F5</color>
+    <color name="background_tertiary">#EFEFEF</color>
+
+    <!-- ════════════════════════════════
+         COULEUR PRINCIPALE — TEAL
+         Utilisée pour boutons, progress, chips actifs
+         ════════════════════════════════ -->
+    <color name="teal_50">#E1F5EE</color>
+    <color name="teal_100">#9FE1CB</color>
+    <color name="teal_200">#5DCAA5</color>
+    <color name="teal_400">#1D9E75</color>
+    <color name="teal_600">#0F6E56</color>
+    <color name="teal_800">#085041</color>
+    <color name="teal_900">#04342C</color>
+
+    <!-- ════════════════════════════════
+         SCORES DE COMPATIBILITÉ
+         Vert ≥ 75% / Jaune 50–74% / Orange 25–49% / Rouge < 25%
+         ════════════════════════════════ -->
+    <color name="score_green_bg">#EAF3DE</color>
+    <color name="score_green_stroke">#97C459</color>
+    <color name="score_green_text">#27500A</color>
+
+    <color name="score_yellow_bg">#FAEEDA</color>
+    <color name="score_yellow_stroke">#FAC775</color>
+    <color name="score_yellow_text">#633806</color>
+
+    <color name="score_orange_bg">#FAECE7</color>
+    <color name="score_orange_stroke">#F0997B</color>
+    <color name="score_orange_text">#712B13</color>
+
+    <color name="score_red_bg">#FCEBEB</color>
+    <color name="score_red_stroke">#F09595</color>
+    <color name="score_red_text">#791F1F</color>
+
+    <!-- ════════════════════════════════
+         BARRES DE PROGRESSION INGRÉDIENTS
+         ════════════════════════════════ -->
+    <color name="progress_green">#639922</color>
+    <color name="progress_yellow">#BA7517</color>
+    <color name="progress_orange">#D85A30</color>
+    <color name="progress_red">#E24B4A</color>
+    <color name="progress_track">#E0E0E0</color>
+
+    <!-- ════════════════════════════════
+         CHIPS DE FILTRE
+         ════════════════════════════════ -->
+    <color name="chip_checked_bg">#E1F5EE</color>
+    <color name="chip_checked_stroke">#1D9E75</color>
+    <color name="chip_checked_text">#085041</color>
+    <color name="chip_unchecked_bg">#FFFFFF</color>
+    <color name="chip_unchecked_stroke">#4D000000</color>
+    <color name="chip_unchecked_text">#666666</color>
+
+    <!-- ════════════════════════════════
+         STATUT INGRÉDIENTS
+         Possédé (vert) / Manquant (rouge)
+         ════════════════════════════════ -->
+    <color name="ingredient_ok_bg">#EAF3DE</color>
+    <color name="ingredient_ok_icon">#3B6D11</color>
+    <color name="ingredient_miss_bg">#FCEBEB</color>
+    <color name="ingredient_miss_icon">#A32D2D</color>
+
+    <!-- ════════════════════════════════
+         NUMÉROS D'ÉTAPES (instructions)
+         ════════════════════════════════ -->
+    <color name="step_num_bg">#E1F5EE</color>
+    <color name="step_num_text">#085041</color>
+
+    <!-- ════════════════════════════════
+         ENCADRÉ HERO — AccueilActivity
+         ════════════════════════════════ -->
+    <color name="hero_bg">#E1F5EE</color>
+    <color name="hero_title">#04342C</color>
+    <color name="hero_sub">#0F6E56</color>
+
+    <!-- ════════════════════════════════
+         CARDS TYPE DE CUISINE — Questionnaire étape 1
+         ════════════════════════════════ -->
+    <color name="cuisine_teal_bg">#E1F5EE</color>
+    <color name="cuisine_teal_icon">#085041</color>
+    <color name="cuisine_coral_bg">#FAECE7</color>
+    <color name="cuisine_coral_icon">#993C1D</color>
+    <color name="cuisine_amber_bg">#FAEEDA</color>
+    <color name="cuisine_amber_icon">#854F0B</color>
+    <color name="cuisine_purple_bg">#EEEDFE</color>
+    <color name="cuisine_purple_icon">#534AB7</color>
+    <color name="cuisine_pink_bg">#FBEAF0</color>
+    <color name="cuisine_pink_icon">#993556</color>
+    <color name="cuisine_blue_bg">#E6F1FB</color>
+    <color name="cuisine_blue_icon">#185FA5</color>
+
+    <!-- ════════════════════════════════
+         PILLS DIÈTE — DetailRecetteActivity
+         ════════════════════════════════ -->
+    <color name="pill_green_bg">#EAF3DE</color>
+    <color name="pill_green_text">#27500A</color>
+    <color name="pill_amber_bg">#FAEEDA</color>
+    <color name="pill_amber_text">#633806</color>
+    <color name="pill_blue_bg">#E6F1FB</color>
+    <color name="pill_blue_text">#0C447C</color>
+
+    <!-- ════════════════════════════════
+         MATERIAL DESIGN — requis par le thème
+         ════════════════════════════════ -->
+    <color name="colorPrimary">#0F6E56</color>
+    <color name="colorPrimaryVariant">#085041</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#1D9E75</color>
+    <color name="colorSecondaryVariant">#0F6E56</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#111111</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorOnBackground">#111111</color>
+    <color name="colorError">#E24B4A</color>
+    <color name="colorOnError">#FFFFFF</color>
+
 </resources>

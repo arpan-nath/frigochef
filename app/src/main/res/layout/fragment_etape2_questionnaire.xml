@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_etape2_contraintes.xml -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quelques contraintes ?"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dites-nous ce qui correspond à votre situation."
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Type de repas -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TYPE DE REPAS"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupTypeRepas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:chipSpacingHorizontal="6dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDejeuner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Déjeuner"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDiner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dîner"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSouper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Souper"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCollation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Collation"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Difficulté -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DIFFICULTÉ"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupDifficulte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:chipSpacingHorizontal="6dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFacile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Facile"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMoyen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Moyen"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDifficile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Difficile"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Régime alimentaire -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RÉGIME ALIMENTAIRE"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupRegime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:chipSpacingHorizontal="6dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipVegetarien"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Végétarien"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipVegan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Végane"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSansGluten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sans gluten"
+                android:textSize="12sp"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipBackgroundColor="@color/chip_background_selector"
+                style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Temps de préparation max -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEMPS DE PRÉPARATION MAX"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_secondary"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="4dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="2dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="5 min"
+                android:textSize="10sp"
+                android:textColor="@color/text_secondary" />
+
+            <TextView
+                android:id="@+id/tvTempsMaxValeur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                tools:text="60 min" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="120 min"
+                android:textSize="10sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderTempsMax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="5"
+            android:valueTo="120"
+            android:value="60"
+            android:stepSize="5"
+            app:thumbColor="#0F6E56"
+            app:trackColorActive="#0F6E56"
+            app:trackColorInactive="@color/border_tertiary"
+            app:thumbRadius="8dp"
+            app:trackHeight="4dp" />
+
+    </LinearLayout>
+
+</ScrollView>

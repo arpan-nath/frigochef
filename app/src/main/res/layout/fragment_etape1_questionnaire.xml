@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_etape1_cuisine.xml -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quel type de cuisine vous inspire ?"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:lineSpacingMultiplier="1.25"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choisissez une ou plusieurs cuisines. Vous pouvez ignorer cette étape."
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Grille 3 colonnes de cartes de cuisine -->
+        <!-- Implémentée comme GridLayout fixe pour éviter un RecyclerView imbriqué -->
+        <GridLayout
+            android:id="@+id/gridCuisines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="3"
+            android:useDefaultMargins="false">
+
+            <!-- Les cartes sont générées dynamiquement en Kotlin depuis la liste des types de cuisine -->
+            <!-- Voir CuisineCardView personnalisé ou item_cuisine_card.xml -->
+
+        </GridLayout>
+
+    </LinearLayout>
+
+</ScrollView>

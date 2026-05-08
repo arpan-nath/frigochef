@@ -1,3 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Frigochef-temp</string>
+
+    <!-- ════════════════════════════════
+         APPLICATION
+         ════════════════════════════════ -->
+    <string name="app_name">FrigoChef</string>
+
+    <!-- ════════════════════════════════
+         ACCUEIL ACTIVITY
+         ════════════════════════════════ -->
+    <string name="accueil_hero_tag">Qu\'est-ce qu\'il y a dans votre frigo ?</string>
+    <string name="accueil_hero_titre">Trouvez une recette avec ce que vous avez déjà</string>
+    <string name="accueil_hero_sub">Cochez vos ingrédients — on calcule quelles recettes vous pouvez cuisiner maintenant.</string>
+    <string name="accueil_hero_btn">Trouver mes recettes</string>
+    <string name="accueil_recherche_hint">Rechercher une recette…</string>
+    <string name="accueil_filtre_tout">Tout</string>
+    <string name="accueil_filtre_facile">Facile</string>
+    <string name="accueil_filtre_vege">Végé</string>
+    <string name="accueil_filtre_rapide">&lt; 30 min</string>
+    <!-- %1$d = nombre de recettes -->
+    <string name="accueil_compteur">%1$d recettes dans le catalogue</string>
+    <string name="accueil_vide_titre">Aucune recette trouvée</string>
+    <string name="accueil_vide_sub">Essayez un autre terme de recherche ou modifiez les filtres.</string>
+
+    <!-- ════════════════════════════════
+         QUESTIONNAIRE ACTIVITY — général
+         ════════════════════════════════ -->
+    <!-- %1$d = étape courante, %2$d = total étapes -->
+    <string name="questionnaire_progression">%1$d / %2$d</string>
+    <string name="questionnaire_btn_continuer">Continuer</string>
+    <!-- %1$d = nombre d'ingrédients sélectionnés -->
+    <string name="questionnaire_btn_continuer_compteur">Continuer (%1$d ingrédients)</string>
+    <string name="questionnaire_btn_ignorer">Peu importe — ignorer</string>
+
+    <!-- ── Étape 1 : Type de cuisine ── -->
+    <string name="etape1_titre">Quel type de cuisine vous inspire ?</string>
+    <string name="etape1_sous_titre">Choisissez une ou plusieurs cuisines. Vous pouvez ignorer cette étape.</string>
+
+    <!-- ── Étape 2 : Contraintes ── -->
+    <string name="etape2_titre">Quelques contraintes ?</string>
+    <string name="etape2_sous_titre">Dites-nous ce qui correspond à votre situation.</string>
+    <string name="etape2_section_repas">TYPE DE REPAS</string>
+    <string name="etape2_section_difficulte">DIFFICULTÉ</string>
+    <string name="etape2_section_regime">RÉGIME ALIMENTAIRE</string>
+    <string name="etape2_section_temps">TEMPS DE PRÉPARATION MAX</string>
+    <!-- %1$d = valeur du slider en minutes -->
+    <string name="etape2_temps_valeur">%1$d min</string>
+    <string name="etape2_temps_borne_min">5 min</string>
+    <string name="etape2_temps_borne_max">120 min</string>
+
+    <!-- ── Étape 3 : Ingrédients ── -->
+    <string name="etape3_titre">Qu\'avez-vous dans votre frigo ?</string>
+    <string name="etape3_sous_titre">Ajoutez vos ingrédients et précisez les quantités. Votre dernière session est disponible en bas.</string>
+    <string name="etape3_recherche_hint">Ajouter un ingrédient…</string>
+    <string name="etape3_section_frigo">DANS MON FRIGO</string>
+    <!-- %1$d = nombre d'ingrédients ajoutés -->
+    <string name="etape3_compteur_frigo">Dans mon frigo (%1$d)</string>
+    <string name="etape3_section_session">Session précédente</string>
+    <!-- %1$s = terme recherché -->
+    <string name="etape3_resultats_recherche">RÉSULTATS POUR « %1$s »</string>
+    <string name="etape3_btn_ajouter">+ Ajouter</string>
+    <string name="etape3_btn_retirer">Retirer cet ingrédient</string>
+    <string name="etape3_btn_voir_recettes">Voir les recettes</string>
+    <!-- %1$d = nombre d'ingrédients -->
+    <string name="etape3_btn_voir_recettes_compteur">Voir les recettes (%1$d ingrédients)</string>
+
+    <!-- ── Étape 4 : Récapitulatif ── -->
+    <string name="etape4_titre">Récapitulatif de votre recherche</string>
+    <string name="etape4_sous_titre">Vérifiez vos sélections avant de lancer la recherche.</string>
+    <string name="etape4_section_cuisine">CUISINE</string>
+    <string name="etape4_section_contraintes">REPAS · DIFFICULTÉ · TEMPS</string>
+    <string name="etape4_section_regime">RÉGIME</string>
+    <string name="etape4_section_ingredients">INGRÉDIENTS SÉLECTIONNÉS</string>
+    <string name="etape4_aucun_filtre">Aucun</string>
+    <!-- %1$d = nombre d'ingrédients -->
+    <string name="etape4_message">On va trouver les meilleures recettes avec vos %1$d ingrédients.</string>
+    <string name="etape4_btn_lancer">Voir mes recettes</string>
+
+    <!-- ════════════════════════════════
+         VALEURS PARTAGÉES — énumérations
+         ════════════════════════════════ -->
+
+    <!-- Types de repas -->
+    <string name="repas_dejeuner">Déjeuner</string>
+    <string name="repas_diner">Dîner</string>
+    <string name="repas_souper">Souper</string>
+    <string name="repas_collation">Collation</string>
+
+    <!-- Niveaux de difficulté -->
+    <string name="difficulte_facile">Facile</string>
+    <string name="difficulte_moyen">Moyen</string>
+    <string name="difficulte_difficile">Difficile</string>
+
+    <!-- Régimes alimentaires -->
+    <string name="regime_vegetarien">Végétarien</string>
+    <string name="regime_vegan">Végane</string>
+    <string name="regime_sans_gluten">Sans gluten</string>
+
+    <!-- Types de cuisine -->
+    <string name="cuisine_italienne">Italienne</string>
+    <string name="cuisine_mexicaine">Mexicaine</string>
+    <string name="cuisine_indienne">Indienne</string>
+    <string name="cuisine_japonaise">Japonaise</string>
+    <string name="cuisine_grecque">Grecque</string>
+    <string name="cuisine_quebecoise">Québécoise</string>
+    <string name="cuisine_africaine">Africaine</string>
+    <string name="cuisine_mediterraneenne">Méditerranéenne</string>
+    <string name="cuisine_americaine">Américaine</string>
+    <string name="cuisine_moyen_orientale">Moyen-Orientale</string>
+
+    <!-- ════════════════════════════════
+         RÉSULTATS ACTIVITY
+         ════════════════════════════════ -->
+    <string name="resultats_titre">Résultats</string>
+    <string name="resultats_btn_filtres">Filtres</string>
+    <string name="resultats_recherche_hint">Affiner les résultats…</string>
+    <!-- %1$d = nombre de résultats -->
+    <string name="resultats_compteur_singulier">%1$d recette correspond à votre sélection</string>
+    <string name="resultats_compteur_pluriel">%1$d recettes correspondent à votre sélection</string>
+    <string name="resultats_vide_titre">Aucune recette trouvée</string>
+    <string name="resultats_vide_sub">Essayez d\'élargir vos filtres ou de relancer le questionnaire avec d\'autres ingrédients.</string>
+    <string name="resultats_btn_modifier_filtres">Modifier les filtres</string>
+    <string name="resultats_btn_refaire">Refaire le questionnaire</string>
+    <!-- %1$d = nombre de résultats restants -->
+    <string name="resultats_plus">%1$d autres résultats…</string>
+
+    <!-- ════════════════════════════════
+         PANNEAU FILTRES (fragment)
+         ════════════════════════════════ -->
+    <string name="filtres_titre">Filtres</string>
+    <string name="filtres_section_ingredients">MES INGRÉDIENTS</string>
+    <string name="filtres_section_difficulte">DIFFICULTÉ</string>
+    <string name="filtres_section_repas">TYPE DE REPAS</string>
+    <string name="filtres_section_regime">RÉGIME ALIMENTAIRE</string>
+    <string name="filtres_section_temps">TEMPS DE PRÉPARATION MAX</string>
+    <string name="filtres_section_cuisine">TYPE DE CUISINE</string>
+    <string name="filtres_btn_reinitialiser">Réinitialiser</string>
+    <string name="filtres_btn_appliquer">Appliquer</string>
+    <!-- %1$d = nombre de résultats avec ces filtres -->
+    <string name="filtres_btn_appliquer_compteur">Appliquer (%1$d)</string>
+    <string name="filtres_fermer">Fermer le panneau</string>
+
+    <!-- ════════════════════════════════
+         DETAIL RECETTE ACTIVITY
+         ════════════════════════════════ -->
+    <string name="detail_section_ingredients">Ingrédients</string>
+    <string name="detail_section_instructions">Instructions</string>
+    <string name="detail_label_temps">Préparation</string>
+    <string name="detail_label_difficulte">Difficulté</string>
+    <string name="detail_label_repas">Type repas</string>
+    <!-- %1$d = minutes -->
+    <string name="detail_temps_valeur">%1$d min</string>
+    <!-- %1$d = possédés, %2$d = total -->
+    <string name="detail_compatibilite_label">Compatibilité avec vos ingrédients</string>
+    <string name="detail_compatibilite_valeur">%1$d%% (%2$d/%3$d)</string>
+    <string name="detail_ingredient_possede">Ingrédient possédé</string>
+    <string name="detail_ingredient_manquant">Ingrédient manquant</string>
+    <!-- %1$s = quantité, %2$s = unité -->
+    <string name="detail_ingredient_quantite">%1$s %2$s</string>
+
+    <!-- ════════════════════════════════
+         ACCESSIBILITÉ — contentDescription
+         ════════════════════════════════ -->
+    <string name="cd_retour">Retour</string>
+    <string name="cd_filtres">Ouvrir les filtres</string>
+    <string name="cd_fermer_panel">Fermer le panneau</string>
+    <string name="cd_retirer_ingredient">Retirer cet ingrédient</string>
+    <string name="cd_image_recette">Image de la recette</string>
+    <string name="cd_logo">Logo FrigoChef</string>
+
+    <!-- ════════════════════════════════
+         ERREURS
+         ════════════════════════════════ -->
+    <string name="erreur_chargement">Impossible de charger les données. Veuillez réessayer.</string>
+    <string name="erreur_aucun_ingredient">Veuillez sélectionner au moins un ingrédient avant de continuer.</string>
+
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/color/chip_stroke_selector.xml
+     Couleur de BORDURE des chips selon leur état coché / non coché.
+     Utilisé dans tous les ChipGroup via :
+         app:chipStrokeColor="@color/chip_stroke_selector"
+         app:chipStrokeWidth="1dp"  -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Coché → bordure teal (#1D9E75) -->
+    <item
+        android:color="@color/chip_checked_stroke"
+        android:state_checked="true" />
+
+    <!-- Non coché (état par défaut) → bordure grise semi-transparente -->
+    <item android:color="@color/chip_unchecked_stroke" />
+
+</selector>

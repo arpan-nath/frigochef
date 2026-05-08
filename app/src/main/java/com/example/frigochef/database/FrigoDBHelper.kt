@@ -43,7 +43,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
                 recette_id    INTEGER NOT NULL,
                 ingredient_id INTEGER NOT NULL,
                 quantite      TEXT,
-                unite         TEXT,
+                unite_mesure  TEXT,
                 FOREIGN KEY (recette_id)    REFERENCES recette(id)    ON DELETE CASCADE,
                 FOREIGN KEY (ingredient_id) REFERENCES ingredient(id) ON DELETE CASCADE
             )
@@ -299,12 +299,12 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
             return cursor.use { if (it.moveToFirst()) it.getLong(0) else -1 }
         }
 
-        fun lier(nomRecette: String, nomIngredient: String, quantite: String, unite: String) {
+        fun lier(nomRecette: String, nomIngredient: String, quantite: String, uniteMesure: String) {
             val cv = ContentValues().apply {
                 put("recette_id",    recetteId(nomRecette))
                 put("ingredient_id", ingredientId(nomIngredient))
                 put("quantite",      quantite)
-                put("unite",         unite)
+                put("unite_mesure",  uniteMesure)  // ← changé
             }
             db.insert("recette_ingredient", null, cv)
         }

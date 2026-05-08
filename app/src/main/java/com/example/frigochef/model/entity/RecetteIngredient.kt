@@ -5,5 +5,5 @@ data class RecetteIngredient(
     val recetteId: Long,
     val ingredientId: Long,
     val quantite: String?,
-    val unite: String?
+    val uniteMesure:  String?
 )

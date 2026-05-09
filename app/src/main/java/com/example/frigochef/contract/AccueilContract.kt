@@ -13,5 +13,8 @@ interface AccueilContract {
     interface Presenter {
         fun chargerRecettes()
         fun rechercherRecettes(query: String)
+        fun filtrerParDifficulte(difficulte: String)
+        fun filtrerParDiete(isVege: Boolean)
+        fun filtrerParTemps(tempsMax: Int)
     }
 }

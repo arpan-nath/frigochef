@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!--
-        Thème principal de FrigoChef
-        Hérite de Theme.MaterialComponents.DayNight.NoActionBar
-        → pas de ActionBar par défaut (on gère nos propres Toolbars)
-        → compatible light/dark si besoin plus tard
-    -->
     <style name="Theme.FrigoChef" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!-- ── Couleurs Material obligatoires ── -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
@@ -23,64 +16,39 @@
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
 
-        <!-- ── Barre de statut et navigation ── -->
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:navigationBarColor">@color/white</item>
-        <!-- Icônes sombres sur fond blanc -->
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
 
-        <!-- ── Typographie globale ── -->
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_hint</item>
 
-        <!-- ── Style global des Chips ── -->
         <item name="chipStyle">@style/Widget.FrigoChef.Chip.Filter</item>
-
-        <!-- ── Style global des boutons ── -->
         <item name="materialButtonStyle">@style/Widget.FrigoChef.Button</item>
         <item name="borderlessButtonStyle">@style/Widget.FrigoChef.Button.Borderless</item>
-
-        <!-- ── Style global des TextInputLayout ── -->
         <item name="textInputStyle">@style/Widget.FrigoChef.TextInputLayout</item>
-
-        <!-- ── Pas d'ombre sur l'AppBar ── -->
         <item name="appBarLayoutStyle">@style/Widget.FrigoChef.AppBarLayout</item>
-
-        <!-- ── Ripple discret ── -->
         <item name="colorControlHighlight">#1A0F6E56</item>
-
-        <!-- ── Fond de fenêtre ── -->
         <item name="android:windowBackground">@color/white</item>
 
     </style>
 
-    <!-- ════════════════════════════════
-         SPLASH SCREEN
-         Affiché pendant le démarrage de l'app
-         ════════════════════════════════ -->
     <style name="Theme.FrigoChef.Splash" parent="Theme.FrigoChef">
         <item name="android:statusBarColor">@color/teal_50</item>
         <item name="android:navigationBarColor">@color/teal_50</item>
         <item name="android:windowBackground">@color/teal_50</item>
     </style>
 
-    <!-- ════════════════════════════════
-         APPBAR LAYOUT
-         Supprime l'ombre par défaut
-         ════════════════════════════════ -->
-    <style name="Widget.FrigoChef.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout">
+    <!-- AppBar sans ombre -->
+    <style name="Widget.FrigoChef.AppBarLayout" parent="Widget.Design.AppBarLayout">
         <item name="elevation">0dp</item>
         <item name="android:background">@color/white</item>
     </style>
 
-    <!-- ════════════════════════════════
-         BOUTONS
-         ════════════════════════════════ -->
-
-    <!-- Bouton principal plein (teal) -->
+    <!-- Boutons -->
     <style name="Widget.FrigoChef.Button" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/teal_600</item>
         <item name="android:textColor">@color/white</item>
@@ -90,10 +58,8 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">10dp</item>
         <item name="elevation">0dp</item>
-        <item name="stateListAnimator">@null</item>
     </style>
 
-    <!-- Bouton outline (blanc + bordure noire, style du croquis étape 3) -->
     <style name="Widget.FrigoChef.Button.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:textSize">13sp</item>
@@ -105,10 +71,8 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="backgroundTint">@color/white</item>
         <item name="elevation">0dp</item>
-        <item name="stateListAnimator">@null</item>
     </style>
 
-    <!-- Bouton outline secondaire (bordure grise, pour Réinitialiser dans le panel) -->
     <style name="Widget.FrigoChef.Button.OutlineSecondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textColor">@color/text_secondary</item>
         <item name="android:textSize">12sp</item>
@@ -117,19 +81,15 @@
         <item name="cornerRadius">9dp</item>
         <item name="backgroundTint">@color/background_secondary</item>
         <item name="elevation">0dp</item>
-        <item name="stateListAnimator">@null</item>
     </style>
 
-    <!-- Bouton sans fond (liens textuels) -->
     <style name="Widget.FrigoChef.Button.Borderless" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/text_tertiary</item>
         <item name="android:textSize">11sp</item>
         <item name="rippleColor">@color/teal_50</item>
     </style>
 
-    <!-- ════════════════════════════════
-         CHAMPS DE SAISIE (TextInputLayout)
-         ════════════════════════════════ -->
+    <!-- TextInputLayout -->
     <style name="Widget.FrigoChef.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxBackgroundColor">#F5F5F5</item>
         <item name="boxCornerRadiusTopStart">10dp</item>
@@ -143,11 +103,7 @@
         <item name="android:textColorHint">@color/text_hint</item>
     </style>
 
-    <!-- ════════════════════════════════
-         CHIPS
-         ════════════════════════════════ -->
-
-    <!-- Chip de filtre (cochable) — utilisé dans AccueilActivity, ResultatsActivity, panneaux -->
+    <!-- Chips -->
     <style name="Widget.FrigoChef.Chip.Filter" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipBackgroundColor">@color/chip_background_selector</item>
         <item name="chipStrokeColor">@color/chip_stroke_selector</item>
@@ -162,7 +118,6 @@
         <item name="elevation">0dp</item>
     </style>
 
-    <!-- Chip ingrédient session précédente (avec icône ✕) -->
     <style name="Widget.FrigoChef.Chip.Session" parent="Widget.MaterialComponents.Chip.Entry">
         <item name="chipBackgroundColor">@color/white</item>
         <item name="chipStrokeColor">@color/border_secondary</item>
@@ -177,7 +132,6 @@
         <item name="elevation">0dp</item>
     </style>
 
-    <!-- Chip ingrédient possédé (vert, dans DetailRecetteActivity et panneau filtres) -->
     <style name="Widget.FrigoChef.Chip.Ingredient" parent="Widget.MaterialComponents.Chip.Entry">
         <item name="chipBackgroundColor">@color/teal_50</item>
         <item name="chipStrokeColor">@color/teal_400</item>
@@ -192,9 +146,7 @@
         <item name="elevation">0dp</item>
     </style>
 
-    <!-- ════════════════════════════════
-         CARDS (MaterialCardView)
-         ════════════════════════════════ -->
+    <!-- Cards -->
     <style name="Widget.FrigoChef.Card" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@color/white</item>
         <item name="cardCornerRadius">13dp</item>
@@ -203,26 +155,7 @@
         <item name="strokeWidth">1dp</item>
     </style>
 
-    <!-- ════════════════════════════════
-         BOTTOM SHEET (panneau filtres)
-         ════════════════════════════════ -->
-    <style name="Widget.FrigoChef.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.FrigoChef.BottomSheet</item>
-        <item name="elevation">8dp</item>
-        <item name="android:background">@color/white</item>
-    </style>
-
-    <style name="ShapeAppearance.FrigoChef.BottomSheet" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">16dp</item>
-        <item name="cornerSizeTopRight">16dp</item>
-        <item name="cornerSizeBottomLeft">0dp</item>
-        <item name="cornerSizeBottomRight">0dp</item>
-    </style>
-
-    <!-- ════════════════════════════════
-         PROGRESS BAR (compatibilité et questionnaire)
-         ════════════════════════════════ -->
+    <!-- Progress Bar -->
     <style name="Widget.FrigoChef.ProgressBar.Horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressBackgroundTint">@color/progress_track</item>
         <item name="android:progressTint">@color/teal_600</item>
@@ -230,9 +163,7 @@
         <item name="android:maxHeight">4dp</item>
     </style>
 
-    <!-- ════════════════════════════════
-         SLIDER (temps de préparation)
-         ════════════════════════════════ -->
+    <!-- Slider -->
     <style name="Widget.FrigoChef.Slider" parent="Widget.MaterialComponents.Slider">
         <item name="thumbColor">@color/teal_600</item>
         <item name="trackColorActive">@color/teal_600</item>

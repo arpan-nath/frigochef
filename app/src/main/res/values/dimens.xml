@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ════════════════════════════════
+         ESPACEMENT GLOBAL
+         ════════════════════════════════ -->
+    <dimen name="screen_padding_horizontal">16dp</dimen>
+    <dimen name="screen_padding_top">12dp</dimen>
+    <dimen name="screen_padding_bottom">16dp</dimen>
+    <dimen name="section_spacing">20dp</dimen>
+    <dimen name="item_spacing">8dp</dimen>
+    <dimen name="item_spacing_small">5dp</dimen>
+
+    <!-- ════════════════════════════════
+         COINS ARRONDIS
+         ════════════════════════════════ -->
+    <dimen name="card_corner_radius">13dp</dimen>
+    <dimen name="card_hero_corner_radius">14dp</dimen>
+    <dimen name="btn_corner_radius">12dp</dimen>
+    <dimen name="btn_corner_radius_small">9dp</dimen>
+    <dimen name="chip_corner_radius">20dp</dimen>
+    <dimen name="input_corner_radius">10dp</dimen>
+    <dimen name="qty_box_corner_radius">8dp</dimen>
+    <dimen name="logo_mark_corner_radius">9dp</dimen>
+    <dimen name="step_num_radius">11dp</dimen>
+
+    <!-- ════════════════════════════════
+         TAILLES DE TEXTE
+         ════════════════════════════════ -->
+    <dimen name="text_app_name">17sp</dimen>
+    <dimen name="text_title_large">22sp</dimen>
+    <dimen name="text_title">16sp</dimen>
+    <dimen name="text_title_small">14sp</dimen>
+    <dimen name="text_body">13sp</dimen>
+    <dimen name="text_caption">11sp</dimen>
+    <dimen name="text_micro">10sp</dimen>
+    <dimen name="text_label">9sp</dimen>
+
+    <!-- ════════════════════════════════
+         HAUTEURS FIXES
+         ════════════════════════════════ -->
+    <dimen name="btn_height">48dp</dimen>
+    <dimen name="btn_height_small">36dp</dimen>
+    <dimen name="qty_box_height">34dp</dimen>
+    <dimen name="chip_min_height">30dp</dimen>
+    <dimen name="search_bar_height">44dp</dimen>
+    <dimen name="card_image_height">110dp</dimen>
+    <dimen name="card_image_height_detail">250dp</dimen>
+    <dimen name="progress_bar_height">4dp</dimen>
+    <dimen name="step_num_size">24dp</dimen>
+    <dimen name="logo_mark_size">30dp</dimen>
+    <dimen name="back_btn_size">28dp</dimen>
+    <dimen name="icon_size_small">14dp</dimen>
+    <dimen name="icon_size_medium">18dp</dimen>
+
+    <!-- ════════════════════════════════
+         BORDURES
+         ════════════════════════════════ -->
+    <dimen name="stroke_thin">0.5dp</dimen>
+    <dimen name="stroke_normal">1dp</dimen>
+    <dimen name="stroke_bold">1.5dp</dimen>
+    <dimen name="stroke_accent">2dp</dimen>
+
+    <!-- ════════════════════════════════
+         GRILLE RECYCLERVIEW
+         ════════════════════════════════ -->
+    <dimen name="grid_spacing">8dp</dimen>
+    <dimen name="grid_spacing_small">6dp</dimen>
+    <dimen name="cuisine_card_size">90dp</dimen>
+
+</resources>

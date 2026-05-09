@@ -1,4 +1,4 @@
-package com.example.frigochef.view.contract
+package com.example.frigochef.contract
 
 import com.example.frigochef.model.entity.Ingredient
 import com.example.frigochef.model.entity.Recette

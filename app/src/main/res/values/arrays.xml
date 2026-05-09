@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/arrays.xml
+     Tableau des unités de mesure pour le Spinner dans item_ingredient_saisi.xml
+     Utilisé pour les ingrédients de typeQuantite == EN_VRAC
+-->
+<resources>
+
+    <string-array name="unites_mesure">
+        <item>g</item>
+        <item>kg</item>
+        <item>ml</item>
+        <item>L</item>
+        <item>c. à soupe</item>
+        <item>c. à thé</item>
+        <item>tasse</item>
+        <item>pincée</item>
+    </string-array>
+
+    <!-- Unités par défaut selon la catégorie d'ingrédient.
+         Utilisées pour pré-sélectionner le spinner en Kotlin :
+           Liquides  (lait, crème, huile)      → ml
+           Solides   (farine, sucre, fromage)  → g
+           Épices    (cumin, paprika)           → c. à thé
+    -->
+
+</resources>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_etape3_ingredients.xml
+     Structure selon le croquis :
+     1. Titre + sous-titre
+     2. Barre de recherche
+     3. Liste des ingrédients saisis  [QUANTITE][UNITÉ?] nom
+     4. Section "Session précédente"  chips avec ✕
+     5. Bouton "Voir les recettes" ancré en bas
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <!-- Zone scrollable : titre + recherche + ingrédients + session -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="4dp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Titre -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qu'avez-vous dans votre frigo ?"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:lineSpacingMultiplier="1.25"
+                android:layout_marginBottom="4dp" />
+
+            <!-- Sous-titre -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ajoutez vos ingrédients et précisez les quantités. Votre dernière session est disponible en bas."
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:lineSpacingMultiplier="1.4"
+                android:layout_marginBottom="14dp" />
+
+            <!-- Barre de recherche -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRechercheIngredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxBackgroundColor="#F5F5F5"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="1dp"
+                app:startIconDrawable="@drawable/ic_search"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRechercheIngredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ajouter un ingrédient…"
+                    android:textSize="13sp"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:paddingVertical="8dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Résultats de recherche — visibles seulement quand l'utilisateur tape -->
+            <LinearLayout
+                android:id="@+id/layoutResultatsRecherche"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tvTitreResultatsRecherche"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_tertiary"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="6dp"
+                    tools:text='RÉSULTATS POUR "TOM"' />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSuggestionsRecherche"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_ingredient_suggestion" />
+
+            </LinearLayout>
+
+            <!-- Liste des ingrédients saisis avec quantité -->
+            <!-- Visible dès qu'au moins 1 ingrédient est ajouté -->
+            <LinearLayout
+                android:id="@+id/layoutIngredientsSaisis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="24dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvIngredientsSaisis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_ingredient_saisi" />
+
+            </LinearLayout>
+
+            <!-- Section : session précédente -->
+            <LinearLayout
+                android:id="@+id/layoutSessionPrecedente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Session précédente"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Chips de la session précédente générées dynamiquement en Kotlin -->
+                <!-- Chaque chip a un ✕ qui ajoute l'ingrédient à la liste du dessus -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupSessionPrecedente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="6dp"
+                    app:chipSpacingVertical="5dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Séparateur avant le bouton -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/border_tertiary" />
+
+    <!-- Bouton "Voir les recettes" ancré en bas -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="16dp">
+
+        <Button
+            android:id="@+id/btnVoirRecettes"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Voir les recettes"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:backgroundTint="@color/white"
+            app:strokeColor="@color/text_primary"
+            app:strokeWidth="2dp"
+            app:cornerRadius="14dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            tools:text="Voir les recettes (4 ingrédients)" />
+
+    </LinearLayout>
+
+</LinearLayout>

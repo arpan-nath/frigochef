@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".view.activities.QuestionnaireActivity">
+
+    <!-- Barre de navigation : retour + progression -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="12dp">
+
+        <ImageButton
+            android:id="@+id/btnRetour"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/bg_back_btn"
+            android:src="@drawable/ic_arrow_left"
+            android:padding="6dp"
+            android:contentDescription="Étape précédente"
+            android:layout_marginEnd="10dp" />
+
+        <!-- Barre de progression -->
+        <ProgressBar
+            android:id="@+id/progressBarEtapes"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            android:progress="25"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressTint="#0F6E56"
+            android:progressBackgroundTint="@color/border_tertiary" />
+
+        <!-- Label étape X / Y -->
+        <TextView
+            android:id="@+id/tvEtapeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="@color/text_tertiary"
+            tools:text="1 / 4" />
+
+    </LinearLayout>
+
+    <!-- Conteneur des étapes — ViewFlipper pour animer entre étapes -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerEtapes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:userInputEnabled="false" />
+
+    <!-- Pied fixe : bouton Continuer + lien ignorer -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/border_tertiary"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/btnContinuer"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Continuer"
+            android:textSize="13sp"
+            android:backgroundTint="#0F6E56"
+            app:cornerRadius="12dp"
+            tools:text="Continuer (5 ingrédients)" />
+
+        <TextView
+            android:id="@+id/tvIgnorer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:text="Peu importe — ignorer"
+            android:textSize="10sp"
+            android:textColor="@color/text_tertiary"
+            android:visibility="visible"
+            android:padding="4dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

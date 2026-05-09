@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fond pill blanc semi-transparent pour les badges de score (92%, 68%...)
+     sur les images de recettes dans AccueilActivity et ResultatsActivity.
+     NB : la couleur du texte et de la bordure est définie en Kotlin
+     selon le score (vert, jaune, orange, rouge) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Blanc à 92% d'opacité : EB = 235 sur 255 ≈ 92% -->
+    <solid android:color="#EBFFFFFF" />
+    <stroke
+        android:width="0.5dp"
+        android:color="#1A000000" />
+    <corners android:radius="20dp" />
+</shape>

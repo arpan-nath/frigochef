@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fond teal très clair arrondi pour le bandeau de confirmation
+     "On va trouver les meilleures recettes..." dans fragment_etape4_recap.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/background_secondary" />
+    <corners android:radius="10dp" />
+</shape>

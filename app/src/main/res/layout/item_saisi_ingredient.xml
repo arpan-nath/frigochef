@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_ingredient_saisi.xml
+     Structure selon le croquis : [QUANTITÉ][UNITÉ?]  nom de l'ingrédient
+     Deux variantes selon Ingredient.typeQuantite :
+       COMPTABLE → etQuantite seul (pas de spinnerUnite)
+       EN_VRAC   → etQuantite + spinnerUnite côte à côte dans le même encadré
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="8dp">
+
+    <!-- Encadré quantité + unité (un seul bloc bordé, fidèle au croquis) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_qty_box"
+        android:layout_marginEnd="0dp">
+
+        <!-- Champ numérique de quantité -->
+        <EditText
+            android:id="@+id/etQuantite"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:background="@null"
+            android:paddingHorizontal="4dp"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            tools:text="3" />
+
+        <!-- Séparateur vertical interne (visible uniquement pour EN_VRAC) -->
+        <View
+            android:id="@+id/dividerQtyUnit"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/border_secondary"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <!-- Sélecteur d'unité (visible uniquement pour EN_VRAC) -->
+        <Spinner
+            android:id="@+id/spinnerUnite"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:paddingHorizontal="6dp"
+            android:textSize="11sp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:entries="@array/unites_mesure" />
+
+    </LinearLayout>
+
+    <!-- Nom de l'ingrédient -->
+    <TextView
+        android:id="@+id/tvNomIngredient"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:textColor="@color/text_primary"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginStart="10dp"
+        tools:text="tomates" />
+
+</LinearLayout>

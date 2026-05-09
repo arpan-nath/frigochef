@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".view.activities.AccueilActivity">
+
+    <!-- En-tête fixe avec logo + recherche + filtres -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="10dp">
+
+            <!-- Logo + Nom de l'app -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:id="@+id/ivLogoMark"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_logo_mark"
+                    android:src="@drawable/ic_kitchen"
+                    android:padding="6dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FrigoChef"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+            </LinearLayout>
+
+            <!-- Encadré mode découverte -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardModeDecouverte"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="#E1F5EE"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="14dp">
+
+                    <!-- Tag "Qu'est-ce qu'il y a dans votre frigo ?" -->
+                    <TextView
+                        android:id="@+id/tvHeroTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🧊 Qu'est-ce qu'il y a dans votre frigo ?"
+                        android:textSize="10sp"
+                        android:textColor="#085041"
+                        android:background="@drawable/bg_hero_tag"
+                        android:paddingHorizontal="9dp"
+                        android:paddingVertical="3dp"
+                        android:layout_marginBottom="9dp" />
+
+                    <!-- Titre + bouton sur la même ligne -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Trouvez une recette avec ce que vous avez déjà"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="#04342C"
+                                android:lineSpacingMultiplier="1.25"
+                                android:layout_marginBottom="4dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Cochez vos ingrédients — on calcule quelles recettes vous pouvez cuisiner maintenant."
+                                android:textSize="11sp"
+                                android:textColor="#0F6E56"
+                                android:lineSpacingMultiplier="1.35" />
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnInspireMe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Trouver mes recettes"
+                            android:textSize="11sp"
+                            android:backgroundTint="#0F6E56"
+                            android:textColor="@color/white"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="8dp"
+                            app:cornerRadius="9dp" />
+
+                    </LinearLayout>
+
+                    <!-- Pills ingrédients session précédente -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupSessionIngredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:chipSpacingHorizontal="4dp"
+                        app:chipSpacingVertical="2dp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Barre de recherche + bouton filtre -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="9dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilRecherche"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:boxBackgroundColor="#F5F5F5"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="1dp"
+                    app:startIconDrawable="@drawable/ic_search"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etRecherche"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Rechercher une recette…"
+                        android:textSize="12sp"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:paddingVertical="7dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageButton
+                    android:id="@+id/btnFiltres"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_filter_btn"
+                    android:src="@drawable/ic_filter"
+                    android:padding="8dp"
+                    android:contentDescription="Filtres" />
+
+            </LinearLayout>
+
+            <!-- Chips de filtres rapides -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupFiltres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:chipSpacingHorizontal="6dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tout"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    app:checkedIconVisible="false"
+                    android:checkable="true"
+                    android:checked="true"
+                    style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFacile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Facile"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    app:checkedIconVisible="false"
+                    android:checkable="true"
+                    style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipVege"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Végé"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    app:checkedIconVisible="false"
+                    android:checkable="true"
+                    style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipRapide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&lt; 30 min"
+                    android:textSize="11sp"
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    app:checkedIconVisible="false"
+                    android:checkable="true"
+                    style="@style/Widget.MaterialComponents.Chip.Filter" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Compteur de recettes -->
+            <TextView
+                android:id="@+id/tvCompteur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="11sp"
+                android:textColor="@color/text_secondary"
+                tools:text="30 recettes dans le catalogue" />
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Grille de recettes (RecyclerView) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecettes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/item_recette_card" />
+
+    <!-- État vide -->
+    <LinearLayout
+        android:id="@+id/layoutVide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_search_off"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="Aucun résultat" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aucune recette trouvée"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Essayez un autre terme de recherche ou modifiez les filtres."
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

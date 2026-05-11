@@ -5,7 +5,7 @@ import com.example.frigochef.model.entity.RecetteAvecScore
 import com.example.frigochef.model.repository.RecetteRepository
 import com.example.frigochef.model.ScoreCalculateur
 
-import com.example.frigochef.view.contract.ResultatsContract
+import com.example.frigochef.contract.ResultatsContract
 
 class ResultatsPresenter(
     private val vue:        ResultatsContract.View,

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".view.activities.QuestionnaireActivity">
+    tools:context=".view.QuestionnaireActivity">
 
     <!-- Barre de navigation : retour + progression -->
     <LinearLayout
@@ -57,8 +57,7 @@
         android:id="@+id/viewPagerEtapes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:userInputEnabled="false" />
+        android:layout_weight="1" />
 
     <!-- Pied fixe : bouton Continuer + lien ignorer -->
     <LinearLayout

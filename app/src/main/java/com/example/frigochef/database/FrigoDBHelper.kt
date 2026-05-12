@@ -304,7 +304,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
                 put("recette_id",    recetteId(nomRecette))
                 put("ingredient_id", ingredientId(nomIngredient))
                 put("quantite",      quantite)
-                put("unite_mesure",  uniteMesure)  // ← changé
+                put("unite_mesure",  uniteMesure)
             }
             db.insert("recette_ingredient", null, cv)
         }

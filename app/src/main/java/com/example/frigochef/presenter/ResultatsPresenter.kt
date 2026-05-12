@@ -4,7 +4,6 @@ import com.example.frigochef.model.entity.FiltreRecette
 import com.example.frigochef.model.entity.RecetteAvecScore
 import com.example.frigochef.model.repository.RecetteRepository
 import com.example.frigochef.model.ScoreCalculateur
-
 import com.example.frigochef.contract.ResultatsContract
 
 class ResultatsPresenter(

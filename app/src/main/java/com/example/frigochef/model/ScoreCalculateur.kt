@@ -2,6 +2,14 @@ package com.example.frigochef.model
 
 object ScoreCalculateur {
 
+    /**
+     * Calcule le score de compatibilité d'une recette.
+     * Système binaire — possède ou ne possède pas.
+     *
+     * @param ingredientsRecette  IDs requis par la recette
+     * @param ingredientsDispos   IDs disponibles chez l'utilisateur
+     * @return Score entre 0 et 100
+     */
     fun calculer(
         ingredientsRecette: List<Long>,
         ingredientsDispos:  List<Long>

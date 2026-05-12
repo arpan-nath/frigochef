@@ -88,23 +88,36 @@ class RecetteAdapter(
             // Pills diète + portions
             binding.chipGroupDiete.removeAllViews()
             val labels = buildList {
-                if (recette.isVege)        add("🌿 Végé")
-                if (recette.isVegan)       add("🌱 Végane")
-                if (recette.isSansGluten)  add("🌾 Sans gluten")
-                if (recette.portions > 0)  add("👤 ${recette.portions} portions")
+                if (recette.isVege)       add("🌿 Végé")
+                if (recette.isVegan)      add("🌱 Végane")
+                if (recette.isSansGluten) add("🌾 Sans gluten")
+                if (recette.portions > 0) add("${recette.portions} portions")
             }
+
             labels.take(2).forEach { label ->
                 val chip = Chip(context).apply {
-                    text              = label
-                    textSize          = 9f
-                    isClickable       = false
-                    isCheckable       = false
-                    chipMinHeight     = 20f
-                    chipCornerRadius  = 20f
-                    chipBackgroundColor = ColorStateList.valueOf(
-                        Color.parseColor("#E1F5EE")
-                    )
+                    text                = label
+                    textSize            = 9f
+                    isClickable         = false
+                    isCheckable         = false
+                    chipMinHeight       = 36f
+                    chipCornerRadius    = 20f
+                    chipStartPadding    = 4f
+                    chipEndPadding      = 2f
+                    iconStartPadding = 4f
+                    iconEndPadding = 4f
+                    textStartPadding = 0f
+                    textEndPadding = 0f
+                    chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#E1F5EE"))
                     setTextColor(Color.parseColor("#085041"))
+
+                    // Icône ustensil seulement pour les portions
+                    if (label.contains("portions")) {
+                        chipIcon        = ContextCompat.getDrawable(context, R.drawable.ic_utensils)
+                        isChipIconVisible = true
+                        chipIconSize    = 32f
+                        chipIconTint    = ColorStateList.valueOf(Color.parseColor("#085041"))
+                    }
                 }
                 binding.chipGroupDiete.addView(chip)
             }

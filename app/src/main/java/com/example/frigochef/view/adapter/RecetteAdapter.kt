@@ -100,7 +100,7 @@ class RecetteAdapter(
                     textSize            = 9f
                     isClickable         = false
                     isCheckable         = false
-                    chipMinHeight       = 36f
+                    chipMinHeight       = 40f
                     chipCornerRadius    = 20f
                     chipStartPadding    = 4f
                     chipEndPadding      = 2f

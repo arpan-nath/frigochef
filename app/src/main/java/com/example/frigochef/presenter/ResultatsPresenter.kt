@@ -5,6 +5,7 @@ import com.example.frigochef.model.entity.RecetteAvecScore
 import com.example.frigochef.model.repository.RecetteRepository
 import com.example.frigochef.model.ScoreCalculateur
 import com.example.frigochef.contract.ResultatsContract
+import com.example.frigochef.model.entity.IngredientQuantite
 
 class ResultatsPresenter(
     private val vue:        ResultatsContract.View,
@@ -13,12 +14,12 @@ class ResultatsPresenter(
 
     override fun chargerResultats(
         filtres:           FiltreRecette,
-        ingredientsDispos: List<Long>
+        ingredientsDispos: List<IngredientQuantite>
     ) {
         val recettes = repository.findParFiltres(filtres)
 
         val recettesAvecScore = recettes.map { recette ->
-            val ingredientsRecette = repository.findIngredientIdsParRecette(recette.id)
+            val ingredientsRecette = repository.findIngredientQuantitesParRecette(recette.id)
             val score = ScoreCalculateur.calculer(ingredientsRecette, ingredientsDispos)
             RecetteAvecScore(recette, score)
         }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.frigochef.contract.ResultatsContract
 import com.example.frigochef.databinding.ActivityResultatsBinding
 import com.example.frigochef.model.entity.FiltreRecette
+import com.example.frigochef.model.entity.IngredientQuantite
 import com.example.frigochef.model.entity.RecetteAvecScore
 import com.example.frigochef.model.repository.RecetteRepository
 import com.example.frigochef.presenter.ResultatsPresenter
@@ -29,8 +30,9 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
 
         val filtres = intent.getSerializableExtra("filtres") as? FiltreRecette
             ?: FiltreRecette()
-        val ingredientsDispos = intent.getLongArrayExtra("ingredients")
-            ?.toList() ?: emptyList()
+        @Suppress("UNCHECKED_CAST")
+        val ingredientsDispos = intent.getSerializableExtra("ingredients")
+                as? List<IngredientQuantite> ?: emptyList()
 
         adapter = RecetteAdapter { recette ->
             naviguerVersDetail(recette.id, ingredientsDispos)
@@ -116,7 +118,7 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
         }
     }
 
-    private fun naviguerVersDetail(recetteId: Long, ingredientsDispos: List<Long>) {
+    private fun naviguerVersDetail(recetteId: Long, ingredientsDispos: List<IngredientQuantite>) {
         // TODO: Décommenter quand DetailRecetteActivity sera créée
         // val intent = Intent(this, DetailRecetteActivity::class.java).apply {
         //     putExtra("recette_id",  recetteId)

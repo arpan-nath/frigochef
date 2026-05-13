@@ -5,6 +5,7 @@ import android.database.Cursor
 import com.example.frigochef.database.FrigoDBHelper
 import com.example.frigochef.model.entity.FiltreRecette
 import com.example.frigochef.model.entity.Ingredient
+import com.example.frigochef.model.entity.IngredientQuantite
 import com.example.frigochef.model.entity.Recette
 
 class RecetteRepository(context: Context) {
@@ -134,5 +135,28 @@ class RecetteRepository(context: Context) {
             isSansGluten = cursor.getInt(cursor.getColumnIndexOrThrow("is_sans_gluten")) == 1,
             portions     = cursor.getInt(cursor.getColumnIndexOrThrow("portions"))
         )
+    }
+
+    fun findIngredientQuantitesParRecette(recetteId: Long): List<IngredientQuantite> {
+        val db  = helper.readableDatabase
+        val sql = """
+        SELECT ri.ingredient_id, ri.quantite, ri.unite_mesure
+        FROM recette_ingredient ri
+        WHERE ri.recette_id = ?
+    """.trimIndent()
+        val cursor = db.rawQuery(sql, arrayOf(recetteId.toString()))
+        return cursor.use {
+            val list = mutableListOf<IngredientQuantite>()
+            while (it.moveToNext()) {
+                list.add(
+                    IngredientQuantite(
+                        ingredientId = it.getLong(it.getColumnIndexOrThrow("ingredient_id")),
+                        quantite = it.getDouble(it.getColumnIndexOrThrow("quantite")),
+                        unite = it.getString(it.getColumnIndexOrThrow("unite_mesure"))
+                    )
+                )
+            }
+            list
+        }
     }
 }

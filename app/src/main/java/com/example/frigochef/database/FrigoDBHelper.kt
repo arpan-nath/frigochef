@@ -58,6 +58,39 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
                 FOREIGN KEY (ingredient_id) REFERENCES ingredient(id) ON DELETE CASCADE
             )
         """.trimIndent()
+
+        private val IMAGE_PAR_RECETTE = mapOf(
+            "Houmous" to "images/houmous",
+            "Shawarma au poulet" to "images/shawarma",
+            "Taboulé" to "images/taboulé",
+            "Ratatouille" to "images/ratatoille",
+            "Salade niçoise" to "images/salade_nicoice",
+            "Paella aux légumes" to "images/paella_aux_legumes",
+            "Spaghetti Carbonara" to "images/spaghetti_carbonara",
+            "Risotto aux champignons" to "images/risotto_aux_champignon",
+            "Pâtes à la bolognaise" to "images/pates_a_la_bolognaise",
+            "Salade grecque" to "images/salade_grecque",
+            "Moussaka" to "images/moussaka",
+            "Souvlaki" to "images/souvlaki",
+            "Burger maison" to "images/burger_maison",
+            "Mac and cheese" to "images/mac_n_cheese",
+            "Chili con carne" to "images/chilli_con_carne",
+            "Butter Chicken" to "images/butter_chicken",
+            "Dal aux lentilles" to "images/dal_aux_lentilles",
+            "Saag Paneer" to "images/saag_paneer",
+            "Mapo Tofu" to "images/mapo_tofu",
+            "Ramen au poulet" to "images/ramen_au_poulet",
+            "Gyoza" to "images/gyoza",
+            "Tacos au boeuf" to "images/tacos_au_boeuf",
+            "Guacamole" to "images/guacamole",
+            "Enchiladas végétariennes" to "images/enchilidas_vegetariennes",
+            "Poutine" to "images/poutine",
+            "Soupe aux pois" to "images/soupe_aux_pois",
+            "Tourtière" to "images/tourtiere",
+            "Poulet yassa" to "images/poulet_yassa",
+            "Tagine d'agneau" to "images/tagine_agneau",
+            "Riz jollof" to "images/riz_jollof",
+        )
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -310,7 +343,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         }
 
         // MOYEN-ORIENTALE
-        lier("Houmous",            "Pois chiches",   "400", "g")
+        lier("Houmous",            "Pois chiches",   "400", "g", )
         lier("Houmous",            "Ail",            "2",   "gousses")
         lier("Houmous",            "Citron",         "1",   "unité")
         lier("Houmous",            "Huile d'olive",  "3",   "c. à soupe")

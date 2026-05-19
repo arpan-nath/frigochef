@@ -343,7 +343,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
         }
 
         // MOYEN-ORIENTALE
-        lier("Houmous",            "Pois chiches",   "400", "g", )
+        lier("Houmous",            "Pois chiches",   "400", "g")
         lier("Houmous",            "Ail",            "2",   "gousses")
         lier("Houmous",            "Citron",         "1",   "unité")
         lier("Houmous",            "Huile d'olive",  "3",   "c. à soupe")

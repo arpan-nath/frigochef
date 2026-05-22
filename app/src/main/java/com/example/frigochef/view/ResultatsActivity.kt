@@ -17,21 +17,23 @@ import com.example.frigochef.view.adapter.RecetteAdapter
 
 class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
 
-    private lateinit var binding:      ActivityResultatsBinding
-    private lateinit var presenter:    ResultatsPresenter
-    private lateinit var adapter:      RecetteAdapter
+    private lateinit var binding:         ActivityResultatsBinding
+    private lateinit var presenter:       ResultatsPresenter
+    private lateinit var adapter:         RecetteAdapter
 
-    private var tousLesResultats = listOf<RecetteAvecScore>()
+    private var tousLesResultats  = listOf<RecetteAvecScore>()
+    private var filtresActuels    = FiltreRecette()
+    private var ingredientsDispos = listOf<IngredientQuantite>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultatsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val filtres = intent.getSerializableExtra("filtres") as? FiltreRecette
+        filtresActuels = intent.getSerializableExtra("filtres") as? FiltreRecette
             ?: FiltreRecette()
         @Suppress("UNCHECKED_CAST")
-        val ingredientsDispos = intent.getSerializableExtra("ingredients")
+        ingredientsDispos = intent.getSerializableExtra("ingredients")
                 as? List<IngredientQuantite> ?: emptyList()
 
         adapter = RecetteAdapter { recette ->
@@ -41,7 +43,7 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
         binding.rvResultats.adapter       = adapter
 
         presenter = ResultatsPresenter(this, RecetteRepository(this))
-        presenter.chargerResultats(filtres, ingredientsDispos)
+        presenter.chargerResultats(filtresActuels, ingredientsDispos)
 
         binding.btnRetour.setOnClickListener { finish() }
 
@@ -57,7 +59,21 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
             }
         })
 
-        afficherChipsFiltresActifs(filtres)
+        afficherChipsFiltresActifs(filtresActuels)
+
+        binding.btnOuvrirFiltres.setOnClickListener {
+            val panneau = PanneauFiltresFragment().apply {
+                filtresActuels    = this@ResultatsActivity.filtresActuels
+                ingredientsDispos = this@ResultatsActivity.ingredientsDispos
+                onFiltresAppliques = { nouveauxFiltres ->
+                    this@ResultatsActivity.filtresActuels = nouveauxFiltres
+                    presenter.chargerResultats(nouveauxFiltres, ingredientsDispos)
+                    binding.chipGroupFiltresActifs.removeAllViews()
+                    afficherChipsFiltresActifs(nouveauxFiltres)
+                }
+            }
+            panneau.show(supportFragmentManager, "filtres")
+        }
     }
 
     override fun afficherResultats(recettes: List<RecetteAvecScore>) {
@@ -117,6 +133,8 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
             binding.chipGroupFiltresActifs.addView(chip)
         }
     }
+
+
 
     private fun naviguerVersDetail(recetteId: Long, ingredientsDispos: List<IngredientQuantite>) {
         // TODO: Décommenter quand DetailRecetteActivity sera créée

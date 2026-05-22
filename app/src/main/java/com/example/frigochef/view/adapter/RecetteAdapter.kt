@@ -100,13 +100,13 @@ class RecetteAdapter(
                     textSize            = 9f
                     isClickable         = false
                     isCheckable         = false
-                    chipMinHeight       = 40f
-                    chipCornerRadius    = 20f
+                    chipMinHeight       = 60f
+                    chipCornerRadius    = 30f
                     chipStartPadding    = 4f
-                    chipEndPadding      = 2f
-                    iconStartPadding = 4f
-                    iconEndPadding = 4f
-                    textStartPadding = 0f
+                    chipEndPadding      = 0f
+                    iconStartPadding = 10f
+                    iconEndPadding = 1f
+                    textStartPadding = 10f
                     textEndPadding = 0f
                     chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#E1F5EE"))
                     setTextColor(Color.parseColor("#085041"))

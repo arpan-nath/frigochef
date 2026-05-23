@@ -48,11 +48,11 @@
          ════════════════════════════════ -->
     <color name="score_green_bg">#EAF3DE</color>
     <color name="score_green_stroke">#97C459</color>
-    <color name="score_green_text">#27500A</color>
+    <color name="score_green_text">#2E7D32</color>
 
     <color name="score_yellow_bg">#FAEEDA</color>
     <color name="score_yellow_stroke">#FAC775</color>
-    <color name="score_yellow_text">#633806</color>
+    <color name="score_yellow_text">#F57F17</color>
 
     <color name="score_orange_bg">#FAECE7</color>
     <color name="score_orange_stroke">#F0997B</color>
@@ -60,7 +60,11 @@
 
     <color name="score_red_bg">#FCEBEB</color>
     <color name="score_red_stroke">#F09595</color>
-    <color name="score_red_text">#791F1F</color>
+    <color name="score_red_text">#C62828</color>
+
+
+
+
 
     <!-- ════════════════════════════════
          BARRES DE PROGRESSION INGRÉDIENTS

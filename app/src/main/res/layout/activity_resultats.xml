@@ -133,7 +133,7 @@
         android:clipToPadding="false"
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/item_recette_card" />
+        tools:listitem="@layout/item_carte_recette" />
 
     <!-- État vide -->
     <LinearLayout
@@ -149,7 +149,7 @@
         <ImageView
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:src="@drawable/ic_mood_empty"
+            android:src="@drawable/ic_search"
             android:layout_marginBottom="10dp"
             android:contentDescription="Aucun résultat" />
 

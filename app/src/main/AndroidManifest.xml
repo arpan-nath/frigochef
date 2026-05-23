@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Frigocheftemp">
+        android:theme="@style/Theme.FrigoChef">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -20,6 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.DetailRecetteActivity" />
     </application>
 
 </manifest>

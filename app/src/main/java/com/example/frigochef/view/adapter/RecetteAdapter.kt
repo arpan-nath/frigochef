@@ -77,9 +77,9 @@ class RecetteAdapter(
                 binding.tvScore.visibility = View.VISIBLE
                 binding.tvScore.text       = "● $score%"
                 binding.tvScore.setTextColor(when {
-                    score >= 75 -> Color.parseColor("#2E7D32")
-                    score >= 50 -> Color.parseColor("#F57F17")
-                    else        -> Color.parseColor("#C62828")
+                    score >= 75 -> ContextCompat.getColor(context, R.color.score_green_text)
+                    score >= 50 -> ContextCompat.getColor(context, R.color.score_yellow_text)
+                    else        -> ContextCompat.getColor(context, R.color.score_red_text)
                 })
             } else {
                 binding.tvScore.visibility = View.GONE
@@ -103,20 +103,24 @@ class RecetteAdapter(
                     chipMinHeight       = 60f
                     chipCornerRadius    = 30f
                     chipStartPadding    = 4f
-                    chipEndPadding      = 0f
+                    chipEndPadding      = 4f
                     iconStartPadding = 10f
                     iconEndPadding = 1f
                     textStartPadding = 10f
                     textEndPadding = 0f
-                    chipBackgroundColor = ColorStateList.valueOf(Color.parseColor("#E1F5EE"))
-                    setTextColor(Color.parseColor("#085041"))
+                    chipBackgroundColor = ColorStateList.valueOf(
+                        ContextCompat.getColor(context, R.color.teal_50)
+                    )
+                    setTextColor(ContextCompat.getColor(context, R.color.teal_800))
 
                     // Icône ustensil seulement pour les portions
                     if (label.contains("portions")) {
                         chipIcon        = ContextCompat.getDrawable(context, R.drawable.ic_utensils)
                         isChipIconVisible = true
                         chipIconSize    = 32f
-                        chipIconTint    = ColorStateList.valueOf(Color.parseColor("#085041"))
+                        chipIconTint = ColorStateList.valueOf(
+                            ContextCompat.getColor(context, R.color.teal_800)
+                        )
                     }
                 }
                 binding.chipGroupDiete.addView(chip)

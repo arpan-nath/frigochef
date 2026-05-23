@@ -1,5 +1,6 @@
 package com.example.frigochef.model
 
+import com.example.frigochef.R
 import com.example.frigochef.model.entity.IngredientQuantite
 
 object ScoreCalculateur {
@@ -46,8 +47,8 @@ object ScoreCalculateur {
      * Vert ≥ 75%, Orange ≥ 50%, Rouge < 50%
      */
     fun couleurScore(score: Int): Int = when {
-        score >= 75 -> android.R.color.holo_green_dark
-        score >= 50 -> android.R.color.holo_orange_dark
-        else        -> android.R.color.holo_red_dark
+        score >= 75 -> R.color.score_green_text
+        score >= 50 -> R.color.score_yellow_text
+        else        -> R.color.score_red_text
     }
 }

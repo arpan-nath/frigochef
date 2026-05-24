@@ -157,115 +157,114 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
 
     private fun seederRecettes(db: SQLiteDatabase) {
         val recettes = listOf(
-
             // ── MOYEN-ORIENTALE ──
             listOf("Houmous", "Trempette crémeuse aux pois chiches",
-                "1. Égoutter les pois chiches\n2. Mixer avec tahini, ail et citron\n3. Ajouter huile d'olive\n4. Assaisonner et servir",
+                "1. Commencez par égoutter et rincer abondamment les pois chiches.\n2. Dans le bol d'un robot culinaire, mixez-les avec le tahini, les gousses d'ail hachées et le jus de citron fraîchement pressé.\n3. Incorporez progressivement l'huile d'olive en filet jusqu'à l'obtention d'une texture lisse et crémeuse.\n4. Assaisonnez de sel et de poivre à votre goût, puis servez frais.",
                 15, "Facile", "Moyen-Orientale", "Collation", 1, 1, 1, 6),
             listOf("Shawarma au poulet", "Poulet mariné aux épices du Moyen-Orient",
-                "1. Mariner le poulet dans les épices\n2. Griller à feu vif\n3. Trancher finement\n4. Servir dans un pain pita avec légumes",
+                "1. Dans un grand bol, mélangez les épices et enrobez généreusement les morceaux de poulet pour les faire mariner.\n2. Saisissez la viande sur un gril ou une poêle à feu vif pour bien la dorer.\n3. Laissez reposer quelques instants pour détendre la viande, puis tranchez le poulet en fines lanières.\n4. Servez chaud à l'intérieur d'un pain pita garni de légumes frais et de sauce.",
                 40, "Moyen", "Moyen-Orientale", "Dîner", 0, 0, 0, 4),
             listOf("Taboulé", "Salade fraîche au persil et couscous",
-                "1. Préparer le couscous\n2. Hacher persil, tomate et oignon\n3. Mélanger avec huile d'olive et citron\n4. Réfrigérer 30 min",
+                "1. Préparez le couscous selon les indications de l'emballage et laissez-le refroidir.\n2. Hachez finement le persil frais, les tomates épépinées et l'oignon.\n3. Dans un grand saladier, combinez le couscous et les légumes, puis arrosez d'un généreux filet d'huile d'olive et de jus de citron.\n4. Couvrez et laissez reposer au réfrigérateur pendant au moins 30 minutes pour marier les saveurs.",
                 20, "Facile", "Moyen-Orientale", "Déjeuner", 1, 1, 1, 6),
 
             // ── MÉDITERRANÉENNE ──
             listOf("Ratatouille", "Mijotée de légumes provençaux",
-                "1. Couper tous les légumes\n2. Faire revenir l'ail et l'oignon\n3. Ajouter les légumes un par un\n4. Mijoter 40 min à feu doux",
+                "1. Lavez et taillez tous les légumes en dés de taille régulière.\n2. Dans une grande cocotte, faites suer l'oignon émincé et l'ail écrasé avec un filet d'huile d'olive.\n3. Ajoutez les légumes un par un, en commençant par les plus fermes (aubergines, poivrons) puis les courgettes et les tomates.\n4. Couvrez et laissez mijoter doucement pendant environ 40 minutes à feu doux, jusqu'à ce que les légumes soient tendres.",
                 60, "Moyen", "Méditerranéenne", "Dîner", 1, 1, 1, 4),
             listOf("Salade niçoise", "Salade composée du sud de la France",
-                "1. Cuire les pommes de terre et les oeufs\n2. Préparer la vinaigrette\n3. Disposer tous les ingrédients\n4. Assaisonner",
+                "1. Plongez les pommes de terre dans l'eau bouillante salée jusqu'à tendreté, et cuisez les œufs pour qu'ils soient durs.\n2. Préparez une vinaigrette classique avec de l'huile d'olive, du vinaigre, du sel et du poivre.\n3. Dans un grand plat de présentation, disposez harmonieusement tous les ingrédients préparés.\n4. Nappez généreusement de vinaigrette juste avant de servir.",
                 25, "Facile", "Méditerranéenne", "Déjeuner", 0, 0, 1, 4),
             listOf("Paella aux légumes", "Riz espagnol coloré aux légumes",
-                "1. Faire revenir oignon et ail\n2. Ajouter le riz et le paprika\n3. Incorporer bouillon et légumes\n4. Cuire 20 min sans remuer",
+                "1. Dans une grande poêle à paella, faites revenir doucement l'oignon haché et l'ail.\n2. Ajoutez le riz sec et saupoudrez de paprika, en remuant pour nacrer les grains.\n3. Versez le bouillon bien chaud et incorporez délicatement les légumes coupés.\n4. Laissez cuire à découvert et sans remuer pendant environ 20 minutes, jusqu'à l'absorption complète du liquide.",
                 45, "Difficile", "Méditerranéenne", "Dîner", 1, 1, 1, 6),
 
             // ── ITALIENNE ──
             listOf("Spaghetti Carbonara", "Pâtes crémeuses à l'italienne",
-                "1. Cuire les pâtes al dente\n2. Faire revenir les lardons\n3. Battre les oeufs avec le parmesan\n4. Mélanger hors du feu",
+                "1. Plongez les pâtes dans une grande marmite d'eau bouillante salée et cuisez-les al dente.\n2. Pendant ce temps, faites dorer les lardons dans une poêle sans ajout de matière grasse jusqu'à ce qu'ils soient croustillants.\n3. Dans un bol, fouettez vigoureusement les œufs entiers avec le parmesan fraîchement râpé et beaucoup de poivre noir.\n4. Égouttez les pâtes et mélangez-les immédiatement aux lardons, puis, hors du feu, incorporez le mélange œufs-fromage pour créer une sauce soyeuse.",
                 20, "Facile", "Italienne", "Dîner", 0, 0, 0, 4),
             listOf("Risotto aux champignons", "Risotto crémeux aux champignons",
-                "1. Faire revenir l'oignon\n2. Ajouter le riz\n3. Incorporer le bouillon petit à petit\n4. Ajouter champignons et parmesan",
+                "1. Dans une casserole, faites suer l'oignon finement ciselé dans un peu de beurre.\n2. Ajoutez le riz arborio et remuez pendant une minute jusqu'à ce que les grains deviennent translucides.\n3. Incorporez le bouillon chaud louche par louche, en attendant que le liquide soit absorbé entre chaque ajout.\n4. En fin de cuisson, ajoutez les champignons préalablement poêlés et liez le tout avec une généreuse portion de parmesan.",
                 35, "Moyen", "Italienne", "Dîner", 1, 0, 1, 4),
             listOf("Pâtes à la bolognaise", "Sauce à la viande mijotée",
-                "1. Faire revenir oignon et ail\n2. Ajouter le boeuf haché\n3. Incorporer les tomates\n4. Mijoter 30 min\n5. Servir sur les pâtes",
+                "1. Faites revenir l'oignon et l'ail finement hachés dans un filet d'huile d'olive.\n2. Ajoutez le bœuf haché et faites-le brunir en l'égrenant à l'aide d'une spatule en bois.\n3. Versez les tomates concassées, baissez le feu et couvrez.\n4. Laissez mijoter doucement pendant au moins 30 minutes pour développer les arômes.\n5. Nappez vos pâtes chaudes de cette sauce onctueuse.",
                 50, "Facile", "Italienne", "Dîner", 0, 0, 0, 4),
 
             // ── GRECQUE ──
             listOf("Salade grecque", "Salade fraîche à la feta",
-                "1. Couper tomates, concombre et oignon\n2. Ajouter les olives et la feta\n3. Assaisonner d'huile d'olive et origan",
+                "1. Coupez les tomates en quartiers, le concombre en demi-lunes et émincez finement l'oignon rouge.\n2. Transférez le tout dans un grand saladier, ajoutez les olives Kalamata et déposez de généreux morceaux de fromage feta sur le dessus.\n3. Arrosez d'une excellente huile d'olive extra vierge et saupoudrez d'origan séché avant de servir.",
                 10, "Facile", "Grecque", "Déjeuner", 1, 0, 1, 4),
             listOf("Moussaka", "Gratin d'aubergines à la grecque",
-                "1. Faire revenir le boeuf haché avec oignon\n2. Griller les aubergines\n3. Préparer la béchamel\n4. Alterner les couches\n5. Cuire 45 min au four",
+                "1. Dans une sauteuse, faites dorer le bœuf haché avec l'oignon émincé, puis assaisonnez à votre goût.\n2. Tranchez les aubergines, badigeonnez-les d'huile et faites-les griller jusqu'à ce qu'elles soient tendres.\n3. Préparez une sauce béchamel onctueuse parfumée à la noix de muscade.\n4. Dans un plat à gratin, alternez les couches d'aubergines et de préparation à la viande.\n5. Nappez généreusement de béchamel et enfournez à 180°C pendant 45 minutes pour obtenir une belle croûte dorée.",
                 90, "Difficile", "Grecque", "Dîner", 0, 0, 0, 6),
             listOf("Souvlaki", "Brochettes de poulet marinées",
-                "1. Mariner le poulet dans huile, citron et épices\n2. Enfiler sur des brochettes\n3. Griller 15 min\n4. Servir avec pain pita",
+                "1. Coupez le poulet en cubes et plongez-les dans une marinade d'huile d'olive, de jus de citron, d'ail et d'herbes séchées pendant au moins 1 heure.\n2. Enfilez les morceaux de viande marinés sur des piques en bois.\n3. Faites griller les brochettes sur un barbecue ou une poêle striée pendant 15 minutes en les retournant régulièrement.\n4. Servez chaud, accompagné de pains pitas moelleux et de sauce tzatziki.",
                 30, "Facile", "Grecque", "Dîner", 0, 0, 0, 4),
 
             // ── AMÉRICAINE ──
             listOf("Burger maison", "Burger juteux au boeuf haché",
-                "1. Former les steaks\n2. Assaisonner généreusement\n3. Griller 4 min de chaque côté\n4. Assembler avec garnitures",
+                "1. Façonnez de beaux disques avec la viande de bœuf hachée, sans trop presser pour conserver la tendreté.\n2. Assaisonnez très généreusement les deux faces avec du sel fin et du poivre du moulin.\n3. Faites saisir les galettes sur une poêle bien chaude ou un gril, environ 4 minutes de chaque côté pour une cuisson à point.\n4. Assemblez vos burgers dans des pains briochés toastés avec vos garnitures et sauces préférées.",
                 20, "Facile", "Américaine", "Dîner", 0, 0, 0, 4),
             listOf("Mac and Cheese", "Pâtes crémeuses au fromage",
-                "1. Cuire les pâtes\n2. Préparer la sauce fromage avec beurre, lait et fromage\n3. Mélanger et gratiner",
+                "1. Cuisez les macaronis dans une grande quantité d'eau bouillante salée, puis égouttez-les.\n2. Réalisez une sauce au fromage riche en faisant fondre le beurre, en ajoutant de la farine, du lait chaud et un mélange de vos fromages râpés préférés.\n3. Incorporez délicatement les pâtes à cette sauce onctueuse, transférez dans un plat et passez sous le gril du four pour faire gratiner le dessus.",
                 25, "Facile", "Américaine", "Dîner", 1, 0, 0, 4),
             listOf("Chili con carne", "Ragoût épicé au boeuf",
-                "1. Faire revenir oignon et ail\n2. Ajouter boeuf haché\n3. Incorporer tomates et haricots\n4. Assaisonner et mijoter 40 min",
+                "1. Dans une grande cocotte, faites revenir doucement l'oignon et l'ail hachés finement.\n2. Incorporez le bœuf haché et faites-le dorer en remuant fréquemment.\n3. Ajoutez les tomates concassées, les épices à chili et les haricots rouges préalablement rincés.\n4. Rectifiez l'assaisonnement, couvrez et laissez mijoter à feu doux pendant environ 40 minutes pour que les arômes s'entremêlent.",
                 60, "Moyen", "Américaine", "Dîner", 0, 0, 1, 6),
 
             // ── INDIENNE ──
             listOf("Butter Chicken", "Poulet mijoté dans une sauce crémeuse aux épices",
-                "1. Mariner le poulet dans yogourt et épices\n2. Griller le poulet\n3. Préparer la sauce avec beurre, tomates et crème\n4. Ajouter le poulet\n5. Mijoter 15 min",
+                "1. Faites mariner les morceaux de poulet dans un mélange de yogourt nature et d'épices garam masala pendant au moins deux heures.\n2. Saisissez le poulet à feu vif jusqu'à ce qu'il soit bien coloré.\n3. Dans la même poêle, préparez une sauce riche avec du beurre, de la purée de tomates et de la crème épaisse.\n4. Remettez le poulet dans la sauce parfumée.\n5. Laissez mijoter doucement pendant 15 minutes et servez avec du pain naan.",
                 45, "Moyen", "Indienne", "Dîner", 0, 0, 1, 4),
             listOf("Dal aux lentilles", "Soupe épicée aux lentilles",
-                "1. Faire revenir oignon, ail et épices\n2. Ajouter les lentilles et le bouillon\n3. Mijoter 25 min\n4. Garnir de coriandre",
+                "1. Dans une casserole, faites rissoler l'oignon, l'ail et un mélange d'épices pour libérer leurs arômes.\n2. Ajoutez les lentilles bien rincées et mouillez avec le bouillon de légumes.\n3. Portez à ébullition, puis baissez le feu et laissez mijoter à couvert pendant 25 minutes.\n4. Servez chaud dans des bols, copieusement garni de feuilles de coriandre fraîche.",
                 35, "Facile", "Indienne", "Dîner", 1, 1, 1, 6),
             listOf("Saag Paneer", "Épinards crémeux au fromage indien",
-                "1. Blanchir les épinards\n2. Mixer en purée\n3. Faire revenir les épices\n4. Ajouter épinards et fromage\n5. Mijoter 10 min",
+                "1. Plongez les feuilles d'épinards dans l'eau bouillante quelques instants, puis égouttez-les et essorez-les bien.\n2. Mixez grossièrement les épinards pour obtenir une purée texturée.\n3. Dans une grande poêle, faites torréfier les épices indiennes dans un peu de matière grasse.\n4. Ajoutez la purée d'épinards et les cubes de fromage paneer délicatement dorés.\n5. Laissez mijoter environ 10 minutes pour bien amalgamer les saveurs.",
                 30, "Moyen", "Indienne", "Dîner", 1, 0, 1, 4),
 
             // ── JAPONAISE ──
             listOf("Mapo Tofu", "Tofu épicé à la sauce soja et piment",
-                "1. Faire revenir l'ail et le gingembre\n2. Ajouter le boeuf haché\n3. Incorporer la sauce soja et le piment\n4. Ajouter le tofu\n5. Épaissir et servir sur riz",
+                "1. Dans un wok bien chaud, faites revenir l'ail finement émincé et le gingembre frais râpé.\n2. Ajoutez la viande de bœuf hachée et faites-la sauter rapidement à feu vif.\n3. Déglacez avec la sauce soja et incorporez de la pâte de piment selon votre tolérance à la chaleur.\n4. Ajoutez délicatement les cubes de tofu soyeux pour ne pas les briser.\n5. Laissez épaissir la sauce quelques instants et servez immédiatement sur un bol de riz blanc fumant.",
                 25, "Moyen", "Japonaise", "Dîner", 0, 0, 1, 4),
             listOf("Ramen au poulet", "Soupe de nouilles japonaise",
-                "1. Préparer le bouillon de poulet\n2. Cuire les nouilles\n3. Faire mariner les oeufs\n4. Assembler le bol avec garnitures",
+                "1. Préparez un bouillon de poulet savoureux en le faisant mijoter longuement avec des aromates japonais (kombu, gingembre).\n2. Dans une casserole d'eau bouillante, cuisez les nouilles à ramen selon les indications de l'emballage, puis égouttez-les.\n3. Préparez des œufs mollets et faites-les mariner dans un mélange de sauce soja et de mirin.\n4. Dans de grands bols, répartissez les nouilles, versez le bouillon bien chaud, puis disposez harmonieusement le poulet, l'œuf coupé en deux et les garnitures.",
                 60, "Difficile", "Japonaise", "Dîner", 0, 0, 0, 2),
             listOf("Gyoza", "Raviolis japonais poêlés",
-                "1. Mélanger porc haché et chou\n2. Farcir les feuilles de gyoza\n3. Poêler jusqu'à dorure\n4. Ajouter eau et couvrir\n5. Servir avec sauce soja",
+                "1. Préparez la farce en mélangeant intimement la viande de porc hachée, du chou finement émincé, de l'ail et du gingembre.\n2. Déposez une petite cuillère de farce au centre de chaque feuille de gyoza, mouillez les bords et scellez-les en formant des plis réguliers.\n3. Dans une poêle huilée, faites dorer le dessous des raviolis à feu moyen.\n4. Versez un fond d'eau, couvrez immédiatement et laissez cuire à la vapeur jusqu'à évaporation complète.\n5. Servez bien chaud avec une sauce trempette à base de sauce soja et de vinaigre de riz.",
                 40, "Difficile", "Japonaise", "Collation", 0, 0, 0, 4),
 
             // ── MEXICAINE ──
             listOf("Tacos au boeuf", "Tacos festifs à la mexicaine",
-                "1. Faire revenir le boeuf haché\n2. Assaisonner cumin et paprika\n3. Garnir les tortillas\n4. Ajouter tomate et fromage",
+                "1. Faites revenir le bœuf haché dans une poêle jusqu'à ce qu'il soit bien cuit et légèrement croustillant.\n2. Saupoudrez généreusement de cumin en poudre, de paprika et d'une pincée de piment, puis mélangez bien.\n3. Réchauffez doucement les tortillas de maïs ou de blé pour les assouplir.\n4. Garnissez chaque tortilla de viande épicée, puis ajoutez des dés de tomates fraîches, de la laitue croquante et du fromage râpé.",
                 25, "Facile", "Mexicaine", "Dîner", 0, 0, 0, 4),
             listOf("Guacamole", "Trempette fraîche à l'avocat",
-                "1. Écraser les avocats\n2. Ajouter oignon, tomate et citron\n3. Assaisonner avec sel et piment\n4. Servir frais",
+                "1. Coupez les avocats mûrs en deux, retirez le noyau et écrasez grossièrement la chair à la fourchette dans un grand bol.\n2. Incorporez l'oignon rouge finement ciselé, des dés de tomates épépinées et un généreux filet de jus de citron vert.\n3. Assaisonnez avec du sel marin, du poivre et un peu de piment frais haché selon vos goûts.\n4. Mélangez doucement et servez immédiatement avec des croustilles de maïs.",
                 10, "Facile", "Mexicaine", "Collation", 1, 1, 1, 6),
             listOf("Enchiladas végétariennes", "Tortillas farcies aux légumes gratinées",
-                "1. Préparer la garniture de légumes\n2. Farcir les tortillas\n3. Rouler et disposer dans un plat\n4. Napper de sauce et fromage\n5. Cuire 20 min au four",
+                "1. Dans une sauteuse, préparez une garniture savoureuse en faisant revenir divers légumes de saison coupés en dés.\n2. Garnissez généreusement le centre de chaque tortilla avec cette préparation.\n3. Roulez les tortillas serrées et disposez-les côte à côte dans un plat à gratin légèrement huilé.\n4. Nappez le tout d'une sauce enchilada, puis parsemez de fromage fondant.\n5. Enfournez à 190°C pendant une vingtaine de minutes, jusqu'à ce que le fromage soit doré et bouillonnant.",
                 40, "Moyen", "Mexicaine", "Dîner", 1, 0, 0, 4),
 
             // ── QUÉBÉCOISE ──
             listOf("Poutine", "Frites, fromage en grains et sauce",
-                "1. Cuire les frites au four\n2. Préparer la sauce brune\n3. Disposer les frites\n4. Ajouter le fromage en grains\n5. Napper de sauce chaude",
+                "1. Préchauffez votre four ou friteuse et faites cuire les frites jusqu'à ce qu'elles soient parfaitement dorées et croustillantes.\n2. Pendant ce temps, préparez une sauce brune onctueuse et bien chaude (sauce à poutine).\n3. Dans un bol large ou une assiette creuse, répartissez généreusement les frites chaudes.\n4. Parsemez le tout de véritables grains de fromage frais du jour (fromage en grains).\n5. Nappez immédiatement de sauce bouillante pour commencer à faire fondre doucement le fromage.",
                 40, "Facile", "Québécoise", "Dîner", 1, 0, 0, 2),
             listOf("Soupe aux pois", "Soupe traditionnelle québécoise",
-                "1. Faire revenir oignon et lardons\n2. Ajouter les pois et le bouillon\n3. Assaisonner\n4. Mijoter 1h à feu doux",
+                "1. Dans une grande marmite, faites fondre l'oignon haché et des lardons salés jusqu'à ce qu'ils colorent légèrement.\n2. Incorporez les pois jaunes (préalablement trempés) et mouillez abondamment avec un bon bouillon.\n3. Assaisonnez de poivre, de sarriette et d'une feuille de laurier.\n4. Laissez mijoter très doucement à couvert pendant environ 1 heure à 1 heure 30, jusqu'à ce que les pois soient fondants.",
                 70, "Facile", "Québécoise", "Déjeuner", 0, 0, 1, 6),
             listOf("Tourtière", "Pâté à la viande traditionnel",
-                "1. Préparer la pâte brisée\n2. Faire revenir boeuf haché avec épices\n3. Remplir le moule\n4. Couvrir de pâte\n5. Cuire 45 min à 190°C",
+                "1. Préparez votre pâte brisée maison, abaissez-la et foncez un moule à tarte profond.\n2. Dans une grande poêle, faites brunir doucement le porc et le bœuf hachés avec des oignons, puis assaisonnez d'épices traditionnelles (cannelle, clou de girofle).\n3. Transférez cette garniture parfumée dans le fond de tarte préparé.\n4. Recouvrez avec un second abaisse de pâte, scellez bien les bords et incisez le centre pour laisser échapper la vapeur.\n5. Enfournez à 190°C pendant 45 minutes, jusqu'à ce que la croûte soit bien dorée.",
                 90, "Difficile", "Québécoise", "Dîner", 0, 0, 0, 6),
 
             // ── AFRICAINE ──
             listOf("Poulet yassa", "Poulet mariné à l'oignon et citron",
-                "1. Mariner le poulet dans oignon et citron\n2. Griller le poulet\n3. Faire caraméliser les oignons\n4. Mijoter ensemble 20 min\n5. Servir avec riz",
+                "1. La veille ou quelques heures avant, faites mariner les morceaux de poulet dans un généreux mélange d'oignons émincés, de jus de citron, d'ail et de moutarde.\n2. Retirez le poulet de la marinade et faites-le griller sur toutes ses faces pour bien le colorer.\n3. Dans une marmite, faites doucement caraméliser les oignons de la marinade.\n4. Remettez le poulet avec les oignons, ajoutez un petit fond d'eau et laissez mijoter à couvert pendant 20 à 30 minutes.\n5. Servez ce plat réconfortant très chaud, accompagné d'un généreux dôme de riz blanc.",
                 50, "Moyen", "Africaine", "Dîner", 0, 0, 1, 4),
             listOf("Tagine d'agneau", "Ragoût épicé à l'agneau et légumes",
-                "1. Faire dorer l'agneau\n2. Ajouter oignon et épices\n3. Incorporer légumes et bouillon\n4. Mijoter 1h30 à feu doux",
+                "1. Dans un plat à tajine ou une cocotte en fonte, faites dorer les morceaux d'agneau sur toutes les faces avec un peu d'huile d'olive.\n2. Ajoutez les oignons émincés, l'ail écrasé et vos épices pour les faire torréfier légèrement.\n3. Incorporez des légumes de saison coupés en gros morceaux et mouillez avec du bouillon chaud.\n4. Couvrez hermétiquement et laissez mijoter à feu très doux pendant environ 1h30, jusqu'à ce que la viande soit confite et se détache à la cuillère.",
                 100, "Difficile", "Africaine", "Dîner", 0, 0, 1, 6),
             listOf("Riz jollof", "Riz épicé à la tomate",
-                "1. Mixer tomates et poivrons\n2. Faire revenir oignon\n3. Ajouter la purée de tomates\n4. Incorporer le riz et bouillon\n5. Cuire 30 min à feu doux",
+                "1. Dans un blender, mixez les tomates fraîches, les poivrons rouges et l'oignon pour obtenir une purée lisse.\n2. Dans une grande cocotte, faites revenir de l'oignon haché finement dans un peu d'huile jusqu'à translucidité.\n3. Versez la purée de tomates et laissez réduire à feu moyen jusqu'à ce que la sauce épaississe.\n4. Incorporez le riz rincé, le bouillon et mélangez bien pour enrober les grains.\n5. Couvrez hermétiquement et laissez cuire à feu très doux pendant environ 30 minutes sans soulever le couvercle.",
                 45, "Moyen", "Africaine", "Dîner", 1, 1, 1, 6),
         )
 
@@ -304,7 +303,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
                 put("recette_id",    recetteId(nomRecette))
                 put("ingredient_id", ingredientId(nomIngredient))
                 put("quantite",      quantite)
-                put("unite_mesure",  uniteMesure)  // ← changé
+                put("unite_mesure",  uniteMesure)
             }
             db.insert("recette_ingredient", null, cv)
         }

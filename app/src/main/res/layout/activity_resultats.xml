@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.activities.ResultatsActivity">
+    tools:context=".view.ResultatsActivity">
 
     <!-- En-tête fixe -->
     <com.google.android.material.appbar.AppBarLayout
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="13dp"
-            android:paddingTop="11dp"
+            android:paddingTop="32dp"
             android:paddingBottom="0dp">
 
             <!-- Ligne retour + titre + bouton filtres -->

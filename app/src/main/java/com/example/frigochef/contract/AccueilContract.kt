@@ -1,6 +1,7 @@
 package com.example.frigochef.contract
 
 import com.example.frigochef.model.entity.Recette
+import com.example.frigochef.model.entity.FiltreRecette
 
 interface AccueilContract {
 
@@ -16,5 +17,6 @@ interface AccueilContract {
         fun filtrerParDifficulte(difficulte: String)
         fun filtrerParDiete(isVege: Boolean)
         fun filtrerParTemps(tempsMax: Int)
+        fun filtrerParFiltres(filtres: FiltreRecette)  // ← ajoute
     }
 }

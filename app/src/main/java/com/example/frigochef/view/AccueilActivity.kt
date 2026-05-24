@@ -19,6 +19,7 @@ import com.example.frigochef.model.repository.SessionRepository
 import com.example.frigochef.presenter.AccueilPresentateur
 import com.example.frigochef.view.adapter.RecetteAdapter
 import com.google.android.material.chip.Chip
+import com.example.frigochef.model.entity.FiltreRecette
 
 class AccueilActivity : AppCompatActivity(), AccueilContract.View {
 
@@ -68,6 +69,17 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
         binding.chipRapide.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) presentateur.filtrerParTemps(30)
             else presentateur.chargerRecettes()
+        }
+
+        binding.btnFiltres.setOnClickListener {
+            val panneau = PanneauFiltresFragment().apply {
+                filtresActuels = FiltreRecette()
+                ingredientsDispos = emptyList()
+                onFiltresAppliques = { nouveauxFiltres ->
+                    presentateur.filtrerParFiltres(nouveauxFiltres)
+                }
+            }
+            panneau.show(supportFragmentManager, "filtres")
         }
 
         // ── 6. Charger toutes les recettes au démarrage ──

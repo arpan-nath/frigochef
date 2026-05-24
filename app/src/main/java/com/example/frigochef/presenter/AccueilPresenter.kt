@@ -71,4 +71,16 @@ class AccueilPresentateur(
             vue.afficherErreur("Erreur lors du filtrage.")
         }
     }
+
+   override fun filtrerParFiltres(filtres: FiltreRecette) {
+        try {
+            val recettes = repository.findParFiltres(filtres)
+            if (recettes.isEmpty()) vue.afficherMessageVide()
+            else vue.afficherRecettes(recettes)
+        } catch (e: Exception) {
+            vue.afficherErreur("Erreur lors du filtrage.")
+        }
+    }
+
+
 }

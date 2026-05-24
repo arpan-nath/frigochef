@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".view.QuestionnaireActivity" />
         <activity android:name=".view.DetailRecetteActivity" />
+        <activity android:name=".view.ResultatsActivity" />
 
     </application>
 

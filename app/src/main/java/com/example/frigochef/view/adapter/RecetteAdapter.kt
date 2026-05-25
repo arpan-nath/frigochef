@@ -68,8 +68,22 @@ class RecetteAdapter(
                 else               -> Color.parseColor("#F5F4F0")
             }
             binding.ivRecette.setBackgroundColor(couleur)
-            binding.ivRecette.setImageResource(R.drawable.ic_kitchen)
-            binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER
+
+            if (recette.imageUrl != null) {
+                val resId = context.resources.getIdentifier(
+                    recette.imageUrl, "drawable", context.packageName
+                )
+                if (resId != 0) {
+                    binding.ivRecette.setImageResource(resId)
+                    binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+                } else {
+                    binding.ivRecette.setImageResource(R.drawable.ic_kitchen)
+                    binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER
+                }
+            } else {
+                binding.ivRecette.setImageResource(R.drawable.ic_kitchen)
+                binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER
+            }
 
             // Badge score
             val score = scores[recette.id]

@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
@@ -60,9 +61,9 @@ class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
             binding.tvScoreHero.isVisible = true
             binding.tvScoreHero.text      = "$score% compatible"
             binding.tvScoreHero.setTextColor(when {
-                score >= 75 -> Color.parseColor("#2E7D32")
-                score >= 50 -> Color.parseColor("#F57F17")
-                else        -> Color.parseColor("#C62828")
+                score >= 75 -> ContextCompat.getColor(this, R.color.score_green_text)
+                score >= 50 -> ContextCompat.getColor(this, R.color.score_yellow_text)
+                else        -> ContextCompat.getColor(this, R.color.score_red_text)
             })
         }
 
@@ -75,7 +76,7 @@ class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
         presenter.chargerDetail(recetteId, ingredientsDispos)
     }
 
-    // ── DetailContract.View ───────────────────────────────────────────────────
+    // DetailContract.View
 
     override fun afficherRecette(recette: Recette) {
         binding.tvNomRecette.text  = recette.nom
@@ -126,15 +127,15 @@ class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
             binding.progressBarCompatibilite.progress = score
             binding.tvPourcentageCompatibilite.text   = "$score%"
             binding.tvPourcentageCompatibilite.setTextColor(when {
-                score >= 75 -> Color.parseColor("#27500A")
-                score >= 50 -> Color.parseColor("#854F0B")
-                else        -> Color.parseColor("#791F1F")
+                score >= 75 -> ContextCompat.getColor(this, R.color.progress_green)
+                score >= 50 -> ContextCompat.getColor(this, R.color.progress_yellow)
+                else        -> ContextCompat.getColor(this, R.color.progress_red)
             })
             binding.progressBarCompatibilite.progressTintList =
                 ColorStateList.valueOf(when {
-                    score >= 75 -> Color.parseColor("#639922")
-                    score >= 50 -> Color.parseColor("#EF9F27")
-                    else        -> Color.parseColor("#E24B4A")
+                    score >= 75 -> ContextCompat.getColor(this, R.color.progress_green)
+                    score >= 50 -> ContextCompat.getColor(this, R.color.progress_yellow)
+                    else        -> ContextCompat.getColor(this, R.color.progress_red)
                 })
         }
     }
@@ -152,21 +153,19 @@ class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
         finish()
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
-
     private fun afficherCouleurCuisine(typeCuisine: String) {
         val couleur = when (typeCuisine) {
-            "Africaine"       -> Color.parseColor("#E1F5EE")
-            "Indienne"        -> Color.parseColor("#FFF3E0")
-            "Italienne"       -> Color.parseColor("#F3E5F5")
-            "Mexicaine"       -> Color.parseColor("#FFF9C4")
-            "Japonaise"       -> Color.parseColor("#FCE4EC")
-            "Grecque"         -> Color.parseColor("#E3F2FD")
-            "Américaine"      -> Color.parseColor("#FBE9E7")
-            "Méditerranéenne" -> Color.parseColor("#E8F5E9")
-            "Moyen-Orientale" -> Color.parseColor("#FFF8E1")
-            "Québécoise"      -> Color.parseColor("#E8EAF6")
-            else              -> Color.parseColor("#F5F4F0")
+            "Africaine"       -> ContextCompat.getColor(this, R.color.teal_50)
+            "Indienne"        -> ContextCompat.getColor(this, R.color.cuisine_amber_bg)
+            "Italienne"       -> ContextCompat.getColor(this, R.color.cuisine_purple_bg)
+            "Mexicaine"       -> ContextCompat.getColor(this, R.color.score_yellow_bg)
+            "Japonaise"       -> ContextCompat.getColor(this, R.color.cuisine_pink_bg)
+            "Grecque"         -> ContextCompat.getColor(this, R.color.cuisine_blue_bg)
+            "Américaine"      -> ContextCompat.getColor(this, R.color.score_orange_bg)
+            "Méditerranéenne" -> ContextCompat.getColor(this, R.color.score_green_bg)
+            "Moyen-Orientale" -> ContextCompat.getColor(this, R.color.cuisine_amber_bg)
+            "Québécoise"      -> ContextCompat.getColor(this, R.color.cuisine_purple_bg)
+            else              -> ContextCompat.getColor(this, R.color.background_secondary)
         }
         binding.ivRecetteHero.setBackgroundColor(couleur)
         binding.ivRecetteHero.setImageResource(R.drawable.ic_kitchen)

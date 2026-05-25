@@ -380,6 +380,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Appliquer"
+            android:textColor="@color/white"
             android:textSize="11sp"
             android:backgroundTint="#0F6E56"
             app:cornerRadius="8dp"

@@ -7,6 +7,7 @@ import com.example.frigochef.model.entity.FiltreRecette
 import com.example.frigochef.model.entity.Ingredient
 import com.example.frigochef.model.entity.IngredientQuantite
 import com.example.frigochef.model.entity.Recette
+import com.example.frigochef.model.entity.RecetteIngredientDetail
 
 class RecetteRepository(context: Context) {
 
@@ -155,6 +156,30 @@ class RecetteRepository(context: Context) {
                         unite = it.getString(it.getColumnIndexOrThrow("unite_mesure"))
                     )
                 )
+            }
+            list
+        }
+    }
+
+    fun findIngredientsDetailParRecette(recetteId: Long): List<RecetteIngredientDetail> {
+        val db  = helper.readableDatabase
+        val sql = """
+        SELECT i.id, i.nom, ri.quantite, ri.unite_mesure
+        FROM ingredient i
+        JOIN recette_ingredient ri ON ri.ingredient_id = i.id
+        WHERE ri.recette_id = ?
+        ORDER BY i.nom ASC
+    """.trimIndent()
+        val cursor = db.rawQuery(sql, arrayOf(recetteId.toString()))
+        return cursor.use {
+            val list = mutableListOf<RecetteIngredientDetail>()
+            while (it.moveToNext()) {
+                list.add(RecetteIngredientDetail(
+                    ingredientId = it.getLong(it.getColumnIndexOrThrow("id")),
+                    nom          = it.getString(it.getColumnIndexOrThrow("nom")),
+                    quantite     = it.getString(it.getColumnIndexOrThrow("quantite")) ?: "",
+                    uniteMesure  = it.getString(it.getColumnIndexOrThrow("unite_mesure")) ?: ""
+                ))
             }
             list
         }

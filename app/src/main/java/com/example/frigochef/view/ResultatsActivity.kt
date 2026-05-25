@@ -1,5 +1,6 @@
 package com.example.frigochef.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -137,13 +138,12 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
 
 
     private fun naviguerVersDetail(recetteId: Long, ingredientsDispos: List<IngredientQuantite>) {
-        // TODO: Décommenter quand DetailRecetteActivity sera créée
-        // val intent = Intent(this, DetailRecetteActivity::class.java).apply {
-        //     putExtra("recette_id",  recetteId)
-        //     putExtra("ingredients", ingredientsDispos.toLongArray())
-        //     putExtra("score",       tousLesResultats
-        //         .find { it.recette.id == recetteId }?.score ?: 0)
-        // }
-        // startActivity(intent)
+        val intent = Intent(this, DetailRecetteActivity::class.java).apply {
+            putExtra("recette_id",  recetteId)
+            putExtra("ingredients", ArrayList(ingredientsDispos))
+            putExtra("score",       tousLesResultats
+                .find { it.recette.id == recetteId }?.score ?: 0)
+        }
+        startActivity(intent)
     }
 }

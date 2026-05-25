@@ -21,9 +21,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.QuestionnaireActivity" />
-        <activity android:name=".view.DetailRecetteActivity" />
+
         <activity android:name=".view.ResultatsActivity" />
 
+        <activity android:name=".view.DetailRecetteActivity" />
     </application>
 
 </manifest>

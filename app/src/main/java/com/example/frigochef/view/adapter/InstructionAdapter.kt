@@ -14,9 +14,7 @@ class InstructionAdapter : RecyclerView.Adapter<InstructionAdapter.VH>() {
             .split("\n")
             .map { it.trim() }
             .filter { it.isNotEmpty() }
-            .mapIndexed { index, texte ->
-                texte.removePrefix("${index + 1}. ").trim()
-            }
+            .map { it.replace(Regex("^\\d+[.)\\-]\\s*"), "").trim() }
         notifyDataSetChanged()
     }
 

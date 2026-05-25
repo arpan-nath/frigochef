@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.frigochef.R
 import com.example.frigochef.databinding.ItemDetailIngredientBinding
@@ -51,25 +52,29 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.VH>
 
         if (possede) {
             holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_check)
-            holder.binding.ivStatutIngredient.setColorFilter(Color.parseColor("#3B6D11"))
+            holder.binding.ivStatutIngredient.setColorFilter(
+                ContextCompat.getColor(context, R.color.ingredient_ok_icon)
+            )
             holder.binding.viewIconBackground.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#EAF3DE"))
+                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.ingredient_ok_bg))
             holder.binding.tvNomIngredient.setTextColor(
-                context.getColor(R.color.text_primary)
+                ContextCompat.getColor(context, R.color.text_primary)
             )
             holder.binding.tvQuantiteIngredient.setTextColor(
-                context.getColor(R.color.text_secondary)
+                ContextCompat.getColor(context, R.color.text_secondary)
             )
         } else {
             holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_close)
-            holder.binding.ivStatutIngredient.setColorFilter(Color.parseColor("#A32D2D"))
+            holder.binding.ivStatutIngredient.setColorFilter(
+                ContextCompat.getColor(context, R.color.ingredient_miss_icon)
+            )
             holder.binding.viewIconBackground.backgroundTintList =
-                ColorStateList.valueOf(Color.parseColor("#FCEBEB"))
+                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.ingredient_miss_bg))
             holder.binding.tvNomIngredient.setTextColor(
-                context.getColor(R.color.text_secondary)
+                ContextCompat.getColor(context, R.color.text_secondary)
             )
             holder.binding.tvQuantiteIngredient.setTextColor(
-                context.getColor(R.color.text_secondary)
+                ContextCompat.getColor(context, R.color.text_secondary)
             )
         }
     }

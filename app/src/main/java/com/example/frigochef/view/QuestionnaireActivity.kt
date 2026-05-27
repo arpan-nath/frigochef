@@ -1,4 +1,5 @@
 package com.example.frigochef.view
 
-class QuestionnaireActivity {
-}
+import androidx.appcompat.app.AppCompatActivity
+
+class QuestionnaireActivity : AppCompatActivity()

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.activities.AccueilActivity">
+    tools:context=".view.AccueilActivity">
 
     <!-- En-tête fixe avec logo + recherche + filtres -->
     <com.google.android.material.appbar.AppBarLayout
@@ -268,7 +268,7 @@
         android:paddingBottom="16dp"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/item_carte_recette" />
+        tools:listitem="@layout/item_recette_card" />
 
     <!-- État vide -->
     <LinearLayout
@@ -284,7 +284,7 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_search"
+            android:src="@drawable/ic_search_off"
             android:layout_marginBottom="12dp"
             android:contentDescription="Aucun résultat" />
 

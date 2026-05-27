@@ -55,21 +55,35 @@ class RecetteAdapter(
 
             // Couleur de fond par type de cuisine
             val couleur = when (recette.typeCuisine) {
-                "Africaine"        -> Color.parseColor("#E1F5EE")
-                "Indienne"         -> Color.parseColor("#FFF3E0")
-                "Italienne"        -> Color.parseColor("#F3E5F5")
-                "Mexicaine"        -> Color.parseColor("#FFF9C4")
-                "Japonaise"        -> Color.parseColor("#FCE4EC")
-                "Grecque"          -> Color.parseColor("#E3F2FD")
-                "Américaine"       -> Color.parseColor("#FBE9E7")
-                "Méditerranéenne"  -> Color.parseColor("#E8F5E9")
-                "Moyen-Orientale"  -> Color.parseColor("#FFF8E1")
-                "Québécoise"       -> Color.parseColor("#E8EAF6")
-                else               -> Color.parseColor("#F5F4F0")
+                "Africaine"       -> ContextCompat.getColor(context, R.color.teal_50)
+                "Indienne"        -> ContextCompat.getColor(context, R.color.cuisine_amber_bg)
+                "Italienne"       -> ContextCompat.getColor(context, R.color.cuisine_purple_bg)
+                "Mexicaine"       -> ContextCompat.getColor(context, R.color.cuisine_amber_bg)
+                "Japonaise"       -> ContextCompat.getColor(context, R.color.cuisine_pink_bg)
+                "Grecque"         -> ContextCompat.getColor(context, R.color.cuisine_blue_bg)
+                "Américaine"      -> ContextCompat.getColor(context, R.color.cuisine_coral_bg)
+                "Méditerranéenne" -> ContextCompat.getColor(context, R.color.score_green_bg)
+                "Moyen-Orientale" -> ContextCompat.getColor(context, R.color.cuisine_amber_bg)
+                "Québécoise"      -> ContextCompat.getColor(context, R.color.cuisine_purple_bg)
+                else              -> ContextCompat.getColor(context, R.color.background_secondary)
             }
             binding.ivRecette.setBackgroundColor(couleur)
-            binding.ivRecette.setImageResource(R.drawable.ic_kitchen)
-            binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER
+
+            if (recette.imageUrl != null) {
+                val resId = context.resources.getIdentifier(
+                    recette.imageUrl, "drawable", context.packageName
+                )
+                if (resId != 0) {
+                    binding.ivRecette.setImageResource(resId)
+                    binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+                } else {
+                    binding.ivRecette.setImageResource(R.drawable.ic_kitchen)
+                    binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER
+                }
+            } else {
+                binding.ivRecette.setImageResource(R.drawable.ic_kitchen)
+                binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER
+            }
 
             // Badge score
             val score = scores[recette.id]

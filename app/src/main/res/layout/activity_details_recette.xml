@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.activities.DetailRecetteActivity">
+    tools:context=".view.DetailRecetteActivity">
 
     <!-- AppBar avec image hero qui se replie au défilement -->
     <com.google.android.material.appbar.AppBarLayout
@@ -57,7 +57,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="top"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_arrow_left"
+                app:navigationIcon="@drawable/ic_arrow_left_circle"
                 app:navigationContentDescription="Retour" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -299,7 +299,7 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/ic_utensils"
+                    android:src="@drawable/ic_basket"
                     android:layout_marginEnd="6dp"
                     android:contentDescription="Ingrédients" />
 
@@ -321,7 +321,7 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 android:layout_marginBottom="20dp"
-                tools:listitem="@layout/item_ingredient_detail" />
+                tools:listitem="@layout/item_detail_ingredient" />
 
             <!-- Séparateur -->
             <View
@@ -361,7 +361,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/item_instruction_step" />
+                tools:listitem="@layout/item_etape_instruction" />
 
         </LinearLayout>
 

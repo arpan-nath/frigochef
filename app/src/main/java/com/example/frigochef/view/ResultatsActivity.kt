@@ -14,6 +14,7 @@ import com.example.frigochef.model.entity.RecetteAvecScore
 import com.example.frigochef.model.repository.RecetteRepository
 import com.example.frigochef.presenter.ResultatsPresenter
 import com.example.frigochef.view.adapter.RecetteAdapter
+import android.content.Intent
 
 class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
 
@@ -136,14 +137,16 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
 
 
 
+
+
     private fun naviguerVersDetail(recetteId: Long, ingredientsDispos: List<IngredientQuantite>) {
         // TODO: Décommenter quand DetailRecetteActivity sera créée
-        // val intent = Intent(this, DetailRecetteActivity::class.java).apply {
-        //     putExtra("recette_id",  recetteId)
-        //     putExtra("ingredients", ingredientsDispos.toLongArray())
-        //     putExtra("score",       tousLesResultats
-        //         .find { it.recette.id == recetteId }?.score ?: 0)
-        // }
-        // startActivity(intent)
+        val intent = Intent(this, DetailRecetteActivity::class.java).apply {
+            putExtra("recette_id", recetteId)
+            putExtra("ingredients", ArrayList(ingredientsDispos))
+            putExtra("score", tousLesResultats
+                .find { it.recette.id == recetteId }?.score ?: 0)
+        }
+        startActivity(intent)
     }
 }

@@ -124,7 +124,7 @@
             <ImageView
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@drawable/auto_awesome"
+                android:src="@drawable/ic_sparkles"
                 android:layout_marginEnd="8dp"
                 android:contentDescription="Prêt" />
 

@@ -281,7 +281,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
                 put("is_vegan",       r[8] as Int)
                 put("is_sans_gluten", r[9] as Int)
                 put("portions",       r[10] as Int)
-                put("image_url",      r[11] as String)  // ← ajouté
+                put("image_url",      r[11] as String)
             }
             db.insert("recette", null, cv)
         }

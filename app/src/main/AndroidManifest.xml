@@ -13,18 +13,19 @@
         android:theme="@style/Theme.FrigoChef">
 
         <activity
-            android:name=".view.AccueilActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.QuestionnaireActivity" />
 
         <activity android:name=".view.ResultatsActivity" />
-
+        <activity android:name=".view.AccueilActivity" />
+        <activity android:name=".view.QuestionnaireActivity" />
         <activity android:name=".view.DetailRecetteActivity" />
+
     </application>
 
 </manifest>

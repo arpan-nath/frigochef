@@ -63,9 +63,15 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
         afficherChipsFiltresActifs(filtresActuels)
 
         binding.btnOuvrirFiltres.setOnClickListener {
+            val ingredientRepo = com.example.frigochef.model.repository.IngredientRepository(this)
+            val noms = ingredientsDispos.associate { iq ->
+                iq.ingredientId to (ingredientRepo.findById(iq.ingredientId)?.nom ?: "Ingrédient ${iq.ingredientId}")
+            }
+
             val panneau = PanneauFiltresFragment().apply {
                 filtresActuels    = this@ResultatsActivity.filtresActuels
                 ingredientsDispos = this@ResultatsActivity.ingredientsDispos
+                nomsIngredients   = noms
                 onFiltresAppliques = { nouveauxFiltres ->
                     this@ResultatsActivity.filtresActuels = nouveauxFiltres
                     presenter.chargerResultats(nouveauxFiltres, ingredientsDispos)
@@ -140,7 +146,6 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
 
 
     private fun naviguerVersDetail(recetteId: Long, ingredientsDispos: List<IngredientQuantite>) {
-        // TODO: Décommenter quand DetailRecetteActivity sera créée
         val intent = Intent(this, DetailRecetteActivity::class.java).apply {
             putExtra("recette_id", recetteId)
             putExtra("ingredients", ArrayList(ingredientsDispos))

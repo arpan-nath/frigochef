@@ -71,7 +71,7 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
         prefsManager = PrefsManager(this)
 
         filtres = prefsManager.chargerFiltres()
-        cuisinesSelectionnees = prefsManager.chargerCuisines()
+        cuisinesSelectionnees = emptyList()
     }
 
     fun sauvegarderPreferences(){

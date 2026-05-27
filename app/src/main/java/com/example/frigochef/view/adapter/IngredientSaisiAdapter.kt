@@ -51,8 +51,11 @@ class IngredientSaisiAdapter(
         )
 
 
+
         holder.b.spinnerUnite.visibility   = View.GONE
-        holder.b.dividerQtyUnit.visibility = View.GONE
+
+        holder.b.dividerQtyUnit.visibility = View.VISIBLE
+        holder.b.tvUnite.text = iq.unite
 
         // Écouter les changements de quantité
         holder.b.etQuantite.addTextChangedListener(object : TextWatcher {

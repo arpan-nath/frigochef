@@ -13,6 +13,7 @@ import com.example.frigochef.presenter.QuestionnairePresenter
 import com.example.frigochef.view.adapter.QuestionnairePagerAdapter
 import androidx.viewpager2.widget.ViewPager2
 import android.view.View
+import com.example.frigochef.model.PrefsManager
 import com.example.frigochef.model.entity.Ingredient
 import com.example.frigochef.view.fragment.Etape3IngredientsFragment
 
@@ -21,6 +22,8 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
     private lateinit var binding: ActivityQuestionnaireBinding
     lateinit var presenter: QuestionnairePresenter
     private lateinit var adapter: QuestionnairePagerAdapter
+
+    private lateinit var prefsManager: PrefsManager
 
     // État partagé entre les fragments
     var cuisinesSelectionnees: List<String> = emptyList()
@@ -64,6 +67,15 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
         )
 
         presenter.chargerSessionPrecedente()
+
+        prefsManager = PrefsManager(this)
+
+        filtres = prefsManager.chargerFiltres()
+        cuisinesSelectionnees = prefsManager.chargerCuisines()
+    }
+
+    fun sauvegarderPreferences(){
+        prefsManager.sauvegarderFiltres(filtres, cuisinesSelectionnees)
     }
 
     // navigation entre étapes
@@ -76,6 +88,7 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
                 filtres = filtres.copy(typeCuisine = cuisinesSelectionnees.first())
             }
             // (étape 4 navigue vers les résultats)
+            sauvegarderPreferences()
             val ids = ingredientsQuantites.map { it.ingredientId }
             presenter.valider(filtres, ids)
 

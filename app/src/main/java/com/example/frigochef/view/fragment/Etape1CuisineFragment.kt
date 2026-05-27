@@ -101,31 +101,64 @@ class Etape1CuisineFragment: Fragment(R.layout.fragment_etape1_questionnaire){
         val count = binding.gridCuisines.childCount
         for(i in 0 until count){
             val carteView = binding.gridCuisines.getChildAt(i)
+
+            val cardView = carteView as? com.google.android.material.card.MaterialCardView ?: continue
+
             val nom = cuisines[i].first
             val selectionne = selectionnees.contains(nom)
 
-            // Vert pâle si sélectionné, sinon blanc
-            val couleurFond = if(selectionne){
-                ContextCompat.getColor(requireContext(), R.color.cuisine_teal_bg)
-            }else{
-                ContextCompat.getColor(requireContext(), R.color.white)
-            }
-            carteView.setBackgroundColor(couleurFond)
-        }
+            cardView.setCardBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    if (selectionne) R.color.cuisine_teal_bg else R.color.white
+                )
 
+            )
+            cardView.strokeColor = ContextCompat.getColor(
+                requireContext(),
+                if (selectionne) R.color.teal_400 else R.color.border_tertiary
+            )
+            cardView.strokeWidth = if (selectionne) 3 else 1
+
+            // Changer la couleur du texte selon l'état
+            // On accède au TextView à l'intérieur de la carte via findViewById
+            val tvNom = cardView.findViewById<android.widget.TextView>(R.id.tvNomCuisine)
+            tvNom?.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    if(selectionne) R.color.teal_800 else R.color.text_primary
+                )
+
+            )
+        }
     }
 
     // Met à jour l'apparence d'une seule carte apres un clic
     private fun mettreAJourCarte(carteBinding: ItemLayoutCuisineBinding, nom: String){
-        val selectionne =  selectionnees.contains(nom)
+        val selectionne = selectionnees.contains(nom)
 
-        // setCardBackgroundColor sur un CardView change sa couleur de fond
+        // Changer la couleur de fond de la CardView
         carteBinding.root.setCardBackgroundColor(
             ContextCompat.getColor(
                 requireContext(),
-                if(selectionne)R.color.cuisine_teal_bg else R.color.white
+                if (selectionne) R.color.cuisine_teal_bg else R.color.white
             )
         )
+
+        // Changer aussi la couleur du texte pour mieux distinguer
+        carteBinding.tvNomCuisine.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                if (selectionne) R.color.teal_800 else R.color.text_primary
+            )
+        )
+
+        // Ajouter une bordure verte quand sélectionné
+        carteBinding.root.strokeColor = ContextCompat.getColor(
+            requireContext(),
+            if (selectionne) R.color.teal_400 else R.color.border_tertiary
+        )
+        carteBinding.root.strokeWidth = if (selectionne) 3 else 1
     }
 
     // onDestroy est appelé quand le fragment quitte l'écran

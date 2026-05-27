@@ -100,6 +100,8 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
             activity.ingredientsQuantites.clear()
             activity.ingredientsQuantites.addAll(ingredientsSaisis)
 
+            activity.sauvegarderPreferences()
+
             val ids = ingredientsSaisis.map { it.ingredientId }
             activity.presenter.valider(activity.filtres, ids)
         }

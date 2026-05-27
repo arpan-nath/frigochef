@@ -1,5 +1,6 @@
 package com.example.frigochef.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.frigochef.contract.QuestionnaireContract
@@ -18,7 +19,7 @@ import com.example.frigochef.view.fragment.Etape3IngredientsFragment
 class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
 
     private lateinit var binding: ActivityQuestionnaireBinding
-    private lateinit var presenter: QuestionnairePresenter
+    lateinit var presenter: QuestionnairePresenter
     private lateinit var adapter: QuestionnairePagerAdapter
 
     // État partagé entre les fragments
@@ -117,6 +118,24 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
             }
         }
 
+    }
+
+    override fun afficherIngredientsSuggeres(ingredients: List<Ingredient>){
+        val fragment = supportFragmentManager.findFragmentByTag("f2")
+        (fragment as? Etape3IngredientsFragment)?.afficherSuggestions(ingredients)
+    }
+
+    override fun afficherIngredientsPrecaches(ids: List<Long>){
+        val fragment = supportFragmentManager.findFragmentByTag("f2")
+        (fragment as? Etape3IngredientsFragment)?.precacherIngredients(ids)
+    }
+
+    override fun naviguerVersResultats(filtres: FiltreRecette,ingredientsCoches: List<Long>){
+        val intent = Intent(this, ResultatsActivity::class.java).apply{
+            putExtra("filtres",      filtres)
+            putExtra("ingredients",  ArrayList(ingredientsQuantites))
+        }
+        startActivity(intent)
     }
 
 }

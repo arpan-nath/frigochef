@@ -12,20 +12,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.frigochef.R
 import com.example.frigochef.contract.AccueilContract
 import com.example.frigochef.databinding.ActivityAccueilBinding
+import com.example.frigochef.model.entity.FiltreRecette
 import com.example.frigochef.model.entity.Recette
 import com.example.frigochef.model.repository.IngredientRepository
 import com.example.frigochef.model.repository.RecetteRepository
 import com.example.frigochef.model.repository.SessionRepository
-import com.example.frigochef.presenter.AccueilPresentateur
+import com.example.frigochef.presenter.AccueilPresenter
 import com.example.frigochef.view.adapter.RecetteAdapter
 import com.google.android.material.chip.Chip
-import com.example.frigochef.model.entity.FiltreRecette
 
 class AccueilActivity : AppCompatActivity(), AccueilContract.View {
 
-    private lateinit var binding: ActivityAccueilBinding
-    private lateinit var presentateur: AccueilPresentateur
-    private lateinit var adapter: RecetteAdapter
+    private lateinit var binding:      ActivityAccueilBinding
+    private lateinit var presentateur: AccueilPresenter
+    private lateinit var adapter:      RecetteAdapter
+
+    private var filtreDifficulte: String?  = null
+    private var filtreIsVege:     Boolean  = false
+    private var filtreTempsMax:   Int?     = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +42,12 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
         binding.rvRecettes.layoutManager = GridLayoutManager(this, 2)
 
         // ── 2. Présentateur ──
-        presentateur = AccueilPresentateur(this, RecetteRepository(this))
+        presentateur = AccueilPresenter(
+            this,
+            RecetteRepository(this),
+            SessionRepository(this),
+            IngredientRepository(this)
+        )
 
         // ── 3. Recherche en temps réel ──
         binding.etRecherche.addTextChangedListener(object : TextWatcher {
@@ -56,24 +65,30 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
 
         // ── 5. Chips de filtres rapides ──
         binding.chipTout.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) presentateur.chargerRecettes()
+            if (isChecked) {
+                filtreDifficulte = null
+                filtreIsVege     = false
+                filtreTempsMax   = null
+                presentateur.chargerRecettes()
+            }
         }
         binding.chipFacile.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) presentateur.filtrerParDifficulte("Facile")
-            else presentateur.chargerRecettes()
+            filtreDifficulte = if (isChecked) "Facile" else null
+            appliquerFiltresCombines()
         }
         binding.chipVege.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) presentateur.filtrerParDiete(isVege = true)
-            else presentateur.chargerRecettes()
+            filtreIsVege = isChecked
+            appliquerFiltresCombines()
         }
         binding.chipRapide.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) presentateur.filtrerParTemps(30)
-            else presentateur.chargerRecettes()
+            filtreTempsMax = if (isChecked) 30 else null
+            appliquerFiltresCombines()
         }
 
+        // ── 5b. Bouton filtre sidebar ──
         binding.btnFiltres.setOnClickListener {
             val panneau = PanneauFiltresFragment().apply {
-                filtresActuels = FiltreRecette()
+                filtresActuels    = FiltreRecette()
                 ingredientsDispos = emptyList()
                 onFiltresAppliques = { nouveauxFiltres ->
                     presentateur.filtrerParFiltres(nouveauxFiltres)
@@ -85,48 +100,8 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
         // ── 6. Charger toutes les recettes au démarrage ──
         presentateur.chargerRecettes()
 
-        // ── 7. Chips session dans le hero ──
-        afficherChipsSession()
-    }
-
-    private fun afficherChipsSession() {
-        val sessionRepo = SessionRepository(this)
-        val ingredientRepo = IngredientRepository(this)
-        val ids = sessionRepo.findAllIds()
-
-        binding.chipGroupSessionIngredients.removeAllViews()
-        if (ids.isEmpty()) return
-
-        ids.take(3).forEach { id ->
-            val ingredient = ingredientRepo.findById(id) ?: return@forEach
-            val chip = Chip(this).apply {
-                text = "✓ ${ingredient.nom}"
-                textSize = 10f
-                isClickable = false
-                isCheckable = false
-                chipBackgroundColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(this@AccueilActivity, R.color.teal_100)
-                )
-                setTextColor(ContextCompat.getColor(this@AccueilActivity, R.color.teal_900))
-                chipMinHeight = 28f
-            }
-            binding.chipGroupSessionIngredients.addView(chip)
-        }
-
-        if (ids.size > 3) {
-            val chip = Chip(this).apply {
-                text = "+ ${ids.size - 3} autres..."
-                textSize = 10f
-                isClickable = false
-                isCheckable = false
-                chipBackgroundColor = ColorStateList.valueOf(
-                    ContextCompat.getColor(this@AccueilActivity, R.color.background_secondary)
-                )
-                setTextColor(ContextCompat.getColor(this@AccueilActivity, R.color.text_secondary))
-                chipMinHeight = 28f
-            }
-            binding.chipGroupSessionIngredients.addView(chip)
-        }
+        // ── 7. Chips session via le présentateur ──
+        presentateur.chargerSessionIngredients()
     }
 
     override fun afficherRecettes(recettes: List<Recette>) {
@@ -146,9 +121,41 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
         android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
     }
 
+    override fun afficherChipsSession(noms: List<String>) {
+        binding.chipGroupSessionIngredients.removeAllViews()
+        if (noms.isEmpty()) return
+        noms.forEach { nom ->
+            val chip = Chip(this).apply {
+                text = "✓ $nom"
+                textSize = 10f
+                isClickable = false
+                isCheckable = false
+                chipBackgroundColor = ColorStateList.valueOf(
+                    ContextCompat.getColor(this@AccueilActivity, R.color.teal_100)
+                )
+                setTextColor(ContextCompat.getColor(this@AccueilActivity, R.color.teal_900))
+                chipMinHeight = (28 * resources.displayMetrics.density)
+            }
+            binding.chipGroupSessionIngredients.addView(chip)
+        }
+    }
+
     private fun naviguerDetail(id: Long) {
         val intent = Intent(this, DetailRecetteActivity::class.java)
         intent.putExtra("recette_id", id)
         startActivity(intent)
+    }
+
+    private fun appliquerFiltresCombines() {
+        val filtres = FiltreRecette(
+            difficulte = filtreDifficulte,
+            isVege     = filtreIsVege,
+            tempsMax   = filtreTempsMax
+        )
+        if (filtreDifficulte == null && !filtreIsVege && filtreTempsMax == null) {
+            presentateur.chargerRecettes()
+        } else {
+            presentateur.filtrerParFiltres(filtres)
+        }
     }
 }

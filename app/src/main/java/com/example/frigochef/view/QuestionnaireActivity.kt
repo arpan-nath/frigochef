@@ -72,6 +72,9 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
         if(etapeActuelle < etapeMax){
             binding.viewPagerEtapes.currentItem = etapeActuelle + 1
         }else{
+            if(cuisinesSelectionnees.isNotEmpty()){
+                filtres = filtres.copy(typeCuisine = cuisinesSelectionnees.first())
+            }
             // (étape 4 navigue vers les résultats)
             val ids = ingredientsQuantites.map { it.ingredientId }
             presenter.valider(filtres, ids)

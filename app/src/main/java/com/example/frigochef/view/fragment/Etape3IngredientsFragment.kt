@@ -17,6 +17,8 @@ import com.example.frigochef.databinding.ItemSaisiIngredientBinding
 import com.example.frigochef.databinding.ItemSuggestionIngredientBinding
 import com.example.frigochef.model.entity.Ingredient
 import com.example.frigochef.model.repository.IngredientRepository
+import com.example.frigochef.view.adapter.IngredientSaisiAdapter
+import com.example.frigochef.view.adapter.SuggestionIngredientAdapter
 import com.google.android.material.chip.Chip
 
 class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire){
@@ -30,6 +32,10 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
 
 
     private lateinit var ingredientRepository: IngredientRepository
+
+    private lateinit var suggestionAdapter: SuggestionIngredientAdapter
+
+    private lateinit var saisiAdapter: IngredientSaisiAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,8 +53,22 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
 
 
     private fun configurerRecyclerViews(){
+        suggestionAdapter = SuggestionIngredientAdapter { ingredient ->
+            ajouterIngredient(ingredient)
+        }
+        saisiAdapter = IngredientSaisiAdapter(
+            onQuantiteChange = { id, quantite ->
+                val index = ingredientsSaisis.indexOfFirst { it.ingredientId == id }
+                if(index >= 0){
+                    ingredientsSaisis[index] = ingredientsSaisis[index].copy(quantite = quantite)
+                }
+            },
+            onSupprimer = { id -> supprimerIngredient(id) }
+        )
+        binding.rvSuggestionsRecherche.adapter = suggestionAdapter
         binding.rvSuggestionsRecherche.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvIngredientsSaisis.layoutManager    = LinearLayoutManager(requireContext())
+        binding.rvIngredientsSaisis.adapter = saisiAdapter
+        binding.rvIngredientsSaisis.layoutManager = LinearLayoutManager(requireContext())
     }
 
 
@@ -103,12 +123,8 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
             binding.rvSuggestionsRecherche.visibility = View.GONE
             return
         }
-        // afficher le dropdown avec les résultats
         binding.rvSuggestionsRecherche.visibility = View.VISIBLE
-        binding.rvSuggestionsRecherche.adapter = SuggestionAdapter(ingredients){ ingredient ->
-            ajouterIngredient(ingredient)
-        }
-
+        suggestionAdapter.soumettre(ingredients)
     }
 
 
@@ -190,25 +206,11 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
         mettreAJourBouton()
     }
 
-    // Code généré à l'aide de Claude AI
-    // Recrée l'adapter avec la liste à jour et met à jour le titre "DANS MON FRIGO (N)"
+
     private fun rafraichirListeSaisie(){
         val count = ingredientsSaisis.size
         binding.tvTitreFrigo.text = "DANS MON FRIGO ($count)"
-
-        binding.rvIngredientsSaisis.adapter = SaisiAdapter(
-            items = ingredientsSaisis.toList() ,
-            cache = ingredientsCache,
-            onQuantiteChange = { id, quantite ->
-                // Mettre à jour la quantité dans la liste locale
-                val index = ingredientsSaisis.indexOfFirst { it.ingredientId == id }
-
-                if(index >= 0){
-                    ingredientsSaisis[index] = ingredientsSaisis[index].copy(quantite = quantite)
-                }
-            },
-            onSupprimer = { id -> supprimerIngredient(id) }
-        )
+        saisiAdapter.soumettre(ingredientsSaisis.toList(), ingredientsCache)
     }
 
     override fun onDestroyView(){
@@ -216,95 +218,6 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
         _binding = null
     }
 
-
-    private inner class SuggestionAdapter(
-        private val items:List<Ingredient>,
-        private val onAjout: (Ingredient) -> Unit
-    ) : RecyclerView.Adapter<SuggestionAdapter.VH>(){
-
-        inner class VH(val b: ItemSuggestionIngredientBinding) :
-            RecyclerView.ViewHolder(b.root)
-
-
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH(
-            ItemSuggestionIngredientBinding.inflate(
-                LayoutInflater.from(parent.context), parent , false
-            )
-        )
-
-        override fun getItemCount() = items.size
-
-        override fun onBindViewHolder(holder: VH, position: Int){
-            val ingredient = items[position]
-            holder.b.tvNomIngredient.text = ingredient.nom
-            holder.b.tvCategorieIngredient.text = ingredient.categorie
-            holder.b.root.setOnClickListener { onAjout(ingredient) }
-            holder.b.tvBtnAjouter.visibility = View.GONE
-
-        }
-
-    }
-
-
-    // Code généré à l'aide de Claude AI
-    // Adapter pour "Dans mon frigo", unité fixe affichée en texte, non modifiable
-    private inner class SaisiAdapter(
-        private val items: List<IngredientQuantite>,
-        private val cache: Map<Long, Ingredient>,
-        private val onQuantiteChange: (Long, Double) -> Unit,
-        private val onSupprimer: (Long) -> Unit
-    ) : RecyclerView.Adapter<SaisiAdapter.VH>(){
-
-        inner class VH(val b: ItemSaisiIngredientBinding) :
-            RecyclerView.ViewHolder(b.root)
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = VH(
-            ItemSaisiIngredientBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
-        )
-
-        override fun getItemCount() = items.size
-
-        override fun onBindViewHolder(holder: VH, position: Int){
-            val iq = items[position]
-            val ingredient = cache[iq.ingredientId]
-
-            holder.b.tvNomIngredient.text = ingredient?.nom ?: ""
-
-            holder.b.etQuantite.setText(
-                if(iq.quantite == iq.quantite.toLong().toDouble())
-                    iq.quantite.toLong().toString()
-                else
-                    iq.quantite.toString()
-            )
-
-            holder.b.spinnerUnite.visibility = View.GONE
-            holder.b.dividerQtyUnit.visibility = View.GONE
-
-
-            holder.b.etQuantite.addTextChangedListener(object: TextWatcher{
-                override fun beforeTextChanged(s:CharSequence?, start:Int, count: Int, after: Int){}
-                override fun onTextChanged(s: CharSequence?, start:Int, before: Int, count: Int){}
-                override fun afterTextChanged(s: Editable?){
-                    val valeur = s.toString().toDoubleOrNull() ?: return
-                    onQuantiteChange(iq.ingredientId, valeur)
-
-                }
-
-            })
-
-            // pour supprimer l'ingrédient de la liste
-            holder.b.root.setOnLongClickListener {
-                onSupprimer(iq.ingredientId)
-                true
-            }
-
-        }
-
-
-    }
 
 
 

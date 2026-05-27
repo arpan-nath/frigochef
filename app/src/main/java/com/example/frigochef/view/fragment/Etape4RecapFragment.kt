@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.frigochef.R
 
-class Etape4RecapFragment: Fragment(R.layout.fragment_etape1_questionnaire){
+class Etape4RecapFragment: Fragment(R.layout.fragment_etape4_questionnaire){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

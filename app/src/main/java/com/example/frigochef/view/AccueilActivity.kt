@@ -32,10 +32,29 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
     private var filtreIsVege:     Boolean  = false
     private var filtreTempsMax:   Int?     = null
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("filtre_difficulte", filtreDifficulte)
+        outState.putBoolean("filtre_is_vege",   filtreIsVege)
+        outState.putInt("filtre_temps_max",     filtreTempsMax ?: -1)
+    }
+
+    // Code généré à l'aide de Claude
+    // Implémentation de `onSaveInstanceState` pour sauvegarder
+    // les variables de filtres individuelles (filtre_difficulte, filtre_is_vege, filtre_temps_max).
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAccueilBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (savedInstanceState != null) {
+            filtreDifficulte = savedInstanceState.getString("filtre_difficulte")
+            filtreIsVege     = savedInstanceState.getBoolean("filtre_is_vege")
+            filtreTempsMax   = savedInstanceState.getInt("filtre_temps_max", -1).takeIf { it != -1 }
+            appliquerFiltresCombines()
+        } else {
+            presentateur.chargerRecettes()
+        }
 
         // ── 1. Adapter + RecyclerView en grille 2 colonnes ──
         adapter = RecetteAdapter { recette -> naviguerDetail(recette.id) }

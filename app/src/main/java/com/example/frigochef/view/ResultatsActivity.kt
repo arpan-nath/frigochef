@@ -32,20 +32,32 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
     private var filtresActuels    = FiltreRecette()
     private var ingredientsDispos = listOf<IngredientQuantite>()
 
+    // Code généré à l'aide de Claude
+    // Implémentation de onSaveInstanceState pour sauvegarder les données de recherche
+    // (filtresActuels, ingredientsDispos)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("filtres",     filtresActuels)
+        outState.putSerializable("ingredients", ArrayList(ingredientsDispos))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultatsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1. Lire les extras de l'intent
-        filtresActuels = intent.getSerializableExtra("filtres") as? FiltreRecette
-            ?: FiltreRecette()
+        // 1. Restaurer l'état si rotation — sinon lire depuis l'Intent
         @Suppress("UNCHECKED_CAST")
-        ingredientsDispos = intent.getSerializableExtra("ingredients")
-                as? List<IngredientQuantite> ?: emptyList()
-        @Suppress("UNCHECKED_CAST")
-        val recettesIds = intent.getSerializableExtra("recettes_ids")
-                as? ArrayList<Long> ?: arrayListOf()
+        val recettesIds: ArrayList<Long>
+        if (savedInstanceState != null) {
+            filtresActuels    = savedInstanceState.getSerializable("filtres") as? FiltreRecette ?: FiltreRecette()
+            ingredientsDispos = (savedInstanceState.getSerializable("ingredients") as? ArrayList<IngredientQuantite>)?.toList() ?: emptyList()
+            recettesIds       = arrayListOf()
+        } else {
+            filtresActuels    = intent.getSerializableExtra("filtres") as? FiltreRecette ?: FiltreRecette()
+            ingredientsDispos = intent.getSerializableExtra("ingredients") as? List<IngredientQuantite> ?: emptyList()
+            recettesIds       = intent.getSerializableExtra("recettes_ids") as? ArrayList<Long> ?: arrayListOf()
+        }
 
         // 2. Initialiser l'adapter et le RecyclerView EN PREMIER
         adapter = RecetteAdapter { recette ->

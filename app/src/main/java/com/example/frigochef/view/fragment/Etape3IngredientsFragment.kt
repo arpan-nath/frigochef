@@ -100,6 +100,12 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
             activity.ingredientsQuantites.clear()
             activity.ingredientsQuantites.addAll(ingredientsSaisis)
 
+            if(activity.cuisinesSelectionnees.isNotEmpty()){
+                activity.filtres = activity.filtres.copy(
+                    typeCuisine = activity.cuisinesSelectionnees.first()
+                )
+            }
+
             activity.sauvegarderPreferences()
 
             val ids = ingredientsSaisis.map { it.ingredientId }

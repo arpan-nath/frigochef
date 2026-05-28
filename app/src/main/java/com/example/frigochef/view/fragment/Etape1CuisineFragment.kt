@@ -21,13 +21,14 @@ class Etape1CuisineFragment: Fragment(R.layout.fragment_etape1_questionnaire){
         Pair("Mexicaine",       "🌮"),
         Pair("Indienne",        "🍛"),
         Pair("Japonaise",       "🍜"),
-        Pair("Grecque",         "🥗"),
-        Pair("Québécoise",      "🍁"),
-        Pair("Africaine",       "🌍"),
-        Pair("Méditerranéenne", "🫒"),
+        Pair("Grecque",         "🥙"),
+        Pair("Québécoise",      "🥧"),
+        Pair("Africaine",       "🥘"),
+        Pair("Méditerranéenne", "🥗"),
         Pair("Américaine",      "🍔"),
         Pair("Moyen-Orientale", "🧆")
     )
+
 
     private val selectionnees = mutableSetOf<String>()
 

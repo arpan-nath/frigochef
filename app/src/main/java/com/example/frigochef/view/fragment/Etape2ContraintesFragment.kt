@@ -34,7 +34,7 @@ class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire
         }
 
         // Cocher les chips difficulté
-        when(filtres.typeRepas){
+        when(filtres.difficulte){
             "Facile" -> binding.chipFacile.isChecked = true
             "Moyen" -> binding.chipMoyen.isChecked = true
             "Difficile" -> binding.chipDifficile.isChecked = true

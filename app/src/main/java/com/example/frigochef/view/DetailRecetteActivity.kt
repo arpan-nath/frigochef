@@ -43,8 +43,10 @@ class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
         setContentView(binding.root)
 
         // Données depuis l'Intent
-        val recetteId = intent.getLongExtra("recette_id", -1L)
-        score         = intent.getIntExtra("score", -1)
+        val recetteId     = intent.getLongExtra("recette_id", -1L)
+        score             = intent.getIntExtra("score", -1)
+        // true si navigation depuis AccueilActivity — les icônes possédé/manquant seront cachées
+        val depuisAccueil = intent.getBooleanExtra("depuis_accueil", false)
 
         @Suppress("UNCHECKED_CAST")
         ingredientsDispos = (intent.getSerializableExtra("ingredients") as? ArrayList<IngredientQuantite>)
@@ -80,7 +82,8 @@ class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
         }
 
         presenter = DetailPresenter(this, RecetteRepository(this))
-        presenter.chargerDetail(recetteId, ingredientsDispos)
+        // Si navigation depuis Accueil, on passe une liste vide pour cacher les icônes
+        presenter.chargerDetail(recetteId, if (depuisAccueil) emptyList() else ingredientsDispos)
     }
 
     // DetailContract.View

@@ -5,6 +5,12 @@ import android.database.Cursor
 import com.example.frigochef.database.FrigoDBHelper
 import com.example.frigochef.model.entity.Ingredient
 
+/**
+ * Fournit l'accès aux données de la table ingredient.
+ * Toutes les opérations sont en lecture seule — les ingrédients
+ * sont pré-chargés et ne peuvent pas être modifiés par l'utilisateur.
+ */
+
 class IngredientRepository(context: Context) {
 
     private val helper = FrigoDBHelper(context)

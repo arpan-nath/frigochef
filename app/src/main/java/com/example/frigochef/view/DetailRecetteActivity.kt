@@ -19,6 +19,13 @@ import com.example.frigochef.presenter.DetailPresenter
 import com.example.frigochef.view.adapter.IngredientDetailAdapter
 import com.example.frigochef.view.adapter.InstructionAdapter
 
+/**
+ * Affiche le détail complet d'une recette : image, informations clés,
+ * liste des ingrédients avec statut possédé/manquant, et instructions numérotées.
+ * Reçoit recette_id, score et ingredients via Intent.
+ * Naviguée depuis ResultatsActivity (avec score) ou AccueilActivity (sans score).
+ */
+
 class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
 
     private lateinit var binding:            ActivityDetailsRecetteBinding
@@ -153,6 +160,9 @@ class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
         finish()
     }
 
+    // Code généré à l'aide de Claude
+    // Cette fonction sert de solution de secours (fallback) lorsque la recette n'a pas d'image valide.
+    // Elle assigne une couleur de fond et une icône thématique en se basant sur le type de cuisine de la recette.
     private fun afficherCouleurCuisine(typeCuisine: String) {
         val couleur = when (typeCuisine) {
             "Africaine"       -> ContextCompat.getColor(this, R.color.teal_50)

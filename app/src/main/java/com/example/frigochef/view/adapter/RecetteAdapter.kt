@@ -14,6 +14,12 @@ import com.example.frigochef.model.entity.Recette
 import com.example.frigochef.model.entity.RecetteAvecScore
 import com.google.android.material.chip.Chip
 
+/**
+ * Adapter RecyclerView pour afficher les cartes de recettes en grille.
+ * Supporte l'affichage avec ou sans badge de score de compatibilité.
+ * La couleur de fond de l'image varie selon le type de cuisine.
+ */
+
 class RecetteAdapter(
     private val onClic: (Recette) -> Unit
 ) : RecyclerView.Adapter<RecetteAdapter.RecetteViewHolder>() {
@@ -36,6 +42,12 @@ class RecetteAdapter(
         return RecetteViewHolder(binding)
     }
 
+    /**
+     * Code produit à l'aide de Claude
+     *
+     * Appelé par RecyclerView pour remplir une carte avec les données
+     * de la recette à la position donnée.
+     */
     override fun onBindViewHolder(holder: RecetteViewHolder, position: Int) {
         holder.bind(recettes[position])
     }
@@ -47,13 +59,13 @@ class RecetteAdapter(
         fun bind(recette: Recette) {
             val context = binding.root.context
 
-            // Nom, temps, difficulté, cuisine
             binding.tvNomRecette.text  = recette.nom
             binding.tvTemps.text       = "${recette.tempsPrep} min"
             binding.tvDifficulte.text  = recette.difficulte
             binding.tvTypeCuisine.text = recette.typeCuisine
 
             // Couleur de fond par type de cuisine
+            // Couleur choisi à l'aide de Claude
             val couleur = when (recette.typeCuisine) {
                 "Africaine"       -> ContextCompat.getColor(context, R.color.teal_50)
                 "Indienne"        -> ContextCompat.getColor(context, R.color.cuisine_amber_bg)
@@ -69,6 +81,8 @@ class RecetteAdapter(
             }
             binding.ivRecette.setBackgroundColor(couleur)
 
+            // Cherche l'image par son nom dans res/drawable-nodpi via getIdentifier().
+            // Si l'image n'existe pas (resId == 0), affiche une icône placeholder.
             if (recette.imageUrl != null) {
                 val resId = context.resources.getIdentifier(
                     recette.imageUrl, "drawable", context.packageName
@@ -85,7 +99,8 @@ class RecetteAdapter(
                 binding.ivRecette.scaleType = android.widget.ImageView.ScaleType.CENTER
             }
 
-            // Badge score
+            // Badge score — affiché seulement si un score est disponible
+            // (depuis ResultatsActivity). Caché depuis AccueilActivity.
             val score = scores[recette.id]
             if (score != null) {
                 binding.tvScore.visibility = View.VISIBLE
@@ -99,7 +114,11 @@ class RecetteAdapter(
                 binding.tvScore.visibility = View.GONE
             }
 
-            // Pills diète + portions
+            // Chips diète et portions — maximum 2 chips affichées par carte
+            /**
+             * On a utilisé Claude pour recréer les chips et on a modifié les détails, la grandeur
+             * et le texte selon nos préférences.
+             */
             binding.chipGroupDiete.removeAllViews()
             val labels = buildList {
                 if (recette.isVege)       add("🌿 Végé")
@@ -140,7 +159,6 @@ class RecetteAdapter(
                 binding.chipGroupDiete.addView(chip)
             }
 
-            // Clic
             binding.root.setOnClickListener { onClic(recette) }
         }
     }

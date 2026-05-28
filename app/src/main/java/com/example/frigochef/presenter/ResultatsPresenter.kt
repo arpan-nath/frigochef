@@ -7,6 +7,12 @@ import com.example.frigochef.model.ScoreCalculateur
 import com.example.frigochef.contract.ResultatsContract
 import com.example.frigochef.model.entity.IngredientQuantite
 
+/**
+ * Présentateur de l'écran des résultats.
+ * Récupère les recettes filtrées, calcule le score de compatibilité
+ * pour chacune via ScoreCalculateur, puis trie par score décroissant.
+ */
+
 class ResultatsPresenter(
     private val vue:        ResultatsContract.View,
     private val repository: RecetteRepository

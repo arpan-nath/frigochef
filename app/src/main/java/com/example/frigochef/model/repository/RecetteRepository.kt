@@ -9,6 +9,13 @@ import com.example.frigochef.model.entity.IngredientQuantite
 import com.example.frigochef.model.entity.Recette
 import com.example.frigochef.model.entity.RecetteIngredientDetail
 
+/**
+ * Fournit l'accès aux données des tables recette et recette_ingredient.
+ * Toutes les recettes sont pré-chargées — aucune modification possible.
+ * Supporte la recherche par nom, le filtrage multi-critères et les jointures
+ * avec la table ingredient pour le calcul du score de compatibilité.
+ */
+
 class RecetteRepository(context: Context) {
 
     private val helper = FrigoDBHelper(context)
@@ -51,6 +58,11 @@ class RecetteRepository(context: Context) {
         }
     }
 
+    /**
+     * Filtre les recettes selon les critères de FiltreRecette.
+     * Construit dynamiquement la clause WHERE selon les critères non-nuls.
+     * Les critères sont combinés avec AND — tous les critères doivent être satisfaits.
+     */
     fun findParFiltres(filtres: FiltreRecette): List<Recette> {
         val conditions = mutableListOf<String>()
         val args       = mutableListOf<String>()
@@ -138,6 +150,10 @@ class RecetteRepository(context: Context) {
         )
     }
 
+    /**
+     * Retourne les ingrédients d'une recette avec leurs quantités et unités.
+     * Utilisé par ResultatsPresenter pour calculer le score de compatibilité.
+     */
     fun findIngredientQuantitesParRecette(recetteId: Long): List<IngredientQuantite> {
         val db  = helper.readableDatabase
         val sql = """
@@ -161,6 +177,11 @@ class RecetteRepository(context: Context) {
         }
     }
 
+    /**
+     * Retourne les ingrédients d'une recette avec nom, quantité et unité.
+     * Combine ingredient et recette_ingredient via jointure SQL.
+     * Utilisé par DetailPresenter pour afficher la liste des ingrédients avec statut possédé/manquant.
+     */
     fun findIngredientsDetailParRecette(recetteId: Long): List<RecetteIngredientDetail> {
         val db  = helper.readableDatabase
         val sql = """

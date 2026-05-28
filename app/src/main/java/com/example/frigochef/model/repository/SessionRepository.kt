@@ -6,6 +6,13 @@ import android.database.Cursor
 import com.example.frigochef.database.FrigoDBHelper
 import com.example.frigochef.model.entity.SessionIngredient
 
+/**
+ * Gère la persistance des ingrédients de la session précédente.
+ * Utilise un mécanisme upsert : met à jour la fréquence si l'ingrédient
+ * existe déjà, sinon insère une nouvelle entrée.
+ * Les ingrédients sont triés par fréquence d'usage décroissante.
+ */
+
 class SessionRepository(context: Context) {
 
     private val helper = FrigoDBHelper(context)
@@ -38,6 +45,11 @@ class SessionRepository(context: Context) {
         }
     }
 
+    /**
+     * Insère ou met à jour un ingrédient dans la session.
+     * Si l'ingrédient existe déjà : incrémente frequence_usage et met à jour la date.
+     * Sinon : insère une nouvelle entrée avec frequence_usage = 1.
+     */
     fun upsert(ingredientId: Long) {
         val db        = helper.writableDatabase
         val timestamp = System.currentTimeMillis()

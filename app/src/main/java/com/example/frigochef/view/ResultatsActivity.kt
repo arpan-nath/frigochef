@@ -16,6 +16,12 @@ import com.example.frigochef.presenter.ResultatsPresenter
 import com.example.frigochef.view.adapter.RecetteAdapter
 import android.content.Intent
 
+/**
+ * Affiche les recettes filtrées et triées par score de compatibilité décroissant.
+ * Reçoit FiltreRecette et List<IngredientQuantite> via Intent depuis QuestionnaireActivity.
+ * Supporte la recherche locale par nom et le raffinage des filtres via PanneauFiltresFragment.
+ */
+
 class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
 
     private lateinit var binding:         ActivityResultatsBinding

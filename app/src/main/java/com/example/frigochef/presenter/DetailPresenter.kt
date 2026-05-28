@@ -4,6 +4,12 @@ import com.example.frigochef.contract.DetailContract
 import com.example.frigochef.model.entity.IngredientQuantite
 import com.example.frigochef.model.repository.RecetteRepository
 
+/**
+ * Présentateur de l'écran de détail d'une recette.
+ * Charge la recette et ses ingrédients depuis le repository,
+ * puis délègue l'affichage à la vue.
+ */
+
 class DetailPresenter(
     private val vue:        DetailContract.View,
     private val repository: RecetteRepository

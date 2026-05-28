@@ -39,4 +39,25 @@ class ResultatsPresenter(
             vue.afficherResultats(resultats)
         }
     }
+
+    //  des résultats à partir d'IDs pré-filtrés par le QuestionnairePresenter
+    override fun chargerResultatsParIds(
+        recettesIds:       List<Long>,
+        ingredientsDispos: List<IngredientQuantite>
+    ) {
+        // Charger chaque recette par son ID et calculer son score
+        val recettesAvecScore = recettesIds.mapNotNull { id ->
+            val recette = repository.findById(id) ?: return@mapNotNull null
+            val ingredientsRecette = repository.findIngredientQuantitesParRecette(recette.id)
+            val score = ScoreCalculateur.calculer(ingredientsRecette, ingredientsDispos)
+            RecetteAvecScore(recette, score)
+        }.sortedByDescending { it.score }
+
+        if (recettesAvecScore.isEmpty()) {
+            vue.afficherEtatVide()
+        } else {
+            vue.afficherNombreResultats(recettesAvecScore.size)
+            vue.afficherResultats(recettesAvecScore)
+        }
+    }
 }

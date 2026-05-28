@@ -37,37 +37,35 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
         binding = ActivityResultatsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 1. Lire les extras de l'intent
         filtresActuels = intent.getSerializableExtra("filtres") as? FiltreRecette
             ?: FiltreRecette()
         @Suppress("UNCHECKED_CAST")
         ingredientsDispos = intent.getSerializableExtra("ingredients")
                 as? List<IngredientQuantite> ?: emptyList()
+        @Suppress("UNCHECKED_CAST")
+        val recettesIds = intent.getSerializableExtra("recettes_ids")
+                as? ArrayList<Long> ?: arrayListOf()
 
+        // 2. Initialiser l'adapter et le RecyclerView EN PREMIER
         adapter = RecetteAdapter { recette ->
             naviguerVersDetail(recette.id, ingredientsDispos)
         }
         binding.rvResultats.layoutManager = GridLayoutManager(this, 2)
-        binding.rvResultats.adapter       = adapter
+        binding.rvResultats.adapter = adapter
 
+        // 3. Initialiser le présentateur EN SECOND
         presenter = ResultatsPresenter(this, RecetteRepository(this))
-        presenter.chargerResultats(filtresActuels, ingredientsDispos)
 
+        // 4. Configurer les autres listeners
         binding.btnRetour.setOnClickListener { finish() }
-
         binding.btnRefaireQuestionnaire.setOnClickListener { finish() }
-
         binding.btnModifierFiltres.setOnClickListener { finish() }
-
         binding.etRecherche.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                filtrerLocalement(s.toString())
-            }
+            override fun afterTextChanged(s: Editable?) { filtrerLocalement(s.toString()) }
         })
-
-        afficherChipsFiltresActifs(filtresActuels)
-
         binding.btnOuvrirFiltres.setOnClickListener {
             val ingredientRepo = com.example.frigochef.model.repository.IngredientRepository(this)
             val noms = ingredientsDispos.associate { iq ->
@@ -86,6 +84,14 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
                 }
             }
             panneau.show(supportFragmentManager, "filtres")
+        }
+        afficherChipsFiltresActifs(filtresActuels)
+
+        // 5. Déclencher le chargement EN DERNIER — l'adapter est prêt à recevoir les données
+        if (recettesIds.isNotEmpty()) {
+            presenter.chargerResultatsParIds(recettesIds, ingredientsDispos)
+        } else {
+            presenter.chargerResultats(filtresActuels, ingredientsDispos)
         }
     }
 

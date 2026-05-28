@@ -30,8 +30,8 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
     var cuisinesSelectionnees: List<String> = emptyList()
     var filtres: FiltreRecette = FiltreRecette()
     var ingredientsQuantites: MutableList<IngredientQuantite> = mutableListOf()
-
     var filtresInitiaux: FiltreRecette = FiltreRecette()
+    var idsSessionPrecedente: List<Long> = emptyList()
 
     private val etapeMax = 3
 
@@ -142,6 +142,8 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
     }
 
     override fun afficherIngredientsPrecaches(ids: List<Long>){
+        idsSessionPrecedente = ids
+
         val fragment = supportFragmentManager.findFragmentByTag("f2")
         (fragment as? Etape3IngredientsFragment)?.precacherIngredients(ids)
     }

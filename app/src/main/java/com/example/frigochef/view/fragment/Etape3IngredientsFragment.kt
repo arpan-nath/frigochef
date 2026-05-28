@@ -48,6 +48,10 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
         configurerRecyclerViews()
         configurerBoutonVoirRecettes()
 
+        val ids = (requireActivity() as QuestionnaireActivity).idsSessionPrecedente
+        if (ids.isNotEmpty()) {
+            precacherIngredients(ids)
+        }
     }
 
 

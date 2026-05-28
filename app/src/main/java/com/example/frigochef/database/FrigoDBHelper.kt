@@ -24,7 +24,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
 
     companion object {
         const val DB_NAME = "frigochef.db"
-        const val DB_VERSION = 3
+        const val DB_VERSION = 4
 
         private val CREATE_TABLE_INGREDIENT = """
             CREATE TABLE ingredient (

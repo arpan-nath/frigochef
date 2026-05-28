@@ -14,17 +14,25 @@
 
         <activity
             android:name=".view.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.ResultatsActivity" />
-        <activity android:name=".view.AccueilActivity" />
-        <activity android:name=".view.QuestionnaireActivity" />
-        <activity android:name=".view.DetailRecetteActivity" />
+        <activity android:name=".view.AccueilActivity"
+            android:configChanges="orientation|screenSize|screenLayout" />
+
+        <activity android:name=".view.QuestionnaireActivity"
+            android:configChanges="orientation|screenSize|screenLayout" />
+
+        <activity android:name=".view.ResultatsActivity"
+            android:configChanges="orientation|screenSize|screenLayout" />
+
+        <activity android:name=".view.DetailRecetteActivity"
+            android:configChanges="orientation|screenSize|screenLayout" />
 
     </application>
 

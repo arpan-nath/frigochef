@@ -27,6 +27,7 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
     private lateinit var presentateur: AccueilPresenter
     private lateinit var adapter:      RecetteAdapter
 
+    // État des filtres rapides — mémorisé pour permettre la combinaison de plusieurs filtres
     private var filtreDifficulte: String?  = null
     private var filtreIsVege:     Boolean  = false
     private var filtreTempsMax:   Int?     = null
@@ -64,6 +65,8 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
         }
 
         // ── 5. Chips de filtres rapides ──
+        // Chaque chip mémorise son état et appelle appliquerFiltresCombines()
+        // pour construire un FiltreRecette combiné avant d'appeler le présentateur
         binding.chipTout.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 filtreDifficulte = null
@@ -121,6 +124,15 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
         android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * Code produit à l'aide de Claude
+     *
+     * Affiche les ingrédients de la dernière session de l'utilisateur
+     * sous forme de chips dans l'encadré hero de l'accueil.
+     * Reçoit une liste de noms depuis le présentateur — la Vue ne
+     * touche pas aux repositories directement (respect du MVP).
+     * Affiche au maximum 3 chips.
+     */
     override fun afficherChipsSession(noms: List<String>) {
         binding.chipGroupSessionIngredients.removeAllViews()
         if (noms.isEmpty()) return
@@ -134,6 +146,7 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
                     ContextCompat.getColor(this@AccueilActivity, R.color.teal_100)
                 )
                 setTextColor(ContextCompat.getColor(this@AccueilActivity, R.color.teal_900))
+                // chipMinHeight en dp pour un rendu cohérent sur tous les écrans
                 chipMinHeight = (28 * resources.displayMetrics.density)
             }
             binding.chipGroupSessionIngredients.addView(chip)
@@ -143,9 +156,20 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
     private fun naviguerDetail(id: Long) {
         val intent = Intent(this, DetailRecetteActivity::class.java)
         intent.putExtra("recette_id", id)
+        // Indique que la navigation vient de l'Accueil — pas d'ingrédients disponibles
+        // DetailRecetteActivity cachera les icônes possédé/manquant en conséquence
+        intent.putExtra("depuis_accueil", true)
         startActivity(intent)
     }
 
+    /**
+     * Code produit à l'aide de Claude
+     *
+     * Construit un FiltreRecette combiné à partir de l'état actuel des chips
+     * et appelle le présentateur pour filtrer les recettes.
+     * Permet de combiner plusieurs filtres simultanément (ex: Facile + Végé).
+     * Si aucun filtre n'est actif, recharge toutes les recettes.
+     */
     private fun appliquerFiltresCombines() {
         val filtres = FiltreRecette(
             difficulte = filtreDifficulte,

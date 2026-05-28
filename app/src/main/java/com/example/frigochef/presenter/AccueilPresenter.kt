@@ -25,6 +25,7 @@ class AccueilPresenter(
 
     override fun rechercherRecettes(query: String) {
         try {
+            // Si la barre de recherche est vide, recharge toutes les recettes
             val recettes = if (query.isEmpty()) repository.findAll()
             else repository.findParNom(query)
             if (recettes.isEmpty()) vue.afficherMessageVide()
@@ -34,6 +35,14 @@ class AccueilPresenter(
         }
     }
 
+    /**
+     * Code produit à l'aide de Claude
+     *
+     * Filtre les recettes selon un FiltreRecette combiné qui peut contenir
+     * plusieurs critères simultanément (difficulté, végé, temps max, etc.).
+     * Remplace les anciennes méthodes filtrerParDifficulte(), filtrerParDiete()
+     * et filtrerParTemps() qui ne permettaient pas la combinaison de filtres.
+     */
     override fun filtrerParFiltres(filtres: FiltreRecette) {
         try {
             val recettes = repository.findParFiltres(filtres)
@@ -44,9 +53,18 @@ class AccueilPresenter(
         }
     }
 
+    /**
+     * Code produit à l'aide de Claude
+     *
+     * Récupère les IDs des ingrédients de la dernière session depuis SessionRepository,
+     * retrouve leurs noms via IngredientRepository, et envoie la liste à la Vue.
+     * La logique d'accès aux données reste dans le Présentateur (respect du MVP) —
+     * la Vue reçoit uniquement une liste de noms prête à afficher.
+     */
     override fun chargerSessionIngredients() {
         try {
             val ids  = sessionRepository.findAllIds()
+            // Prend au maximum 3 ingrédients pour l'affichage dans le hero
             val noms = ids.take(3).mapNotNull { ingredientRepository.findById(it)?.nom }
             vue.afficherChipsSession(noms)
         } catch (e: Exception) {

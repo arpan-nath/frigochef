@@ -3,6 +3,7 @@ package com.example.frigochef.view.adapter
 import android.graphics.Color
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -77,15 +78,29 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.VH>
         val item    = ingredients[position]
         val context = holder.binding.root.context
 
-
-        holder.binding.tvNomIngredient.text = item.nom
+        holder.binding.tvNomIngredient.text      = item.nom
         holder.binding.tvQuantiteIngredient.text = "${item.quantite} ${item.uniteMesure}"
+
+        // ── Cache les icônes si navigation depuis Accueil (ingredientsDispos vide) ──
+        if (ingredientsDispos.isEmpty()) {
+            holder.binding.ivStatutIngredient.visibility = View.GONE
+            holder.binding.viewIconBackground.visibility = View.GONE
+            holder.binding.tvNomIngredient.setTextColor(
+                ContextCompat.getColor(context, R.color.text_primary)
+            )
+            holder.binding.tvQuantiteIngredient.setTextColor(
+                ContextCompat.getColor(context, R.color.text_secondary)
+            )
+            return
+        }
 
         // Vérifie si l'utilisateur possède cet ingrédient
         // en comparant l'ID de l'ingrédient requis avec les IDs disponibles
         val possede = ingredientsDispos.any { it.ingredientId == item.ingredientId }
 
         if (possede) {
+            holder.binding.ivStatutIngredient.visibility = View.VISIBLE
+            holder.binding.viewIconBackground.visibility = View.VISIBLE
             holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_check)
             holder.binding.ivStatutIngredient.setColorFilter(
                 ContextCompat.getColor(context, R.color.ingredient_ok_icon)
@@ -99,6 +114,8 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.VH>
                 ContextCompat.getColor(context, R.color.text_secondary)
             )
         } else {
+            holder.binding.ivStatutIngredient.visibility = View.VISIBLE
+            holder.binding.viewIconBackground.visibility = View.VISIBLE
             holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_close)
             holder.binding.ivStatutIngredient.setColorFilter(
                 ContextCompat.getColor(context, R.color.ingredient_miss_icon)

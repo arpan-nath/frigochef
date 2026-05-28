@@ -11,6 +11,7 @@ import com.google.android.material.slider.Slider
 class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire){
     private var _binding: FragmentEtape2QuestionnaireBinding? = null
     private val binding get() = _binding!!
+    private var sliderModifie = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,7 +24,8 @@ class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire
     }
 
     private fun restaurerFiltres(){
-        val filtres=(requireActivity() as QuestionnaireActivity).filtres
+        val filtres = (requireActivity() as QuestionnaireActivity).filtresInitiaux
+
 
         // Cocher les chips type de repas
         when(filtres.typeRepas){
@@ -45,10 +47,15 @@ class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire
         binding.chipVegan.isChecked = filtres.isVegan
         binding.chipSansGluten.isChecked = filtres.isSansGluten
 
-        // Remettre le slider à la bonne valeur(60 par défaut si rien n'est sauvegardé)
-        val tempsMax = filtres.tempsMax ?: 60
-        binding.sliderTempsMax.value = tempsMax.toFloat()
-        binding.tvTempsMaxValeur.text = "$tempsMax min"
+        // slider restauré seulement si une valeur avait été explicitement sauvegardée
+        if(filtres.tempsMax != null){
+            binding.sliderTempsMax.value = filtres.tempsMax.toFloat()
+            binding.tvTempsMaxValeur.text = "${filtres.tempsMax} min"
+            sliderModifie = true
+        }else{
+            binding.tvTempsMaxValeur.text = "${binding.sliderTempsMax.value.toInt()} min"
+            sliderModifie = false  // pas de valeur sauvegardée → slider ignoré
+        }
     }
 
     // logique: chaque fois qu'un chip change d'état, on reconstruit le FiltreRecette et on le sauvegarde dans l'Activity
@@ -72,19 +79,17 @@ class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire
     // .OnChangeListener est une interface qui écoute les changements de valeur
     // value contient la valeur actuelle du slider (entre 5 et 120)
     private fun configurerSlider(){
-        binding.sliderTempsMax.addOnChangeListener(Slider.OnChangeListener { _, value, _ ->
-            // Mettre a jour le label en temps reel pendant que l'utilisateur glisse
+        binding.sliderTempsMax.addOnChangeListener(Slider.OnChangeListener { _, value, fromUser ->
             binding.tvTempsMaxValeur.text = "${value.toInt()} min"
+
+            if(fromUser) sliderModifie = true
             sauvegarderFiltres()
         })
     }
 
-
     // Code généré à l'aide de Claude AI
     // Lit l'état actuel de tous les chips et du slider, construit un FiltreRecette puis le sauvegarde
     private fun sauvegarderFiltres(){
-
-        // Lire quel chip de type de repas est coché
         val typeRepas = when{
             binding.chipDejeuner.isChecked -> "Déjeuner"
             binding.chipDiner.isChecked -> "Dîner"
@@ -100,9 +105,8 @@ class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire
             else -> null
         }
 
-        val tempsMax = binding.sliderTempsMax.value.toInt()
+        val tempsMax = if (sliderModifie) binding.sliderTempsMax.value.toInt() else null
 
-        // Construire le nouveau FiltreRecette avec toutes les valeurs lues
         val activity = requireActivity() as QuestionnaireActivity
         activity.filtres = activity.filtres.copy(
             typeRepas = typeRepas,
@@ -111,11 +115,14 @@ class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire
             isVege = binding.chipVegetarien.isChecked,
             isVegan = binding.chipVegan.isChecked,
             isSansGluten = binding.chipSansGluten.isChecked
+
         )
+
     }
 
     override fun onDestroyView(){
         super.onDestroyView()
         _binding = null
     }
+
 }

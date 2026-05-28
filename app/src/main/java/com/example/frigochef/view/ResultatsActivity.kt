@@ -33,7 +33,20 @@ class ResultatsActivity : AppCompatActivity(), ResultatsContract.View {
 
         filtresActuels = intent.getSerializableExtra("filtres") as? FiltreRecette
             ?: FiltreRecette()
+
+        presenter = ResultatsPresenter(this, RecetteRepository(this))
+
+        //récupérer la liste d'IDs pré-filtrés par cuisine
         @Suppress("UNCHECKED_CAST")
+        val recettesIds = intent.getSerializableExtra("recettes_ids") as? ArrayList<Long> ?: arrayListOf()
+
+        if (recettesIds.isNotEmpty()) {
+            // Des cuisines avaient été sélectionnées → on charge uniquement les recettes pré-filtrées
+            presenter.chargerResultatsParIds(recettesIds, ingredientsDispos)
+        } else {
+            // Aucune cuisine sélectionnée (ou accès depuis AccueilActivity) → comportement normal
+            presenter.chargerResultats(filtresActuels, ingredientsDispos)
+        }
         ingredientsDispos = intent.getSerializableExtra("ingredients")
                 as? List<IngredientQuantite> ?: emptyList()
 

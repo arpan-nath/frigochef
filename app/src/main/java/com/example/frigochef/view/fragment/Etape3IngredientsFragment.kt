@@ -95,23 +95,16 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
         mettreAJourBouton()
 
         binding.btnVoirRecettes.setOnClickListener{
-
             val activity = requireActivity() as QuestionnaireActivity
             activity.ingredientsQuantites.clear()
             activity.ingredientsQuantites.addAll(ingredientsSaisis)
 
-            if(activity.cuisinesSelectionnees.isNotEmpty()){
-                activity.filtres = activity.filtres.copy(
-                    typeCuisine = activity.cuisinesSelectionnees.first()
-                )
-            }
 
             activity.sauvegarderPreferences()
 
             val ids = ingredientsSaisis.map { it.ingredientId }
-            activity.presenter.valider(activity.filtres, ids)
+            activity.presenter.valider(activity.filtres, ids, activity.cuisinesSelectionnees)
         }
-
     }
 
     // maj du texte du bouton avec le nombre d'ingrédients saisis

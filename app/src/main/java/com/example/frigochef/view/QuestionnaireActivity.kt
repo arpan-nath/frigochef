@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import android.view.View
 import com.example.frigochef.model.PrefsManager
 import com.example.frigochef.model.entity.Ingredient
+import com.example.frigochef.model.repository.RecetteRepository
 import com.example.frigochef.view.fragment.Etape3IngredientsFragment
 
 class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
@@ -30,6 +31,8 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
     var filtres: FiltreRecette = FiltreRecette()
     var ingredientsQuantites: MutableList<IngredientQuantite> = mutableListOf()
 
+    var filtresInitiaux: FiltreRecette = FiltreRecette()
+
     private val etapeMax = 3
 
 
@@ -41,7 +44,8 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
         presenter = QuestionnairePresenter(
             vue = this,
             ingredientRepository = IngredientRepository(this),
-            sessionRepository = SessionRepository(this)
+            sessionRepository = SessionRepository(this),
+            recetteRepository = RecetteRepository(this)
         )
 
         adapter = QuestionnairePagerAdapter(this)
@@ -70,7 +74,8 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
 
         prefsManager = PrefsManager(this)
 
-        filtres = prefsManager.chargerFiltres()
+        filtresInitiaux = prefsManager.chargerFiltres()
+        filtres = FiltreRecette()
         cuisinesSelectionnees = emptyList()
     }
 
@@ -84,14 +89,9 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
         if(etapeActuelle < etapeMax){
             binding.viewPagerEtapes.currentItem = etapeActuelle + 1
         }else{
-            if(cuisinesSelectionnees.isNotEmpty()){
-                filtres = filtres.copy(typeCuisine = cuisinesSelectionnees.first())
-            }
-            // (étape 4 navigue vers les résultats)
             sauvegarderPreferences()
             val ids = ingredientsQuantites.map { it.ingredientId }
-            presenter.valider(filtres, ids)
-
+            presenter.valider(filtres, ids, cuisinesSelectionnees)
         }
     }
 
@@ -146,10 +146,11 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
         (fragment as? Etape3IngredientsFragment)?.precacherIngredients(ids)
     }
 
-    override fun naviguerVersResultats(filtres: FiltreRecette,ingredientsCoches: List<Long>){
+    override fun naviguerVersResultats(filtres: FiltreRecette,ingredientsCoches:   List<Long>, recettesPrefiltrées: List<Long>){
         val intent = Intent(this, ResultatsActivity::class.java).apply{
             putExtra("filtres",      filtres)
             putExtra("ingredients",  ArrayList(ingredientsQuantites))
+            putExtra("recettes_ids", ArrayList(recettesPrefiltrées))
         }
         startActivity(intent)
     }

@@ -15,5 +15,6 @@ interface ResultatsContract {
 
     interface Presenter {
         fun chargerResultats(filtres: FiltreRecette, ingredientsDispos: List<IngredientQuantite>)
+        fun chargerResultatsParIds(recettesIds: List<Long>, ingredientsDispos: List<IngredientQuantite>)
     }
 }

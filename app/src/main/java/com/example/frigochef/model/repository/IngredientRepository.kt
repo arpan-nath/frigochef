@@ -74,4 +74,21 @@ class IngredientRepository(context: Context) {
             categorie = cursor.getString(cursor.getColumnIndexOrThrow("categorie"))
         )
     }
+
+
+    fun findUniteParDefaut(ingredientId: Long):String{
+        val db = helper.readableDatabase
+        val cursor = db.rawQuery("""
+        SELECT unite_mesure, COUNT(*) as freq
+        FROM recette_ingredient
+        WHERE ingredient_id = ?
+        GROUP BY unite_mesure
+        ORDER BY freq DESC
+        LIMIT 1
+    """, arrayOf(ingredientId.toString()))
+        return cursor.use {
+            if(it.moveToFirst()) it.getString(0) ?: "unité"
+            else "unité"
+        }
+    }
 }

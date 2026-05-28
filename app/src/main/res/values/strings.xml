@@ -38,7 +38,7 @@
     <string name="etape1_sous_titre">Choisissez une ou plusieurs cuisines. Vous pouvez ignorer cette étape.</string>
 
     <!-- ── Étape 2 : Contraintes ── -->
-    <string name="etape2_titre">Quelques contraintes ?</string>
+    <string name="etape2_titre">Vos critères</string>
     <string name="etape2_sous_titre">Dites-nous ce qui correspond à votre situation.</string>
     <string name="etape2_section_repas">TYPE DE REPAS</string>
     <string name="etape2_section_difficulte">DIFFICULTÉ</string>

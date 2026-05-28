@@ -58,6 +58,7 @@ class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null,
                 FOREIGN KEY (ingredient_id) REFERENCES ingredient(id) ON DELETE CASCADE
             )
         """.trimIndent()
+
     }
 
     override fun onCreate(db: SQLiteDatabase) {

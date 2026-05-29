@@ -10,7 +10,15 @@ import com.example.frigochef.R
 import com.example.frigochef.databinding.FragmentEtape1QuestionnaireBinding
 import com.example.frigochef.databinding.ItemLayoutCuisineBinding
 import com.example.frigochef.view.QuestionnaireActivity
-
+/**
+ * Première étape du questionnaire — sélection du type de cuisine.
+ * Construit dynamiquement une grille de 10 cartes (MaterialCardView) via LayoutInflater
+ * à partir d'une liste locale de paires (nom, icône).
+ * Chaque clic bascule l'état sélectionné/désélectionné et met à jour la couleur de la carte.
+ * Synchronise cuisinesSelectionnees dans QuestionnaireActivity à chaque interaction
+ * pour que l'état soit accessible par tous les fragments.
+ * Restaure les sélections précédentes si l'utilisateur revient en arrière depuis l'étape 2.
+ */
 class Etape1CuisineFragment: Fragment(R.layout.fragment_etape1_questionnaire){
 
     private var _binding: FragmentEtape1QuestionnaireBinding? = null

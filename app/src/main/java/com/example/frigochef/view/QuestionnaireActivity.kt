@@ -18,6 +18,15 @@ import com.example.frigochef.model.entity.Ingredient
 import com.example.frigochef.model.repository.RecetteRepository
 import com.example.frigochef.view.fragment.Etape3IngredientsFragment
 
+/**
+ * Orchestre le questionnaire en 4 étapes via un ViewPager2 à navigation manuelle.
+ * Sert de point central de communication entre les fragments — maintient l'état partagé
+ * (cuisinesSelectionnees, filtres, ingredientsQuantites, idsSessionPrecedente).
+ * Charge les filtres précédents depuis SharedPreferences dans filtresInitiaux (restauration
+ * visuelle uniquement) et repart toujours d'un FiltreRecette vide pour l'état actif.
+ * Navigue vers ResultatsActivity en passant les filtres, les ingrédients et les IDs
+ * de recettes pré-filtrées par cuisine via Intent.
+ */
 class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
 
     private lateinit var binding: ActivityQuestionnaireBinding

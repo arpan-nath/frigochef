@@ -7,7 +7,16 @@ import com.example.frigochef.R
 import com.example.frigochef.databinding.FragmentEtape2QuestionnaireBinding
 import com.example.frigochef.view.QuestionnaireActivity
 import com.google.android.material.slider.Slider
-
+/**
+ * Deuxième étape du questionnaire — sélection des contraintes de recherche.
+ * Permet de filtrer par type de repas, difficulté et régime alimentaire via des ChipGroups,
+ * et par temps de préparation maximum via un Slider Material.
+ * Restaure visuellement les préférences de la session précédente depuis filtresInitiaux
+ * (SharedPreferences) sans activer les filtres — ils ne deviennent actifs qu'à l'interaction.
+ * Utilise le booléen sliderModifie pour n'inclure tempsMax dans les filtres que si
+ * l'utilisateur a explicitement bougé le curseur (fromUser = true dans OnChangeListener).
+ * Écrit le FiltreRecette mis à jour dans activity.filtres à chaque changement de chip ou slider.
+ */
 class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire){
     private var _binding: FragmentEtape2QuestionnaireBinding? = null
     private val binding get() = _binding!!

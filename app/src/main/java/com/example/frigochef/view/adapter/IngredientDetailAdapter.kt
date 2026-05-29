@@ -96,38 +96,63 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.VH>
 
         // Vérifie si l'utilisateur possède cet ingrédient
         // en comparant l'ID de l'ingrédient requis avec les IDs disponibles
-        val possede = ingredientsDispos.any { it.ingredientId == item.ingredientId }
+        val dispo = ingredientsDispos.find { it.ingredientId == item.ingredientId }
+        val quantiteRequise = item.quantite.toDoubleOrNull() ?: 0.0
 
-        if (possede) {
-            holder.binding.ivStatutIngredient.visibility = View.VISIBLE
-            holder.binding.viewIconBackground.visibility = View.VISIBLE
-            holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_check)
-            holder.binding.ivStatutIngredient.setColorFilter(
-                ContextCompat.getColor(context, R.color.ingredient_ok_icon)
-            )
-            holder.binding.viewIconBackground.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.ingredient_ok_bg))
-            holder.binding.tvNomIngredient.setTextColor(
-                ContextCompat.getColor(context, R.color.text_primary)
-            )
-            holder.binding.tvQuantiteIngredient.setTextColor(
-                ContextCompat.getColor(context, R.color.text_secondary)
-            )
-        } else {
-            holder.binding.ivStatutIngredient.visibility = View.VISIBLE
-            holder.binding.viewIconBackground.visibility = View.VISIBLE
-            holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_close)
-            holder.binding.ivStatutIngredient.setColorFilter(
-                ContextCompat.getColor(context, R.color.ingredient_miss_icon)
-            )
-            holder.binding.viewIconBackground.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.ingredient_miss_bg))
-            holder.binding.tvNomIngredient.setTextColor(
-                ContextCompat.getColor(context, R.color.text_secondary)
-            )
-            holder.binding.tvQuantiteIngredient.setTextColor(
-                ContextCompat.getColor(context, R.color.text_secondary)
-            )
+        when {
+            // Ingrédient absent — icône rouge
+            dispo == null -> {
+                holder.binding.ivStatutIngredient.visibility = View.VISIBLE
+                holder.binding.viewIconBackground.visibility = View.VISIBLE
+                holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_close)
+                holder.binding.ivStatutIngredient.setColorFilter(
+                    ContextCompat.getColor(context, R.color.ingredient_miss_icon)
+                )
+                holder.binding.viewIconBackground.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.ingredient_miss_bg))
+                holder.binding.tvNomIngredient.setTextColor(
+                    ContextCompat.getColor(context, R.color.text_secondary)
+                )
+                holder.binding.tvQuantiteIngredient.setTextColor(
+                    ContextCompat.getColor(context, R.color.text_secondary)
+                )
+            }
+
+            // Quantité insuffisante — icône orange
+            dispo.quantite < quantiteRequise -> {
+                holder.binding.ivStatutIngredient.visibility = View.VISIBLE
+                holder.binding.viewIconBackground.visibility = View.VISIBLE
+                holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_warning)
+                holder.binding.ivStatutIngredient.setColorFilter(
+                    ContextCompat.getColor(context, R.color.score_yellow_text)
+                )
+                holder.binding.viewIconBackground.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.score_yellow_bg))
+                holder.binding.tvNomIngredient.setTextColor(
+                    ContextCompat.getColor(context, R.color.text_primary)
+                )
+                holder.binding.tvQuantiteIngredient.setTextColor(
+                    ContextCompat.getColor(context, R.color.score_yellow_text)
+                )
+            }
+
+            // Quantité suffisante — icône verte
+            else -> {
+                holder.binding.ivStatutIngredient.visibility = View.VISIBLE
+                holder.binding.viewIconBackground.visibility = View.VISIBLE
+                holder.binding.ivStatutIngredient.setImageResource(R.drawable.ic_check)
+                holder.binding.ivStatutIngredient.setColorFilter(
+                    ContextCompat.getColor(context, R.color.ingredient_ok_icon)
+                )
+                holder.binding.viewIconBackground.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.ingredient_ok_bg))
+                holder.binding.tvNomIngredient.setTextColor(
+                    ContextCompat.getColor(context, R.color.text_primary)
+                )
+                holder.binding.tvQuantiteIngredient.setTextColor(
+                    ContextCompat.getColor(context, R.color.text_secondary)
+                )
+            }
         }
     }
 }

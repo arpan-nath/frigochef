@@ -47,14 +47,7 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
         binding = ActivityAccueilBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState != null) {
-            filtreDifficulte = savedInstanceState.getString("filtre_difficulte")
-            filtreIsVege     = savedInstanceState.getBoolean("filtre_is_vege")
-            filtreTempsMax   = savedInstanceState.getInt("filtre_temps_max", -1).takeIf { it != -1 }
-            appliquerFiltresCombines()
-        } else {
-            presentateur.chargerRecettes()
-        }
+
 
         // ── 1. Adapter + RecyclerView en grille 2 colonnes ──
         adapter = RecetteAdapter { recette -> naviguerDetail(recette.id) }
@@ -77,6 +70,15 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
                 presentateur.rechercherRecettes(s.toString())
             }
         })
+
+        if (savedInstanceState != null) {
+            filtreDifficulte = savedInstanceState.getString("filtre_difficulte")
+            filtreIsVege     = savedInstanceState.getBoolean("filtre_is_vege")
+            filtreTempsMax   = savedInstanceState.getInt("filtre_temps_max", -1).takeIf { it != -1 }
+            appliquerFiltresCombines()
+        } else {
+            presentateur.chargerRecettes()
+        }
 
         // ── 4. Bouton Inspire-moi ──
         binding.btnInspireMe.setOnClickListener {

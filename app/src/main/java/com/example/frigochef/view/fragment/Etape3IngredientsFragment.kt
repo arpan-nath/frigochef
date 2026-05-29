@@ -20,7 +20,17 @@ import com.example.frigochef.model.repository.IngredientRepository
 import com.example.frigochef.view.adapter.IngredientSaisiAdapter
 import com.example.frigochef.view.adapter.SuggestionIngredientAdapter
 import com.google.android.material.chip.Chip
-
+/**
+ * Troisième étape du questionnaire — saisie des ingrédients disponibles.
+ * Affiche les ingrédients de la session précédente sous forme de chips cliquables
+ * en lisant idsSessionPrecedente depuis QuestionnaireActivity dans onViewCreated()
+ * (inversion de responsabilité pour contourner le problème de timing du ViewPager2).
+ * Offre une barre de recherche avec TextWatcher qui délègue au présentateur via
+ * rechercherIngredient(), et affiche les suggestions dans un RecyclerView.
+ * Maintient la liste ingredientsSaisis avec quantité et unité par défaut via
+ * findUniteParDefaut(). Synchronise ingredientsQuantites dans QuestionnaireActivity
+ * avant d'appeler presenter.valider() au clic sur "Voir les recettes".
+ */
 class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire){
 
     private var _binding: FragmentEtape3QuestionnaireBinding? = null

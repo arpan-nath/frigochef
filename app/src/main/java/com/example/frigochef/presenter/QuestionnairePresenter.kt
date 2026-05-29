@@ -5,7 +5,15 @@ import com.example.frigochef.model.repository.IngredientRepository
 import com.example.frigochef.model.repository.SessionRepository
 import com.example.frigochef.model.entity.FiltreRecette
 import com.example.frigochef.model.repository.RecetteRepository
-
+/**
+ * Gère la logique métier du questionnaire sans aucune dépendance Android.
+ * Charge les IDs de la session précédente depuis SessionRepository et les transmet à la vue.
+ * Recherche les ingrédients par nom via IngredientRepository (requête SQL LIKE).
+ * À la validation, sauvegarde les ingrédients cochés en session via upsert(), puis calcule
+ * les recettes admissibles : une requête findParFiltres() par cuisine sélectionnée,
+ * fusion avec flatMap et déduplication avec distinctBy { it.id }.
+ * Transmet les IDs pré-filtrés à la vue pour éviter de modifier FiltreRecette.
+ */
 class QuestionnairePresenter(
     private val vue: QuestionnaireContract.View,
     private val ingredientRepository: IngredientRepository,

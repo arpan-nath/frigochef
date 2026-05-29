@@ -9,7 +9,15 @@ import com.example.frigochef.model.entity.FiltreRecette
 import com.example.frigochef.model.repository.IngredientRepository
 import com.example.frigochef.view.QuestionnaireActivity
 import com.google.android.material.chip.Chip
-
+/**
+ * Quatrième étape du questionnaire — récapitulatif des sélections avant soumission.
+ * Lit l'état complet depuis QuestionnaireActivity dans onResume() pour refléter
+ * les modifications si l'utilisateur revient en arrière depuis cette étape.
+ * Affiche les cuisines, contraintes, régimes et ingrédients sélectionnés sous forme
+ * de chips non cliquables. Résout les noms d'ingrédients via IngredientRepository.findByIds()
+ * et formate les quantités en supprimant les décimales inutiles (1.0 → "1").
+ * Affiche "Peu importe" ou "Aucun" pour chaque section sans sélection.
+ */
 class Etape4RecapFragment: Fragment(R.layout.fragment_etape4_questionnaire){
 
     private var _binding: FragmentEtape4QuestionnaireBinding? = null

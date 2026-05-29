@@ -55,7 +55,7 @@ J'ai utilisé Claude comme assistant de développement pour la réalisation de l
 
 ### Sabrina Abdulali — `feature/activite-questionnaire`
 
-J'ai utilisé Claude comme assistant de développement pour la réalisation de `QuestionnaireActivity` et des écrans associés.
+J'ai utilisé Claude comme assistant de développement pour la réalisation de `QuestionnaireActivity` et des écrans associés, ainsi que Gemini pour la génération des images des recettes.
 
 #### 2.7 Analyse et débogage
 
@@ -144,11 +144,13 @@ Les fonctions suivantes ont été produites à l'aide de Claude et sont identifi
 | Fichier | Fonction | Description |
 |---|---|---|
 | `QuestionnairePresenter.kt` | `valider()` | Fusion multi-cuisine : requête par cuisine, déduplication par ID |
-| `QuestionnaireActivity.kt` | `naviguerVersResultats()` | Transmission des IDs pré-filtrés vers ResultatsActivity |
+| `QuestionnaireActivity.kt`   | `mettreAJourUI()`    | Mise à jour de la barre de progression et du bouton selon l'étape active |
+| `Etape1CuisineFragment.kt`   | `construireGrille()` | Création dynamique des 10 cartes cuisine via LayoutInflater dans un GridLayout |
 | `Etape2ContraintesFragment.kt` | `configurerSlider()` | Écoute des changements du curseur avec le flag `fromUser` |
 | `Etape2ContraintesFragment.kt` | `sauvegarderFiltres()` | Construction du FiltreRecette avec tempsMax conditionnel |
 | `ResultatsPresenter.kt` | `chargerResultatsParIds()` | Chargement des résultats depuis une liste d'IDs pré-filtrés |
 | `Etape3IngredientsFragment.kt` | `ajouterIngredient()` | Récupération de l'unité par défaut via `findUniteParDefaut()` |
+
 
 ### Arpan Nath
 

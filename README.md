@@ -5,11 +5,11 @@ Application mobile Android native de suggestions de recettes basée sur les ingr
 
 ## Membres de l'équipe
 
-| Nom | DA | Responsabilité principale                             |
-|---|---|-------------------------------------------------------|
-| Nath, Arpan | 1581479 | Base de données + Écran Résultats + Écran Détails     |
-| Ahmed, Sabia | 2371383 | Écran Accueil + Écran Détails                         |
-| Abdulali, Sabrina | 2184053 | Base de données + Écran Questionnaire |
+| Nom | DA | Responsabilité principale |
+|---|---|---|
+| Nath, Arpan | 1581479 | Base de données + Écran Résultats + Écran Détail |
+| Ahmed, Sabia | 2371383 | Écran Accueil + Écran Détail + Filtre |
+| Abdulali, Sabrina | 2184053 | Écran Questionnaire + Layout XML + Images des recettes |
 
 ---
 
@@ -19,10 +19,10 @@ FrigoChef aide l'utilisateur à décider quoi cuisiner selon les ingrédients qu
 
 ### Fonctionnalités principales
 
-- **Accueil** — catalogue de 30 recettes avec recherche par nom et filtres rapides
-- **Questionnaire** — sélection guidée du type de cuisine, contraintes et ingrédients disponibles
+- **Accueil** — catalogue de 30 recettes avec recherche par nom et filtres rapides combinables
+- **Questionnaire** — sélection guidée en 4 étapes : type de cuisine, contraintes, ingrédients disponibles avec quantités, récapitulatif
 - **Résultats** — recettes filtrées triées par score de compatibilité décroissant
-- **Détail** — instructions complètes et liste des ingrédients possédés / manquants
+- **Détail** — instructions numérotées et liste des ingrédients avec statut possédé / partiel / manquant
 
 ---
 
@@ -34,6 +34,7 @@ FrigoChef aide l'utilisateur à décider quoi cuisiner selon les ingrédients qu
 - Architecture MVP (Modèle-Vue-Présentateur)
 - ViewBinding
 - Material Components 1.13.0
+- SharedPreferences (persistance des filtres)
 - JUnit + Mockito (tests unitaires)
 - Espresso (tests bout-en-bout)
 
@@ -70,10 +71,12 @@ app/src/main/java/com/example/frigochef/
 ├── model/
 │   ├── entity/      — Data classes (Recette, Ingredient, FiltreRecette, IngredientQuantite…)
 │   ├── repository/  — Accès base de données (RecetteRepository, IngredientRepository…)
-│   └── ScoreCalculateur.kt
+│   ├── ScoreCalculateur.kt
+│   └── PrefsManager.kt
 ├── presenter/       — Logique applicative (ResultatsPresenter, DetailPresenter…)
 └── view/
     ├── adapter/     — RecyclerView adapters (RecetteAdapter, IngredientDetailAdapter…)
+    ├── fragment/    — Étapes du Questionnaire (Etape1 à Etape4) + PanneauFiltresFragment
     └── activités    — AccueilActivity, QuestionnaireActivity, ResultatsActivity, DetailRecetteActivity
 ```
 
@@ -102,14 +105,26 @@ Le score est calculé de façon **proportionnelle** par `ScoreCalculateur` :
 score = (somme des proportions / nombre d'ingrédients) × 100
 
 proportion par ingrédient :
-  - absent                          → 0.0
+  - absent                            → 0.0
   - quantite_dispo / quantite_requise → plafonné à 1.0
 ```
 
 Seuils de couleur :
-- Vert  ≥ 75%
-- Orange ≥ 50%
+- Vert  >= 75%
+- Orange >= 50%
 - Rouge  < 50%
+
+Statut des ingrédients dans l'écran Détail :
+- Vert — quantité suffisante
+- Orange — possédé mais quantité insuffisante
+- Rouge — absent
+
+---
+
+## Persistance
+
+- **SQLite** — données de référence (recettes, ingrédients) et session de l'utilisateur
+- **SharedPreferences** — filtres du Questionnaire sauvegardés entre les sessions via `PrefsManager`
 
 ---
 
@@ -117,17 +132,70 @@ Seuils de couleur :
 
 ### Tests unitaires
 
-| Classe testée            | Nombre de tests |
-|--------------------------|-----------------|
-| `ScoreCalculateur`       | 3               |
-| `QuestionnairePresenter` | 3               |
-| `AccueilPresenter`       | 3               |
+Les tests unitaires se trouvent dans :
+```
+app/src/test/java/com/example/frigochef/
+```
 
-### Tests bout-en-bout
+#### ScoreCalculateurTest
 
-| # | Parcours | À compléter |
-|---|---|------------|
-| 1 | Questionnaire → sélectionner ingrédients → valider → vérifier résultats |            |
+| # | Nom du test | Ce qui est vérifié |
+|---|---|---|
+| 1 | `score 100 si tous les ingredients presents` | Score de 100% quand toutes les quantités sont suffisantes |
+| 2 | `score 0 si aucun ingredient dispo` | Score de 0% quand aucun ingrédient n'est disponible |
+| 3 | `score proportionnel si quantite insuffisante` | Score proportionnel quand la quantité disponible est insuffisante |
+
+#### DetailPresenterTest
+
+| # | Nom du test | Ce qui est vérifié |
+|---|---|---|
+| 1 | `afficherErreur si recette introuvable` | `afficherErreur()` est appelé si la recette n'existe pas en BD |
+| 2 | `afficherRecette si recette trouvee` | `afficherRecette()` est appelé avec la bonne recette |
+| 3 | `afficherIngredients appele avec bons ingredients` | `afficherIngredients()` est appelé avec les bons ingrédients et dispos |
+
+#### QuestionnairePresenterTest
+
+| # | Nom du test | Ce qui est vérifié |
+|---|---|---|
+| 1 | `chargerSessionPrecedente appelle afficherIngredientsPrecaches si session non vide` | Les ingrédients de la session sont transmis à la vue |
+| 2 | `rechercherIngredient appelle afficherIngredientsSuggeres avec les resultats` | La recherche retourne les suggestions au bon format |
+| 3 | `valider sauvegarde les ingredients et navigue vers resultats` | Chaque ingrédient est sauvegardé via `upsert()` et la navigation est déclenchée |
+
+#### AccueilPresenterTest
+
+| # | Nom du test | Ce qui est vérifié |
+|---|---|---|
+| 1 | `chargerRecettes appelle afficherRecettes si liste non vide` | La vue reçoit la liste quand des recettes existent |
+| 2 | `chargerRecettes appelle afficherMessageVide si liste vide` | La vue affiche l'état vide quand aucune recette n'existe |
+| 3 | `rechercherRecettes appelle afficherRecettes si resultats` | La recherche par nom retourne les résultats correspondants |
+| 4 | `rechercherRecettes appelle afficherMessageVide si aucun resultat` | La vue affiche l'état vide si aucun résultat ne correspond |
+| 5 | `filtrerParFiltres appelle afficherRecettes si resultats` | Le filtrage retourne les recettes correspondant aux critères |
+| 6 | `filtrerParFiltres appelle afficherMessageVide si aucun resultat` | La vue affiche l'état vide si aucune recette ne correspond aux filtres |
+| 7 | `chargerSessionIngredients appelle afficherChipsSession` | Les ingrédients de la session sont transmis à la vue pour affichage |
+
+Pour lancer les tests unitaires :
+```bash
+./gradlew test
+```
+
+---
+
+### Tests bout-en-bout (Espresso)
+
+Les tests bout-en-bout se trouvent dans :
+```
+app/src/androidTest/java/com/example/frigochef/
+```
+
+| # | Nom du test | Ce qui est vérifié |
+|---|---|---|
+| 1 | `parcours_complet_recherche_recette_et_affichage_detail` | Rechercher une recette depuis l'Accueil et vérifier que l'écran Détail s'affiche |
+| 2 | `ingredientsSauvegardesEtPrecochesAuRelancement` | Saisir des ingrédients dans le Questionnaire, quitter, relancer et vérifier que les ingrédients sont pré-cochés |
+
+Pour lancer les tests bout-en-bout :
+```bash
+./gradlew connectedAndroidTest
+```
 
 ---
 

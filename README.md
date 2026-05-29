@@ -7,9 +7,9 @@ Application mobile Android native de suggestions de recettes basée sur les ingr
 
 | Nom | DA | Responsabilité principale |
 |---|---|---|
-| Nath, Arpan | 1581479 | Base de données + Écran Résultats + Écran Détail + Tests unitaires (`ScoreCalculateur`, `DetailPresenter`) + Test bout-en-bout (`SessionPersistanceTest`) (Head-chef) |
-| Ahmed, Sabia | 2371383 | Écran Accueil + Revues de code + Tests unitaires (`AccueilPresenter`) + Test bout-en-bout (`AccueilSearchE2ETest`) |
-| Abdulali, Sabrina | 2184053 | Écran Questionnaire + Layout XML + Images des recettes + Tests unitaires (`QuestionnairePresenter`) + Tests bout-en-bout (`QuestionnaireE2ETest`) |
+| Nath, Arpan | 1581479 | Base de données (Principal) + Écran Résultats (Principal) + Écran Détail (Principal) + Revues de code + Tests unitaires (`ScoreCalculateur`, `DetailPresenter`) + Test bout-en-bout (`SessionPersistanceTest`) |
+| Ahmed, Sabia | 2371383 | Écran Accueil (Principal) + Écran Détail (Support) + Revues de code + Tests unitaires (`AccueilPresenter`) + Test bout-en-bout (`AccueilSearchE2ETest`) |
+| Abdulali, Sabrina | 2184053 | Base de données (Support) + Écran Questionnaire (Principal) + Revues de code + Layout XML (Principal) + Images des recettes + Tests unitaires (`QuestionnairePresenter`) + Tests bout-en-bout (`QuestionnaireE2ETest`) |
 
 ---
 

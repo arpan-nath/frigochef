@@ -7,9 +7,9 @@ Application mobile Android native de suggestions de recettes basée sur les ingr
 
 | Nom | DA | Responsabilité principale |
 |---|---|---|
-| Nath, Arpan | 1581479 | Base de données + Écran Résultats + Écran Détail |
-| Ahmed, Sabia | 2371383 | Écran Accueil + Écran Détail + Filtre |
-| Abdulali, Sabrina | 2184053 | Écran Questionnaire + Layout XML + Images des recettes |
+| Nath, Arpan | 1581479 | Base de données + Écran Résultats + Écran Détail + Tests unitaires (`ScoreCalculateur`, `DetailPresenter`) + Test bout-en-bout (`SessionPersistanceTest`) (Head-chef) |
+| Ahmed, Sabia | 2371383 | Écran Accueil + Revues de code + Tests unitaires (`AccueilPresenter`) + Test bout-en-bout (`AccueilSearchE2ETest`) |
+| Abdulali, Sabrina | 2184053 | Écran Questionnaire + Layout XML + Images des recettes + Tests unitaires (`QuestionnairePresenter`) + Tests bout-en-bout (`QuestionnaireE2ETest`) |
 
 ---
 
@@ -56,7 +56,7 @@ File → Sync Project with Gradle Files
 
 **4. Lancer l'application**
 
-Sélectionner un émulateur API 26+ et cliquer sur **Run ▶**
+Sélectionner un émulateur API 26+ et cliquer sur **Run**
 
 ---
 
@@ -90,7 +90,7 @@ app/src/main/java/com/example/frigochef/
 |---|---|
 | `ingredient` | 54 ingrédients de référence |
 | `recette` | 30 recettes réparties dans 10 cuisines |
-| `recette_ingredient` | Jointure recette ↔ ingrédient avec quantités et unités |
+| `recette_ingredient` | Jointure recette <-> ingrédient avec quantités et unités |
 | `session_ingredients` | Ingrédients de la dernière session de l'utilisateur |
 
 **10 cuisines** : Africaine, Américaine, Grecque, Indienne, Italienne, Japonaise, Méditerranéenne, Mexicaine, Moyen-Orientale, Québécoise
@@ -187,10 +187,25 @@ Les tests bout-en-bout se trouvent dans :
 app/src/androidTest/java/com/example/frigochef/
 ```
 
+#### AccueilSearchE2ETest
+
 | # | Nom du test | Ce qui est vérifié |
 |---|---|---|
 | 1 | `parcours_complet_recherche_recette_et_affichage_detail` | Rechercher une recette depuis l'Accueil et vérifier que l'écran Détail s'affiche |
-| 2 | `ingredientsSauvegardesEtPrecochesAuRelancement` | Saisir des ingrédients dans le Questionnaire, quitter, relancer et vérifier que les ingrédients sont pré-cochés |
+
+#### SessionPersistanceTest
+
+| # | Nom du test | Ce qui est vérifié |
+|---|---|---|
+| 1 | `ingredientsSauvegardesEtPrecochesAuRelancement` | Saisir des ingrédients dans le Questionnaire, quitter, relancer et vérifier que les ingrédients sont pré-cochés dans l'étape 3 |
+
+#### QuestionnaireE2ETest
+
+| # | Nom du test | Ce qui est vérifié |
+|---|---|---|
+| 1 | `parcours_complet_cuisine_ingredients_resultats_et_detail` | Sélectionner une cuisine, saisir des ingrédients, valider et vérifier que l'écran Résultats puis Détail s'affichent |
+| 2 | `parcours_ignorer_toutes_etapes_retourne_resultats_non_vides` | Ignorer toutes les étapes du Questionnaire et vérifier que des résultats sont tout de même retournés |
+| 3 | `parcours_multi_cuisine_affiche_resultats_des_deux_cuisines` | Sélectionner deux cuisines et vérifier que les recettes des deux cuisines apparaissent dans les résultats |
 
 Pour lancer les tests bout-en-bout :
 ```bash

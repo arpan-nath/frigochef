@@ -36,8 +36,6 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.VH>
     }
 
     /**
-     * Code produit à l'aide de Claude
-     *
      * ViewHolder contient une référence vers les vues d'une seule carte d'ingrédient.
      * RecyclerView crée un nombre limité de VH et les réutilise en les faisant défiler,
      * au lieu d'en créer un nouveau pour chaque ingrédient.
@@ -49,8 +47,6 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.VH>
         RecyclerView.ViewHolder(binding.root)
 
     /**
-     * Code produit à l'aide de Claude
-     *
      * Appelé par RecyclerView quand il a besoin d'une nouvelle carte.
      * LayoutInflater convertit le fichier XML item_detail_ingredient.xml
      * en objet View que Android peut afficher à l'écran.
@@ -65,8 +61,6 @@ class IngredientDetailAdapter : RecyclerView.Adapter<IngredientDetailAdapter.VH>
     override fun getItemCount() = ingredients.size
 
     /**
-     * Code produit à l'aide de Claude
-     *
      * Appelé par RecyclerView pour remplir une carte avec les données
      * de l'ingrédient à la position donnée.
      *

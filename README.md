@@ -3,6 +3,17 @@ Application mobile Android native de suggestions de recettes basée sur les ingr
 
 ---
 
+## Aperçu
+
+| Accueil | Questionnaire | Résultats | Détail |
+|---|---|---|---|
+| ![Accueil](docs/screenshots/01-accueil.png) | ![Questionnaire](docs/screenshots/02-questionnaire.png) | ![Résultats](docs/screenshots/03-resultats.png) | ![Détail](docs/screenshots/04-detail.png) |
+
+Catalogue et recherche · sélection guidée en 4 étapes · recettes triées par score de
+compatibilité · instructions et statut des ingrédients.
+
+---
+
 ## Membres de l'équipe
 
 | Nom | Responsabilité principale |
@@ -216,4 +227,12 @@ Pour lancer les tests bout-en-bout :
 
 ## Cours
 
-420-G25-RO — Applications natives 2 — Hiver 2026 — Keven Chaussé
+Applications natives 2 — Hiver 2026 — Projet d'équipe (3 personnes)
+
+---
+
+## Utilisation de l'IA
+
+Des outils d'IA ont été utilisés pour accélérer certaines recherches de syntaxe,
+produire des ébauches de tests et générer les images des recettes. Le code a
+ensuite été révisé, adapté et intégré par l'équipe.

@@ -6,9 +6,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 /**
- * Les seeders pour les ingrédients et les recettes ont été généré à l'aide de Claude
- * Les images ont été généré à l'aide de Gemini
- *
  * Gestionnaire de la base de données SQLite de FrigoChef.
  *
  * Responsable de la création, migration et initialisation des données
@@ -18,6 +15,8 @@ import android.database.sqlite.SQLiteOpenHelper
  * Les données de référence (54 ingrédients et 30 recettes réparties dans 10 cuisines)
  * sont insérées automatiquement à la création via les seeders.
  * Ces données sont en lecture seule. Seule la table session_ingredients est modifiée pendant l'utilisation.
+ *
+ * Images des recettes générées avec Gemini.
  */
 
 class FrigoDBHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {

@@ -84,7 +84,6 @@ class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire
 
     }
 
-    // Code généré à l'aide de Claude AI
     // .OnChangeListener est une interface qui écoute les changements de valeur
     // value contient la valeur actuelle du slider (entre 5 et 120)
     private fun configurerSlider(){
@@ -96,7 +95,6 @@ class Etape2ContraintesFragment: Fragment(R.layout.fragment_etape2_questionnaire
         })
     }
 
-    // Code généré à l'aide de Claude AI
     // Lit l'état actuel de tous les chips et du slider, construit un FiltreRecette puis le sauvegarde
     private fun sauvegarderFiltres(){
         val typeRepas = when{

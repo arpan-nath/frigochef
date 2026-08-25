@@ -125,8 +125,6 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
     }
 
     /**
-     * Code produit à l'aide de Claude
-     *
      * Affiche les ingrédients de la dernière session de l'utilisateur
      * sous forme de chips dans l'encadré hero de l'accueil.
      * Reçoit une liste de noms depuis le présentateur — la Vue ne
@@ -163,8 +161,6 @@ class AccueilActivity : AppCompatActivity(), AccueilContract.View {
     }
 
     /**
-     * Code produit à l'aide de Claude
-     *
      * Construit un FiltreRecette combiné à partir de l'état actuel des chips
      * et appelle le présentateur pour filtrer les recettes.
      * Permet de combiner plusieurs filtres simultanément (ex: Facile + Végé).

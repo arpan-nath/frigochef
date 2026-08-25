@@ -43,8 +43,6 @@ class RecetteAdapter(
     }
 
     /**
-     * Code produit à l'aide de Claude
-     *
      * Appelé par RecyclerView pour remplir une carte avec les données
      * de la recette à la position donnée.
      */
@@ -65,7 +63,6 @@ class RecetteAdapter(
             binding.tvTypeCuisine.text = recette.typeCuisine
 
             // Couleur de fond par type de cuisine
-            // Couleur choisi à l'aide de Claude
             val couleur = when (recette.typeCuisine) {
                 "Africaine"       -> ContextCompat.getColor(context, R.color.teal_50)
                 "Indienne"        -> ContextCompat.getColor(context, R.color.cuisine_amber_bg)
@@ -115,10 +112,6 @@ class RecetteAdapter(
             }
 
             // Chips diète et portions — maximum 2 chips affichées par carte
-            /**
-             * On a utilisé Claude pour recréer les chips et on a modifié les détails, la grandeur
-             * et le texte selon nos préférences.
-             */
             binding.chipGroupDiete.removeAllViews()
             val labels = buildList {
                 if (recette.isVege)       add("🌿 Végé")

@@ -10,7 +10,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.*
 
-// Code généré à l'aide de Claude AI
 
 class QuestionnairePresenterTest {
 

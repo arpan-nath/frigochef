@@ -114,7 +114,6 @@ class QuestionnaireActivity: AppCompatActivity(), QuestionnaireContract.View {
         }
     }
 
-    // Code généré à l'aide de Claude AI
     // Adapte le bouton et la barre de progression selon l'étape actuelle
     private fun mettreAJourUI(position: Int){
         val numero = position + 1

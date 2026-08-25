@@ -54,7 +54,6 @@ class Etape1CuisineFragment: Fragment(R.layout.fragment_etape1_questionnaire){
         rafraichirAffichage()
     }
 
-    // Code généré à l'aide de Claude AI
     /*
     Cette méthode crée une grille de 10 cartes de recette
     */

@@ -36,8 +36,6 @@ class AccueilPresenter(
     }
 
     /**
-     * Code produit à l'aide de Claude
-     *
      * Filtre les recettes selon un FiltreRecette combiné qui peut contenir
      * plusieurs critères simultanément (difficulté, végé, temps max, etc.).
      * Remplace les anciennes méthodes filtrerParDifficulte(), filtrerParDiete()
@@ -54,8 +52,6 @@ class AccueilPresenter(
     }
 
     /**
-     * Code produit à l'aide de Claude
-     *
      * Récupère les IDs des ingrédients de la dernière session depuis SessionRepository,
      * retrouve leurs noms via IngredientRepository, et envoie la liste à la Vue.
      * La logique d'accès aux données reste dans le Présentateur (respect du MVP) —

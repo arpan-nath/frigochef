@@ -35,7 +35,6 @@ class PanneauFiltresFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    // Code généré à l'aide de Claude
     // Cette fonction est appelée juste après la création de la vue. Elle s'occupe d'initialiser
     // l'affichage (génération des puces, restauration des filtres) et de configurer les écouteurs
     // d'événements sur les boutons et le slider.
@@ -65,7 +64,6 @@ class PanneauFiltresFragment : BottomSheetDialogFragment() {
         }
     }
 
-    // Chips générer à l'aide de Claude et ensuite modifié selon nos préférences.
     // Cette fonction crée dynamiquement des éléments visuels "Chip" pour une liste prédéfinie de
     // types de cuisine et les ajoute au groupe de puces (ChipGroup) correspondant dans l'interface.
     private fun genererChipsCuisine() {
@@ -169,7 +167,6 @@ class PanneauFiltresFragment : BottomSheetDialogFragment() {
         )
     }
 
-    // Code produit à l'aide de Claude pour connaître la méthode clearCheck()
     // Cette fonction permet de réinitialiser l'affichage en décochant l'ensemble des puces dans
     // tous les groupes et en remettant le slider de temps maximum à sa valeur d'origine (120 min).
     private fun reinitialiserFiltres() {

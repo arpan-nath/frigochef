@@ -3,7 +3,6 @@ package com.example.frigochef.model
 import android.content.Context
 import com.example.frigochef.model.entity.FiltreRecette
 
-// Code généré à l'aide de Claude AI
 /**
  * Gestionnaire des préférences légères de l'application.
  * Sauvegarde et restaure les filtres du Questionnaire entre les sessions.

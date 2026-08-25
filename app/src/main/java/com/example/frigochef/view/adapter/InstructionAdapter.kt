@@ -21,7 +21,6 @@ class InstructionAdapter : RecyclerView.Adapter<InstructionAdapter.VH>() {
             .map { it.trim() }
             .filter { it.isNotEmpty() }
             // Supprime les numéros existants (ex: "1. ", "2) ", "3- ") pour rénuméroter automatiquement dans onBindViewHolder
-            // Utilisé Claude pour ajouter Regex pattern
             .map { it.replace(Regex("^\\d+[.)\\-]\\s*"), "").trim() }
         notifyDataSetChanged()
     }

@@ -163,7 +163,6 @@ class DetailRecetteActivity : AppCompatActivity(), DetailContract.View {
         finish()
     }
 
-    // Code généré à l'aide de Claude
     // Cette fonction sert de solution de secours (fallback) lorsque la recette n'a pas d'image valide.
     // Elle assigne une couleur de fond et une icône thématique en se basant sur le type de cuisine de la recette.
     private fun afficherCouleurCuisine(typeCuisine: String) {

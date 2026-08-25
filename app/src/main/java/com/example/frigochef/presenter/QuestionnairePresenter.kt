@@ -36,7 +36,6 @@ class QuestionnairePresenter(
         vue.afficherIngredientsSuggeres(resultats)
     }
 
-    // Code généré à l'aide de Claude AI
     // reçoit toute la liste de cuisines sélectionnées:
     // si plusieurs cuisines, on fait une requête par cuisine et on fusionne les résultats
     override fun valider(

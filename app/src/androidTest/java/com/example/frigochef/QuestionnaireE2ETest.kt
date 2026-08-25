@@ -1,6 +1,5 @@
 package com.example.frigochef
 
-// Code généré à l'aide de Claude AI
 // Description : test bout-en-bout du parcours complet via le questionnaire —
 //   sélection cuisine → contraintes → ingrédients → résultats → détail recette
 

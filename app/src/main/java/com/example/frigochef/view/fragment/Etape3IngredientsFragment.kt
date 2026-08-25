@@ -189,7 +189,6 @@ class Etape3IngredientsFragment: Fragment(R.layout.fragment_etape3_questionnaire
             return
         }
 
-        // Code généré à l'aide de Claude AI
         // Récupérer l'unité la plus fréquente pour cet ingrédient dans la BD
         val unite = ingredientRepository.findUniteParDefaut(ingredient.id)
 

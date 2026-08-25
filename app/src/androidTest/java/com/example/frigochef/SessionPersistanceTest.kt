@@ -15,8 +15,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Code généré à l'aide de Claude
- *
  * Test de bout-en-bout vérifiant la persistance de la session utilisateur.
  *
  * Ce test simule le comportement de l'application lorsque l'utilisateur

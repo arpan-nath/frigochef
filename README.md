@@ -5,11 +5,11 @@ Application mobile Android native de suggestions de recettes basée sur les ingr
 
 ## Membres de l'équipe
 
-| Nom | DA | Responsabilité principale |
-|---|---|---|
-| Nath, Arpan | 1581479 | Base de données (Principal) + Écran Résultats (Principal) + Écran Détail (Principal) + Revues de code + Tests unitaires (`ScoreCalculateur`, `DetailPresenter`) + Test bout-en-bout (`SessionPersistanceTest`) |
-| Ahmed, Sabia | 2371383 | Écran Accueil (Principal) + Écran Détail (Support) + Revues de code + Tests unitaires (`AccueilPresenter`) + Test bout-en-bout (`AccueilSearchE2ETest`) |
-| Abdulali, Sabrina | 2184053 | Base de données (Support) + Écran Questionnaire (Principal) + Revues de code + Layout XML (Principal) + Images des recettes + Tests unitaires (`QuestionnairePresenter`) + Tests bout-en-bout (`QuestionnaireE2ETest`) |
+| Nom | Responsabilité principale |
+|---|---|
+| Nath, Arpan | Base de données (Principal) + Écran Résultats (Principal) + Écran Détail (Principal) + Revues de code + Tests unitaires (`ScoreCalculateur`, `DetailPresenter`) + Test bout-en-bout (`SessionPersistanceTest`) |
+| Ahmed, Sabia | Écran Accueil (Principal) + Écran Détail (Support) + Revues de code + Tests unitaires (`AccueilPresenter`) + Test bout-en-bout (`AccueilSearchE2ETest`) |
+| Abdulali, Sabrina | Base de données (Support) + Écran Questionnaire (Principal) + Revues de code + Layout XML (Principal) + Images des recettes + Tests unitaires (`QuestionnairePresenter`) + Tests bout-en-bout (`QuestionnaireE2ETest`) |
 
 ---
 
@@ -44,7 +44,7 @@ FrigoChef aide l'utilisateur à décider quoi cuisiner selon les ingrédients qu
 
 **1. Cloner le dépôt**
 ```bash
-git clone https://git.dti.crosemont.quebec/2184053/frigochef.git
+git clone https://github.com/arpan-nath/frigochef.git
 ```
 
 **2. Ouvrir le projet dans Android Studio**
